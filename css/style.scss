@@ -1250,7 +1250,7 @@ ul#navbar {
     vertical-align: middle;
     width: calc(100% - 700px - 2em);
     padding: 1em;
-    margin-top: -3.5em;
+    margin-top: -0.85em;
 
     h2 {
         padding: 0.75em !important;
@@ -1378,13 +1378,26 @@ ul#navbar {
 
 .item-info-list {
     list-style: none;
+    text-align: center;
 
     li {
-        padding-bottom: 0.5em;
+        display: inline;
+        padding: 0.5em;
         margin: 0;
+        font-size: 0.9em;
+        color: rgba($c-text-dark, 0.8);
 
         &:last-child {
-            padding-bottom: 0;
+            padding-right: 0;
+        }
+
+        a {
+            color: rgba($c-accent, 0.8);
+        }
+
+        b {
+            font-weight: $fw-normal;
+            color: $c-text-dark;
         }
     }
 }

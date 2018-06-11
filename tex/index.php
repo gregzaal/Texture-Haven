@@ -150,6 +150,7 @@ foreach (array_keys($downloads) as $map_type){
     echo "</div>";  // .res-menu
     echo "</div>";  // .map-type
 }
+echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='http://localhaven:81/p/license.php'>CC0</a><p>";
 echo "</div>";  // .download-buttons
 echo "</div>";  // #preview-download
 
@@ -160,15 +161,22 @@ if (is_in_the_past($info['date_published']) || $GLOBALS['WORKING_LOCALLY']){
     }
     echo "<div id='item-info'>";
 
-    echo "<div class='col-2'>";
-    echo "<h2>Info</h2>";
     echo "<ul class='item-info-list'>";
+
+    echo "<li>";
+    echo "<b>Author:</b> <a href=\"/textures/?s=".to_slug($info['author'])."\">".$info['author']."</a>";
+    echo "</li>";
 
     echo "<li>";
     echo "<b>Published:</b> ".date("d F Y", strtotime($info['date_published']))." (".time_ago($info['date_published']).")";
     echo "</li>";
+    
+    $downloads_per_day = round($info['download_count']/((time() - strtotime($info['date_published']))/86400));
+    echo "<li title=\" (".$downloads_per_day." per day)\">";
+    echo "<b>Downloads:</b> ".$info['download_count'];
+    echo "</li>";
 
-    echo "<li>";
+    echo "<br><li>";
     $category_str = "";
     $category_arr = explode(';', $info['categories']);
     sort($category_arr);
@@ -192,13 +200,7 @@ if (is_in_the_past($info['date_published']) || $GLOBALS['WORKING_LOCALLY']){
     $tag_str = substr($tag_str, 0, -2);  // Remove ", " at end
     echo "<b>Tags:</b> {$tag_str}";
     echo "</li>";
-    
-    $downloads_per_day = round($info['download_count']/((time() - strtotime($info['date_published']))/86400));
-    echo "<li title=\" (".$downloads_per_day." per day)\">";
-    echo "<b>Downloads:</b> ".$info['download_count'];
-    echo "</li>";
     echo "</ul>";
-    echo "</div>";  // .col-2
 
     echo "</div>";  // .item-info
 

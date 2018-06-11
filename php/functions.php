@@ -72,6 +72,13 @@ function nice_name($name, $mode="normal"){
     return $str;
 }
 
+function to_slug($name){
+    $name = str_replace(' ', '_', $name);
+    $name = strtolower($name);
+    $name = simple_chars_only($name);
+    return $name;
+}
+
 function starts_with($haystack, $needle) {
     return substr($haystack, 0, strlen($needle)) === $needle;
 }
@@ -95,7 +102,7 @@ function random_hash($length=8){
 }
 
 function simple_chars_only($str){
-    return preg_replace("/[^A-Za-z0-9 ]/", '', $str);
+    return preg_replace("/[^A-Za-z0-9_\- ]/", '', $str);
 }
 
 function map_range($value, $fromLow, $fromHigh, $toLow, $toHigh) {
