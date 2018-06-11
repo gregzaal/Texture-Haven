@@ -50,112 +50,114 @@ if ($category != "all"){
 }
 echo "<br><b>{$info['name']}</b></h1>";
 
+$is_published = is_in_the_past($info['date_published']) || $GLOBALS['WORKING_LOCALLY'];
+if ($is_published){
+    echo "<div id='preview-download'>";
+    echo "<div id='item-preview'>";
+    echo "<img src=\"/files/tex_images/spheres/".$slug.".jpg\" />";
+    echo "<img src=\"/files/tex_images/map_previews/".$slug."/albedo.jpg\" id='map-preview-img' class='hide'/>";
+    echo "</div>";  // #item-preview
 
-echo "<div id='preview-download'>";
-echo "<div id='item-preview'>";
-echo "<img src=\"/files/tex_images/spheres/".$slug.".jpg\" />";
-echo "<img src=\"/files/tex_images/map_previews/".$slug."/albedo.jpg\" id='map-preview-img' class='hide'/>";
-echo "</div>";  // #item-preview
-
-echo "<div class='download-buttons'>";
-echo "<h2>Download:</h2>";
-$downloads = [];
-$basedir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
-$files = scandir($basedir);
-$resolutions = [];
-foreach ($files as $f){
-    if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all files contain '.' and all folders do not.
-        array_push($resolutions, $f);
-    }
-}
-foreach ($resolutions as $r){
-    $res_dir = join_paths($basedir, $r);
-    $files = scandir($res_dir);
-    $all_maps_f = $slug.'_'.$r.".zip";
-    $downloads["all"][$r]["zip"] = $all_maps_f;
+    echo "<div class='download-buttons'>";
+    echo "<h2>Download:</h2>";
+    $downloads = [];
+    $basedir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
+    $files = scandir($basedir);
+    $resolutions = [];
     foreach ($files as $f){
-        if ($f != '.' and $f != '..' and str_contains($f, '.')){
-            if ($f != $all_maps_f){
-                $without_ext = pathinfo($f, PATHINFO_FILENAME);
-                $ext = pathinfo($f, PATHINFO_EXTENSION);
-                $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
-                $downloads[$map_type][$r][$ext] = $f;
+        if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
+            array_push($resolutions, $f);
+        }
+    }
+    foreach ($resolutions as $r){
+        $res_dir = join_paths($basedir, $r);
+        $files = scandir($res_dir);
+        $all_maps_f = $slug.'_'.$r.".zip";
+        $downloads["all"][$r]["zip"] = $all_maps_f;
+        foreach ($files as $f){
+            if ($f != '.' and $f != '..' and str_contains($f, '.')){
+                if ($f != $all_maps_f){
+                    $without_ext = pathinfo($f, PATHINFO_FILENAME);
+                    $ext = pathinfo($f, PATHINFO_EXTENSION);
+                    $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
+                    $downloads[$map_type][$r][$ext] = $f;
+                }
             }
         }
     }
+    foreach (array_keys($downloads) as $map_type){
+        $map_type_str = nice_name($map_type);
+        $map_name_arr = [
+            "all" => "<b>All Maps</b>",
+            "alb" => "Albedo",
+            "diff" => "Diffuse",
+            "ao" => "AO",
+            "disp" => "Displacement",
+            "nor" => "Normal",
+            "rough" => "Roughness",
+            "spec" => "Specular",
+        ];
+        foreach (array_keys($map_name_arr) as $m){
+            if ($map_type == $m){
+                $map_type_str = $map_name_arr[$m];
+            }
+        }
+        
+        echo "<div class='map-type'>";
+        echo "<div class='map-preview";
+        if ($map_type == "all"){
+            echo " map-preview-active' id='map-preview-allmaps";
+        }
+        echo "' map='".$map_type."'><p>";
+        echo "<img src='/files/site_images/icons/eye.svg' class='map-preview-icon'>";
+        echo "</p></div>";
+        echo "<div class='map-download'><p>";
+        echo "<img src='/files/site_images/icons/download_white.svg'>";
+        echo $map_type_str;
+        echo "</p></div>";
+        echo "<div class='res-menu hide'>";
+        foreach(array_keys($downloads[$map_type]) as $res){
+            echo "<div class='res-item'>";
+            $i = 0;
+            foreach(array_keys($downloads[$map_type][$res]) as $ext){
+                $i += 1;
+                $file = $downloads[$map_type][$res][$ext];
+                $filesize = filesize(join_paths($basedir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
+                if ($filesize > 10){
+                    $d = 0;
+                }else if ($filesize > 1){
+                    $d = 1;
+                }else{
+                    $d = 2;
+                }
+                $filesize = round($filesize, $d);
+                echo "<div class='dl-btn'";
+                $width = 100/sizeof($downloads[$map_type][$res]);
+                echo " style='width: calc(".$width."% - 2em";
+                if ($i > 1){
+                    echo " - 1px";
+                }
+                echo ")'";
+                echo ">";
+                if ($i == 1){
+                    echo $res." &sdot; ";
+                }
+                echo strtoupper($ext);
+                echo " &sdot; ".$filesize." MB";
+                echo "</div>";
+            }
+            echo "</div>";  // .res-item
+        }
+        echo "</div>";  // .res-menu
+        echo "</div>";  // .map-type
+    }
+    echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='http://localhaven:81/p/license.php'>CC0</a><p>";
+    echo "</div>";  // .download-buttons
+    echo "</div>";  // #preview-download
 }
-foreach (array_keys($downloads) as $map_type){
-    $map_type_str = nice_name($map_type);
-    $map_name_arr = [
-        "all" => "<b>All Maps</b>",
-        "alb" => "Albedo",
-        "diff" => "Diffuse",
-        "ao" => "AO",
-        "disp" => "Displacement",
-        "nor" => "Normal",
-        "rough" => "Roughness",
-        "spec" => "Specular",
-    ];
-    foreach (array_keys($map_name_arr) as $m){
-        if ($map_type == $m){
-            $map_type_str = $map_name_arr[$m];
-        }
-    }
-    
-    echo "<div class='map-type'>";
-    echo "<div class='map-preview";
-    if ($map_type == "all"){
-        echo " map-preview-active' id='map-preview-allmaps";
-    }
-    echo "' map='".$map_type."'><p>";
-    echo "<img src='/files/site_images/icons/eye.svg' class='map-preview-icon'>";
-    echo "</p></div>";
-    echo "<div class='map-download'><p>";
-    echo "<img src='/files/site_images/icons/download_white.svg'>";
-    echo $map_type_str;
-    echo "</p></div>";
-    echo "<div class='res-menu hide'>";
-    foreach(array_keys($downloads[$map_type]) as $res){
-        echo "<div class='res-item'>";
-        $i = 0;
-        foreach(array_keys($downloads[$map_type][$res]) as $ext){
-            $i += 1;
-            $file = $downloads[$map_type][$res][$ext];
-            $filesize = filesize(join_paths($basedir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
-            if ($filesize > 10){
-                $d = 0;
-            }else if ($filesize > 1){
-                $d = 1;
-            }else{
-                $d = 2;
-            }
-            $filesize = round($filesize, $d);
-            echo "<div class='dl-btn'";
-            $width = 100/sizeof($downloads[$map_type][$res]);
-            echo " style='width: calc(".$width."% - 2em";
-            if ($i > 1){
-                echo " - 1px";
-            }
-            echo ")'";
-            echo ">";
-            if ($i == 1){
-                echo $res." &sdot; ";
-            }
-            echo strtoupper($ext);
-            echo " &sdot; ".$filesize." MB";
-            echo "</div>";
-        }
-        echo "</div>";  // .res-item
-    }
-    echo "</div>";  // .res-menu
-    echo "</div>";  // .map-type
-}
-echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='http://localhaven:81/p/license.php'>CC0</a><p>";
-echo "</div>";  // .download-buttons
-echo "</div>";  // #preview-download
 
 
-if (is_in_the_past($info['date_published']) || $GLOBALS['WORKING_LOCALLY']){
+if ($is_published){
     if ($GLOBALS['WORKING_LOCALLY'] && is_in_the_past($info['date_published']) == False){
         echo "<p style='text-align:center;opacity:0.5;'>(working locally on a yet-to-be-published texture)</p>";
     }
