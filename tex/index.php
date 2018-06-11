@@ -88,6 +88,8 @@ foreach (array_keys($downloads) as $map_type){
     $map_type_str = nice_name($map_type);
     $map_name_arr = [
         "all" => "<b>All Maps</b>",
+        "alb" => "Albedo",
+        "diff" => "Diffuse",
         "ao" => "AO",
         "disp" => "Displacement",
         "nor" => "Normal",
