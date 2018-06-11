@@ -110,6 +110,19 @@ var click_functions = function(){
             }
         }
     });
+    // Download menu
+    $('.map-download').click(function() {
+        var this_menu = $(this).parent().children(".res-menu");
+        this_menu.parent().siblings().children(".res-menu").addClass("hide");
+        this_menu.parent().siblings().children(".map-download").removeClass("map-download-active");
+        if (this_menu.hasClass("hide")){
+            this_menu.removeClass("hide");
+            $(this).addClass("map-download-active");
+        }else{
+            this_menu.addClass("hide");
+            $(this).removeClass("map-download-active");
+        }
+    });
 };
 
 var on_load = function(){

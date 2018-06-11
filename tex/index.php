@@ -112,16 +112,41 @@ foreach (array_keys($downloads) as $map_type){
     echo "<img src='/files/site_images/icons/download_white.svg'>";
     echo $map_type_str;
     echo "</p></div>";
-    echo "</div>";  // .map-type
-    echo "<div class='res-menu'>";
+    echo "<div class='res-menu hide'>";
     foreach(array_keys($downloads[$map_type]) as $res){
-        echo "<div class='res'>".$res."</div>";
+        echo "<div class='res-item'>";
+        $i = 0;
         foreach(array_keys($downloads[$map_type][$res]) as $ext){
+            $i += 1;
             $file = $downloads[$map_type][$res][$ext];
-            echo "<div class='res'>".$ext."</div>";
+            $filesize = filesize(join_paths($basedir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
+            if ($filesize > 10){
+                $d = 0;
+            }else if ($filesize > 1){
+                $d = 1;
+            }else{
+                $d = 2;
+            }
+            $filesize = round($filesize, $d);
+            echo "<div class='dl-btn'";
+            $width = 100/sizeof($downloads[$map_type][$res]);
+            echo " style='width: calc(".$width."% - 2em";
+            if ($i > 1){
+                echo " - 1px";
+            }
+            echo ")'";
+            echo ">";
+            if ($i == 1){
+                echo $res." &sdot; ";
+            }
+            echo strtoupper($ext);
+            echo " &sdot; ".$filesize." MB";
+            echo "</div>";
         }
+        echo "</div>";  // .res-item
     }
     echo "</div>";  // .res-menu
+    echo "</div>";  // .map-type
 }
 echo "</div>";  // .download-buttons
 echo "</div>";  // #preview-download

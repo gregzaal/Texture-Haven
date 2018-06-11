@@ -72,6 +72,18 @@
         color: white;
     }
 }
+.button-inverse {
+    @extend .button;
+    background-color: $c-background;
+    border-color: rgba($c-accent, 0.5);
+    color: $c-accent;
+
+    &:hover {
+        background-color: $c-accent;
+        border-color: rgba($c-accent, 1);
+        color: $c-background;
+    }
+}
 
 .col-4 {
 
@@ -1274,6 +1286,7 @@ ul#navbar {
     }
     .map-preview {
         width: 48px;
+        cursor: pointer;
 
         img {
             width: 28px;
@@ -1289,6 +1302,7 @@ ul#navbar {
     .map-download {
         width: calc(100% - 48px - 1px);
         border-left: 1px solid $c-accent-light;
+        cursor: pointer;
 
         &:hover {
             border-left: 1px solid $c-accent-light;
@@ -1299,8 +1313,49 @@ ul#navbar {
             margin: -8px 4px -8px -8px;
         }
     }
+    .map-download-active {
+        background-color: $c-accent-lighter;
+
+        &:hover {
+            background-color: $c-accent-lighter;
+        }
+    }
     .res-menu {
-        display: none;
+        position: absolute;
+        z-index: 10;
+        width: calc(100% - 2em - 2px);
+        border: 1px solid $c-accent;
+        border-top: none;
+
+        .res-item {
+            width: calc(100% + 1px);
+            border-bottom: 1px solid $c-accent-lighter;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .dl-btn {
+        @extend .button-inverse;
+        border: none;
+        border-right: 1px solid $c-accent-lighter;
+        font-size: 0.9em;
+        text-align: center;
+        cursor: pointer;
+
+        &:last-child {
+            border-right: none;
+
+            &:hover {
+                box-shadow: 1px 0 0 0 $c-accent;  // hack to get rid of 1px space
+            }
+        }
+
+        &:hover{
+            background-color: $c-accent-light;
+        }
     }
 }
 
