@@ -429,20 +429,30 @@ function get_item_from_db($item, $reuse_conn=NULL){
     return $row;
 }
 
-function get_all_tags($conn=NULL){
+function get_all_cats_or_tags($mode, $conn=NULL){
     $db = get_from_db("popular", "all", "all", $conn, 0);
-    $all_tags = [];
+    $all_flags = [];
     foreach ($db as $item){
-        $tags = explode(";",  str_replace(',', ';', $item['tags']));
-        foreach ($tags as $t){
+        $flags = explode(";",  str_replace(',', ';', $item[$mode]));
+        foreach ($flags as $t){
             $t = strtolower($t);
-            if (!in_array($t, $all_tags)){
-                array_push($all_tags, $t);
+            if (!in_array($t, $all_flags)){
+                array_push($all_flags, $t);
             }
         }
     }
-    sort($all_tags);
-    return $all_tags;
+    sort($all_flags);
+    return $all_flags;
+}
+
+function get_all_categories($conn=NULL){
+    // Convenience function
+    return get_all_cats_or_tags("categories", $conn);
+}
+
+function get_all_tags($conn=NULL){
+    // Convenience function
+    return get_all_cats_or_tags("tags", $conn);
 }
 
 function increment_download_count($id, $res, $reuse_conn=NULL){
