@@ -113,7 +113,7 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
     qmkdir($map_previews);
     $map_preview_f = join_paths($map_previews, $map_type.".jpg");
     if (!$GLOBALS['WORKING_LOCALLY']){
-        resize_image($target_file, $map_preview_f, 'jpg', 640, 640, 85);
+        resize_image($final_file, $map_preview_f, 'jpg', 640, 640, 85);
     }
 }
 // ZIP for each resolution set, for each extension type
