@@ -20,56 +20,108 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <?php
 
+$conn = db_conn_read_write();  // Create Database connection first so we can use `mysqli_real_escape_string`
+
+$name = mysqli_real_escape_string($conn, $_POST["name"]);
+$author = mysqli_real_escape_string($conn, $_POST["author"]);
+$slug = mysqli_real_escape_string($conn, $_POST["slug"]);
+
+
 // File checks
 // Shamelessly copy-pasta'd from https://www.w3schools.com/php/php_file_upload.asp
-foreach ($_FILES as $f){
-    $ext = strtolower(pathinfo(basename($f["name"]),PATHINFO_EXTENSION));
-    $target_dir = $GLOBALS['SYSTEM_ROOT']."/files/gallery/tmp_upload/";
-    $file_name = basename($f["name"]);
-    $target_file = $target_dir . $file_name;
+$session_hash = random_hash(8);
+$target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tmp_upload", $session_hash);
+qmkdir($target_dir);
+// echo "<pre>";
+// print_r($_FILES);  // DEBUG
+// echo "</pre>";
+foreach ($_FILES['texture_maps']['name'] as $i=>$f){
+    // Texture Maps
+    $tmp_file = $_FILES['texture_maps']['tmp_name'][$i];
+    $file_hash = random_hash(8);
+    $file_name = basename($f);
+    $target_file = join_paths($target_dir, $file_hash."__".$file_name);
     $uploadOk = 1;
     $error = "";
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
-        $check = getimagesize($f["tmp_name"]);
+        $check = getimagesize($tmp_file);
         if($check == false) {
             $error = "File is not an image.";
             $uploadOk = 0;
         }
     }
-    // Check if file already exists
-    if (file_exists($target_file)) {
-        $error = "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
     // Allow certain file formats
+    $ext = strtolower(pathinfo(basename($f),PATHINFO_EXTENSION));
     $allowed_file_types = ['jpg', 'jpeg', 'png'];
     if (!in_array($ext, $allowed_file_types)){
-        $error = "Sorry, only JPG and PNG files are allowed.";
+        $error = "Only JPG and PNG files are supported.";
         $uploadOk = 0;
     }
     if ($uploadOk == 1) {
-        if (move_uploaded_file($f["tmp_name"], $target_file)) {
+        if (move_uploaded_file($tmp_file, $target_file)) {
             $uploadOk = 1;
         } else {
             $uploadOk = 0;
-            $error = "Sorry, there was an unknown error uploading your file. Please submit it via email instead to ".inset_email();
+            $error = "There was an unknown error uploading your file. Please contact Greg and provide the files that aren't working, along with this path: <pre>".$target_file."</pre>";
         }
     }
     if ($uploadOk == 0) {
-        header("Location: /admin/new_tex.php?error=".$error);
+        echo $error;
+        // header("Location: /admin/new_tex.php?error=".$error);
         die();
     }
 }
+// Sphere render
+$target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "spheres");
+qmkdir($target_dir);
+$f = $_FILES['sphere_render']['name'];
+$tmp_file = $_FILES['sphere_render']['tmp_name'];
+$file_hash = random_hash(8);
+$file_name = basename($f);
+$target_file = join_paths($target_dir, $slug.".png");
+$uploadOk = 1;
+$error = "";
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($tmp_file);
+    if($check == false) {
+        $error = "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Allow certain file formats
+$ext = strtolower(pathinfo(basename($f),PATHINFO_EXTENSION));
+$allowed_file_types = ['jpg', 'jpeg', 'png'];
+if (!in_array($ext, $allowed_file_types)){
+    $error = "Only JPG and PNG files are supported.";
+    $uploadOk = 0;
+}
+if ($uploadOk == 1) {
+    if (move_uploaded_file($tmp_file, $target_file)) {
+        $uploadOk = 1;
+    } else {
+        $uploadOk = 0;
+        $error = "There was an unknown error uploading your file. Please contact Greg and provide the files that aren't working, along with this path: <pre>".$target_file."</pre>";
+    }
+}
+if ($uploadOk == 0) {
+    echo $error;
+    // header("Location: /admin/new_tex.php?error=".$error);
+    die();
+}
+// Make JPG with correct background color
+$jpg_file = join_paths($target_dir, $slug.".jpg");
+$img = new imagick($target_file);
+$img->setImageBackgroundColor("rgb(255, 0, 0)");
+$img->setImageFormat('jpg');
+$img->setImageCompression(Imagick::COMPRESSION_JPEG);
+$img->setImageCompressionQuality(90);
+$img->writeImage($jpg_file);
+
 
 
 // Database stuff
-$conn = db_conn_read_write();  // Create Database connection first so we can use `mysqli_real_escape_string`
-
-$name = mysqli_real_escape_string($conn, $_GET["name"]);
-$author = mysqli_real_escape_string($conn, $_GET["author"]);
-$slug = mysqli_real_escape_string($conn, $_GET["slug"]);
-
 $sql_fields = [];
 $sql_fields['name'] = $name;
 $sql_fields['author'] = $author;
@@ -78,15 +130,15 @@ function format_tagcat($s, $conn){
     $s = trim(str_replace(",", ";", str_replace(", ", ";", $s)), ",");
     return mysqli_real_escape_string($conn, $s);
 }
-$categories = format_tagcat($_GET["cats"], $conn);
+$categories = format_tagcat($_POST["cats"], $conn);
 $sql_fields['categories'] = $categories;
-$sql_fields['tags'] = format_tagcat($_GET["tags"], $conn);
+$sql_fields['tags'] = format_tagcat($_POST["tags"], $conn);
 
-$date_published = $_GET["date_published"];
+$date_published = $_POST["date_published"];
 if ($date_published != "Immediately"){
-    $sql_fields['date_published'] = $_GET["date_published"];
+    $sql_fields['date_published'] = $_POST["date_published"];
 }
-if (isset($_GET['seamless'])) {
+if (isset($_POST['seamless'])) {
     $sql_fields['seamless'] = "1";
 }
 
@@ -113,7 +165,7 @@ $result = mysqli_query($conn, $sql);
 if ($result == 1){
     echo "<h1>Success!</h1>";
     echo "<p>";
-    echo "<em>".$_GET["name"]."</em> ";  // Use GET instead of $name since $name with apostrophy will show Apostro\'phy instead of Apostro'phy
+    echo "<em>".$_POST["name"]."</em> ";  // Use GET instead of $name since $name with apostrophy will show Apostro\'phy instead of Apostro'phy
     echo "successfully added to the database.";
     echo "</p>";
     echo "<p>If you need to edit or update this texture, you can do so from the <a href='https://east1-phpmyadmin.dreamhost.com/sql.php?server=1&db=texturehaven&table=textures&pos=0'>phpMyAdmin interface</a>.</p>";
@@ -149,8 +201,8 @@ if ($result == 1){
     //     return str_replace("  ", " ", $str);
     // }
     // $sql_fields = [];
-    // $sql_fields['twitface'] = format_vars(mysqli_real_escape_string($conn, $_GET["twitface"]), $vars);
-    // $sql_fields['reddit'] = format_vars(mysqli_real_escape_string($conn, $_GET["reddit"]), $vars);
+    // $sql_fields['twitface'] = format_vars(mysqli_real_escape_string($conn, $_POST["twitface"]), $vars);
+    // $sql_fields['reddit'] = format_vars(mysqli_real_escape_string($conn, $_POST["reddit"]), $vars);
     // $sql_fields['link'] = "https://texturehaven.com/tex/?t=".$slug;
     // $sql_fields['image'] = "https://texturehaven.com/files/tex_images/meta/".$slug.".jpg";
     // $sql_fields['post_datetime'] = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime($date_published)));

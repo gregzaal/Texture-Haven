@@ -226,6 +226,13 @@ function join_paths() {
     return preg_replace('#/+#','/',join('/', $paths));
 }
 
+function qmkdir($d) {
+    // Quitly mkdir if it doesn't exist aleady
+    if (!file_exists($d)){
+        mkdir($d);
+    }
+}
+
 
 // ============================================================================
 // HTML

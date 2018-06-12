@@ -18,7 +18,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 <div id="page-wrapper">
 <div id="page">
 
-<form action="/admin/new_tex_submit.php" method="GET" id="new-tex-form">
+<form action="/admin/new_tex_submit.php" method="POST" enctype="multipart/form-data" id="new-tex-form">
 
     <?php
     if(isset($_GET["error"])) {
@@ -32,7 +32,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <div class="form-item">
     <h2>Upload texture maps:</h2>
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
-    <input type="file" name="texture_maps" multiple="multiple" id="texture-maps" required>
+    <input type="file" name="texture_maps[]" multiple="multiple" id="texture-maps" required>
     <div class="tooltip hidden"
         >Select all files for this texture.<br>
         Choose only the highest resolution of each map. Lower resolution versions will be generated.<br>

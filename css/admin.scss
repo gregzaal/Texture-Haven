@@ -12,6 +12,12 @@ b {
     font-weight: 700;
 }
 
+pre {
+    display: inline-block;
+    border: none;
+    text-align: left;
+}
+
 #header {
     background-color: $c-accent;
     padding: 0 1em;
