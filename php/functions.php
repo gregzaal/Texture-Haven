@@ -194,7 +194,9 @@ function resize_image($old_fp, $new_fp, $format, $size_x, $size_y, $quality=85){
     $img = new imagick($old_fp);
     $img->resizeImage($size_x, $size_y, imagick::FILTER_SINC, 1, true);
     $img->setImageFormat($format);
-    $img->setImageCompression(Imagick::COMPRESSION_JPEG);
+    if ($format == "jpg"){
+        $img->setImageCompression(Imagick::COMPRESSION_JPEG);
+    }
     $img->setImageCompressionQuality($quality);
     $img->writeImage($new_fp);
 }
