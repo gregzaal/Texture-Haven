@@ -61,8 +61,8 @@ if ($is_published){
     echo "<div class='download-buttons'>";
     echo "<h2>Download:</h2>";
     $downloads = [];
-    $basedir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
-    $files = scandir($basedir);
+    $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
+    $files = scandir($base_dir);
     $resolutions = [];
     foreach ($files as $f){
         if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
@@ -70,7 +70,7 @@ if ($is_published){
         }
     }
     foreach ($resolutions as $r){
-        $res_dir = join_paths($basedir, $r);
+        $res_dir = join_paths($base_dir, $r);
         $files = scandir($res_dir);
         $all_maps_f = $slug.'_'.$r.".zip";
         $downloads["all"][$r]["zip"] = $all_maps_f;
@@ -122,7 +122,7 @@ if ($is_published){
             foreach(array_keys($downloads[$map_type][$res]) as $ext){
                 $i += 1;
                 $file = $downloads[$map_type][$res][$ext];
-                $filesize = filesize(join_paths($basedir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
+                $filesize = filesize(join_paths($base_dir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
                 if ($filesize > 10){
                     $d = 0;
                 }else if ($filesize > 1){

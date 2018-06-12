@@ -103,6 +103,33 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         }
     }
 }
+// ZIP for each resolution set
+$base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
+$files = scandir($base_dir);
+$resolutions = [];
+foreach ($files as $f){
+    if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
+        array_push($resolutions, $f);
+    }
+}
+foreach ($resolutions as $r){
+    $res_dir = join_paths($base_dir, $r);
+    $files = scandir($res_dir);
+    $all_maps_f = $slug.'_'.$r.".zip";
+    $zip_fp = join_paths($res_dir, $all_maps_f);
+    $zip = new ZipArchive;
+    $zip->open($zip_fp, ZipArchive::CREATE);
+    foreach ($files as $f){
+        if ($f != '.' and $f != '..' and str_contains($f, '.')){
+            if ($f != $all_maps_f){
+                $fp = join_paths($res_dir, $f);
+                $content = file_get_contents($fp);
+                $zip->addFromString(pathinfo ( $fp, PATHINFO_BASENAME), $content);
+            }
+        }
+    }
+    $zip->close();
+}
 
 // Sphere render
 $target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "spheres");
@@ -258,8 +285,8 @@ if ($result == 1){
     $existing_sql = "SELECT * from textures WHERE slug='".$slug."'";
     $existing_result = mysqli_query($conn, $existing_sql);
     if (mysqli_num_rows($existing_result) > 0){
-        echo "<p>There is already a product with the slug <em>".$slug."</em>, maybe you have already added this product?</p>";
-        echo "<p>Otherwise go back and choose a different slug.</p>";
+        echo "<p>There is already a texture with the slug <em>".$slug."</em></p>";
+        echo "<p>Either choose a different slug, or manually remove the existing one from the database.</p>";
     }else{
         echo "<p>Looks like something went wrong :(<br>Here is the generated SQL query to help you figure out the problem:</p>";
         echo "<p>".$sql."</p> ";
