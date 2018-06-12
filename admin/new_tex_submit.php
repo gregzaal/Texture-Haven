@@ -112,8 +112,10 @@ if ($uploadOk == 0) {
 }
 // Make JPG with correct background color
 $jpg_file = join_paths($target_dir, $slug.".jpg");
-$img = new imagick($target_file);
-$img->setImageBackgroundColor("rgb(255, 0, 0)");
+$img = new imagick();
+$img->newImage(640, 640, "rgb(255, 0, 0)");
+$tmp_img = new imagick($target_file);
+$img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
 $img->setImageFormat('jpg');
 $img->setImageCompression(Imagick::COMPRESSION_JPEG);
 $img->setImageCompressionQuality(90);
