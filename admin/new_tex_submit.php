@@ -5,7 +5,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Texture</title>
+    <title>Add Texture | Submit</title>
     <link href='/css/style.css' rel='stylesheet' type='text/css' />
     <link href='/css/admin.css' rel='stylesheet' type='text/css' />
     <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
@@ -80,7 +80,7 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
     $res_int = floor(max($x, $y)/1000);
     $resolutions = [];
     foreach ($standard_resolutions as $sr){
-        if ($sr < $res_int-1.5){
+        if ($sr <= $res_int-1){
             array_push($resolutions, $sr);
         }
     }
@@ -95,7 +95,9 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
         $final_file = join_paths($final_dir, $without_ext."_".$res_str.".png");
         if ($r != $res_int){
-            resize_image($target_file, $final_file, 'png', 1024*$r, 1024*$r);
+            if (!$GLOBALS['WORKING_LOCALLY']){
+                resize_image($target_file, $final_file, 'png', 1024*$r, 1024*$r);
+            }
         }else{
             rename($target_file, $final_file);
         }
