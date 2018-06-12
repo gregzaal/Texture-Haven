@@ -20,17 +20,27 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <form action="/admin/new_tex_submit.php" method="GET" id="new-tex-form">
 
+    <?php
+    if(isset($_GET["error"])) {
+    echo "<div class=\"form-item error\">";
+        echo "<h2>Error: </h2>";
+        echo "<p> ".$_GET["error"]."</p>";
+    echo "</div>";
+    }
+    ?>
+
     <div class="form-item">
     <h2>Upload texture maps:</h2>
+    <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
     <input type="file" name="texture_maps" multiple="multiple" id="texture-maps" required>
-    <div class="tooltip"
+    <div class="tooltip hidden"
         >Select all files for this texture.<br>
         Choose only the highest resolution of each map. Lower resolution versions will be generated.<br>
         <br>
         The names of these files must match this pattern: <q>slug_maptype.png</q><br>
         They must <b>not</b> include the resolution (e.g. not slug_maptype_<b>8k</b>.png).
     </div>
-    <ul id="map-list"></ul>
+    <ul id="map-list" class="hidden"></ul>
     </div>
 
     <div class="form-item">
@@ -57,6 +67,18 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
     <label><input id="auto-slug" type="checkbox" name="auto-slug" value="Auto" checked>Auto</label><br>
     <div class="tooltip hidden">Unique identifier used for technical purposes. No punctuation or spaces allowed (e.g. <q>red_brick_02</q>).</div>
+    </div>
+    
+    <div class="form-item">
+    <h2>Is seamless:</h2>
+    <input id="form-seamless" type="checkbox" name="seamless" value="Seamless"><br>
+    </div>
+    
+    <div class="form-item">
+    <h2>Author:</h2>
+    <input id="form-author" type="text" name="author" value="Rob Tuytel">
+    <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
+    <div class="tooltip hidden">The original creator of this texture. Credit is shown on the texture page.</div>
     </div>
 
     <div class="form-item">

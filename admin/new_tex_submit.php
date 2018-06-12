@@ -20,13 +20,59 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <?php
 
+// File checks
+// Shamelessly copy-pasta'd from https://www.w3schools.com/php/php_file_upload.asp
+foreach ($_FILES as $f){
+    $ext = strtolower(pathinfo(basename($f["name"]),PATHINFO_EXTENSION));
+    $target_dir = $GLOBALS['SYSTEM_ROOT']."/files/gallery/tmp_upload/";
+    $file_name = basename($f["name"]);
+    $target_file = $target_dir . $file_name;
+    $uploadOk = 1;
+    $error = "";
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+        $check = getimagesize($f["tmp_name"]);
+        if($check == false) {
+            $error = "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        $error = "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    $allowed_file_types = ['jpg', 'jpeg', 'png'];
+    if (!in_array($ext, $allowed_file_types)){
+        $error = "Sorry, only JPG and PNG files are allowed.";
+        $uploadOk = 0;
+    }
+    if ($uploadOk == 1) {
+        if (move_uploaded_file($f["tmp_name"], $target_file)) {
+            $uploadOk = 1;
+        } else {
+            $uploadOk = 0;
+            $error = "Sorry, there was an unknown error uploading your file. Please submit it via email instead to ".inset_email();
+        }
+    }
+    if ($uploadOk == 0) {
+        header("Location: /admin/new_tex.php?error=".$error);
+        die();
+    }
+}
+
+
+// Database stuff
 $conn = db_conn_read_write();  // Create Database connection first so we can use `mysqli_real_escape_string`
 
 $name = mysqli_real_escape_string($conn, $_GET["name"]);
-$slug = $_GET["slug"];
+$author = mysqli_real_escape_string($conn, $_GET["author"]);
+$slug = mysqli_real_escape_string($conn, $_GET["slug"]);
 
 $sql_fields = [];
 $sql_fields['name'] = $name;
+$sql_fields['author'] = $author;
 $sql_fields['slug'] = $slug;
 function format_tagcat($s, $conn){
     $s = trim(str_replace(",", ";", str_replace(", ", ";", $s)), ",");
@@ -39,6 +85,9 @@ $sql_fields['tags'] = format_tagcat($_GET["tags"], $conn);
 $date_published = $_GET["date_published"];
 if ($date_published != "Immediately"){
     $sql_fields['date_published'] = $_GET["date_published"];
+}
+if (isset($_GET['seamless'])) {
+    $sql_fields['seamless'] = "1";
 }
 
 // XXX

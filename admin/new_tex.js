@@ -82,6 +82,7 @@ var go = function(){
             html += "</li>";
         });
         $("#map-list").html(html)
+        $("#map-list").removeClass("hidden");
     });
 
     function previewUploaded(input) {
