@@ -66,7 +66,8 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <input id="form-slug-actual" type="text" name="slug" value="" hidden>  <!-- Duplicate hidden slug since disabled inputs aren't included in the GET parameters -->
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
     <label><input id="auto-slug" type="checkbox" name="auto-slug" value="Auto" checked>Auto</label><br>
-    <div class="tooltip hidden">Unique identifier used for technical purposes. No punctuation or spaces allowed (e.g. <q>red_brick_02</q>).</div>
+    <div class="tooltip hidden">Unique identifier used for technical purposes. No punctuation or spaces allowed (e.g. <q>red_brick_02</q>).<br>
+    <b>Must match the uploaded files</b></div>
     </div>
     
     <div class="form-item">
