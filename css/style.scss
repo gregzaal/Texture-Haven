@@ -1232,14 +1232,13 @@ ul#navbar {
     width: 700px;
 
     img {
-        width: 100%;
+        padding: 30px;
+        width: calc(100% - 60px);  // image will be exactly 640px
     }
 
     #map-preview-img {
         position: absolute;
         left: 0;
-        padding: 30px;
-        width: calc(100% - 60px);  // image will be exactly 640px
     }
 }
 

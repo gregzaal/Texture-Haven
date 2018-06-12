@@ -79,7 +79,7 @@ if ($is_published){
                 if ($f != $all_maps_f){
                     $without_ext = pathinfo($f, PATHINFO_FILENAME);
                     $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
-                    if ($ext != 'zip'){
+                    if ($ext != 'zip' and $ext != "png"){
                         $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
                         $downloads[$map_type][$r][$ext] = $f;
                     }
