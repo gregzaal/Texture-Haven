@@ -94,17 +94,24 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         $final_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug, $res_str);
         qmkdir($final_dir);
         $final_file = join_paths($final_dir, $without_ext."_".$res_str.".".$ext);
+        if ($ext == "png" and !$GLOBALS['WORKING_LOCALLY']){
+            $jpg_file = join_paths($final_dir, $without_ext."_".$res_str.".jpg");
+            resize_image($target_file, $jpg_file, 'jpg', 1024*$r, 1024*$r, 95);
+        }
         if ($r != $res_int){
             if (!$GLOBALS['WORKING_LOCALLY']){
-                resize_image($target_file, $final_file, $ext, 1024*$r, 1024*$r, 95);
-                if ($ext == "png"){
-                    $jpg_file = join_paths($final_dir, $without_ext."_".$res_str.".jpg");
-                    resize_image($target_file, $jpg_file, 'jpg', 1024*$r, 1024*$r, 95);
-                }
+                resize_image($target_file, $final_file, $ext, 1024*$r, 1024*$r, 95);     
             }
         }else{
             rename($target_file, $final_file);
         }
+    }
+
+    // Map previews
+    $map_type = substr($without_ext, strlen($slug)+1);
+    $map_preview_f = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "map_previews", $slug, $map_type.".jpg");
+    if (!$GLOBALS['WORKING_LOCALLY']){
+        resize_image($target_file, $map_preview_f, 'jpg', 640, 640, 85);
     }
 }
 // ZIP for each resolution set, for each extension type
