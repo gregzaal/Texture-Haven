@@ -192,12 +192,12 @@ function array_sort($array, $on, $order=SORT_ASC){
 
 function resize_image($old_fp, $new_fp, $format, $size_x, $size_y, $quality=85){
     $img = new imagick($old_fp);
-    $img->resizeImage($size_x, $size_y, imagick::FILTER_SINC, 1, true);
+    $img->resizeImage($size_x, $size_y, imagick::FILTER_BOX, 1, true);
     $img->setImageFormat($format);
     if ($format == "jpg"){
         $img->setImageCompression(Imagick::COMPRESSION_JPEG);
+        $img->setImageCompressionQuality($quality);
     }
-    $img->setImageCompressionQuality($quality);
     $img->writeImage($new_fp);
 }
 
@@ -227,9 +227,9 @@ function join_paths() {
 }
 
 function qmkdir($d) {
-    // Quitly mkdir if it doesn't exist aleady
+    // Quitly mkdir if it doesn't exist aleady, recursively
     if (!file_exists($d)){
-        mkdir($d);
+        mkdir($d, 0777, true);
     }
 }
 

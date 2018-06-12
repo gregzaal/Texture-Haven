@@ -71,7 +71,37 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         // header("Location: /admin/new_tex.php?error=".$error);
         die();
     }
+
+    // Resolutions
+    $standard_resolutions = [1, 2 ,4, 8];  // in 'k' (1k, 2k...)
+    $sizearr = getimagesize($target_file);
+    $x = $sizearr[0];
+    $y = $sizearr[1];
+    $res_int = floor(max($x, $y)/1000);
+    $resolutions = [];
+    foreach ($standard_resolutions as $sr){
+        if ($sr < $res_int-1.5){
+            array_push($resolutions, $sr);
+        }
+    }
+    array_push($resolutions, $res_int);
+    // echo "<pre>";
+    // print_r($resolutions);  // DEBUG
+    // echo "</pre>";
+    foreach ($resolutions as $r){
+        $res_str = $r.'k';
+        $final_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug, $res_str);
+        qmkdir($final_dir);
+        $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
+        $final_file = join_paths($final_dir, $without_ext."_".$res_str.".png");
+        if ($r != $res_int){
+            resize_image($target_file, $final_file, 'png', 1024*$r, 1024*$r);
+        }else{
+            rename($target_file, $final_file);
+        }
+    }
 }
+
 // Sphere render
 $target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "spheres");
 qmkdir($target_dir);
@@ -111,15 +141,18 @@ if ($uploadOk == 0) {
     die();
 }
 // Make JPG with correct background color
-$jpg_file = join_paths($target_dir, $slug.".jpg");
-$img = new imagick();
-$img->newImage(640, 640, "rgb(255, 0, 0)");
-$tmp_img = new imagick($target_file);
-$img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
-$img->setImageFormat('jpg');
-$img->setImageCompression(Imagick::COMPRESSION_JPEG);
-$img->setImageCompressionQuality(90);
-$img->writeImage($jpg_file);
+if (!$GLOBALS['WORKING_LOCALLY']){
+    $jpg_file = join_paths($target_dir, $slug.".jpg");
+    $img = new imagick();
+    $img->newImage(640, 640, "rgb(240, 240, 240)");
+    $tmp_img = new imagick($target_file);
+    $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
+    $img->setImageFormat('jpg');
+    $img->setImageCompression(Imagick::COMPRESSION_JPEG);
+    $img->setImageCompressionQuality(90);
+    $img->writeImage($jpg_file);
+    // TODO thumbnail for tex grid
+}
 
 
 
