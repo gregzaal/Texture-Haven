@@ -109,7 +109,9 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
 
     // Map previews
     $map_type = substr($without_ext, strlen($slug)+1);
-    $map_preview_f = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "map_previews", $slug, $map_type.".jpg");
+    $map_previews = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "map_previews", $slug);
+    qmkdir($map_previews);
+    $map_preview_f = join_paths($map_previews, $map_type.".jpg");
     if (!$GLOBALS['WORKING_LOCALLY']){
         resize_image($target_file, $map_preview_f, 'jpg', 640, 640, 85);
     }
