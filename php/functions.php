@@ -218,6 +218,12 @@ function debug_email($subject, $text){
     // @mail($email_to, $subject, clean_email_string($text), $headers);
 }
 
+function print_ra($array){
+    echo "<pre>";
+    print_r($array);
+    echo "</pre>";
+}
+
 function join_paths() {
     $paths = array();
     foreach (func_get_args() as $arg) {

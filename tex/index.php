@@ -72,13 +72,13 @@ if ($is_published){
     foreach ($resolutions as $r){
         $res_dir = join_paths($base_dir, $r);
         $files = scandir($res_dir);
-        $all_maps_f = $slug.'_'.$r.".zip";
+        $all_maps_f = $slug.'_'.$r.".zip";  // TODO multiple ext zips
         $downloads["all"][$r]["zip"] = $all_maps_f;
         foreach ($files as $f){
             if ($f != '.' and $f != '..' and str_contains($f, '.')){
                 if ($f != $all_maps_f){
                     $without_ext = pathinfo($f, PATHINFO_FILENAME);
-                    $ext = pathinfo($f, PATHINFO_EXTENSION);
+                    $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
                     $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
                     $downloads[$map_type][$r][$ext] = $f;
                 }

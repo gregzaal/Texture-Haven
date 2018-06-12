@@ -40,6 +40,8 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
     $tmp_file = $_FILES['texture_maps']['tmp_name'][$i];
     $file_hash = random_hash(8);
     $file_name = basename($f);
+    $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
+    $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
     $target_file = join_paths($target_dir, $file_hash."__".$file_name);
     $uploadOk = 1;
     $error = "";
@@ -52,7 +54,6 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         }
     }
     // Allow certain file formats
-    $ext = strtolower(pathinfo(basename($f),PATHINFO_EXTENSION));
     $allowed_file_types = ['jpg', 'jpeg', 'png'];
     if (!in_array($ext, $allowed_file_types)){
         $error = "Only JPG and PNG files are supported.";
@@ -92,18 +93,21 @@ foreach ($_FILES['texture_maps']['name'] as $i=>$f){
         $res_str = $r.'k';
         $final_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug, $res_str);
         qmkdir($final_dir);
-        $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
-        $final_file = join_paths($final_dir, $without_ext."_".$res_str.".png");
+        $final_file = join_paths($final_dir, $without_ext."_".$res_str.".".$ext);
         if ($r != $res_int){
             if (!$GLOBALS['WORKING_LOCALLY']){
-                resize_image($target_file, $final_file, 'png', 1024*$r, 1024*$r);
+                resize_image($target_file, $final_file, $ext, 1024*$r, 1024*$r, 95);
+                if ($ext == "png"){
+                    $jpg_file = join_paths($final_dir, $without_ext."_".$res_str.".jpg");
+                    resize_image($target_file, $jpg_file, 'jpg', 1024*$r, 1024*$r, 95);
+                }
             }
         }else{
             rename($target_file, $final_file);
         }
     }
 }
-// ZIP for each resolution set
+// ZIP for each resolution set, for each extension type
 $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
 $files = scandir($base_dir);
 $resolutions = [];
@@ -115,20 +119,29 @@ foreach ($files as $f){
 foreach ($resolutions as $r){
     $res_dir = join_paths($base_dir, $r);
     $files = scandir($res_dir);
-    $all_maps_f = $slug.'_'.$r.".zip";
-    $zip_fp = join_paths($res_dir, $all_maps_f);
-    $zip = new ZipArchive;
-    $zip->open($zip_fp, ZipArchive::CREATE);
+
+    $file_sets = [];
     foreach ($files as $f){
         if ($f != '.' and $f != '..' and str_contains($f, '.')){
-            if ($f != $all_maps_f){
-                $fp = join_paths($res_dir, $f);
-                $content = file_get_contents($fp);
-                $zip->addFromString(pathinfo ( $fp, PATHINFO_BASENAME), $content);
+            $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+            if ($ext != 'zip'){
+                $file_sets[$ext][$f] = 1;
             }
         }
     }
-    $zip->close();
+
+    foreach (array_keys($file_sets) as $ext){
+        $all_maps_f = $slug.'_'.$r.'_'.$ext.".zip";
+        $zip_fp = join_paths($res_dir, $all_maps_f);
+        $zip = new ZipArchive;
+        $zip->open($zip_fp, ZipArchive::CREATE);
+        foreach (array_keys($file_sets[$ext]) as $f){
+            $fp = join_paths($res_dir, $f);
+            $content = file_get_contents($fp);
+            $zip->addFromString(pathinfo ( $fp, PATHINFO_BASENAME), $content);
+        }
+        $zip->close();
+    }
 }
 
 // Sphere render
@@ -151,9 +164,8 @@ if(isset($_POST["submit"])) {
 }
 // Allow certain file formats
 $ext = strtolower(pathinfo(basename($f),PATHINFO_EXTENSION));
-$allowed_file_types = ['jpg', 'jpeg', 'png'];
-if (!in_array($ext, $allowed_file_types)){
-    $error = "Only JPG and PNG files are supported.";
+if ($ext != 'png'){
+    $error = "Sphere render must be a PNG";
     $uploadOk = 0;
 }
 if ($uploadOk == 1) {
