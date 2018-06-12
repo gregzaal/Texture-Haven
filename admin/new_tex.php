@@ -150,12 +150,12 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <div class="tooltip hidden">The date and time (24h format) when this product should be published, in the format: <q>YYYY/MM/DD HH:MM:SS</q>.<br>(e.g. <q>2017/05/22 17:59</q>, or just <q>2017/05/22</q> which will publish at midnight).</div>
     </div>
     
-    <div class="form-item">
+    <div class="form-item hidden">  <!-- temporarily hidden, show after launch -->
     <h2>Facebook/Twitter:</h2>
     <input id="form-twitface" type="text" name="twitface" value="New ##category## Texture - ##name##: ##link## #free #pbr #texture #cc0 #b3d">
     </div>
     
-    <div class="form-item">
+    <div class="form-item hidden">  <!-- temporarily hidden, show after launch -->
     <h2>Reddit:</h2>
     <input id="form-reddit" type="text" name="reddit" value="##category## Texture: ##name##">
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
