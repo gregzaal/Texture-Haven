@@ -9,3 +9,4 @@
 secret_config.php
 /files
 /utils
+/admin/process_uploads.cfg
