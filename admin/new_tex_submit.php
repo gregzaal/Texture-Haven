@@ -261,7 +261,7 @@ if ($result == 1){
     echo '<a href="/admin/new_tex.php" class="no-underline">';
     echo '<div class="button"><i class="fa fa-plus" aria-hidden="true"></i> Add Another</div>';
     echo '</a> ';
-    echo '<a href="https://texturehaven.com/tex/?t='.$slug.'" class="no-underline">';
+    echo '<a href="/tex/?t='.$slug.'" class="no-underline">';
     echo '<div class="button"><i class="fa fa-eye" aria-hidden="true"></i> View This Texture</div>';
     echo '</a> ';
 
