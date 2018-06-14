@@ -4,7 +4,7 @@ import shutil
 import json
 import zipfile
 from PIL import Image
-from subprocess import run
+from subprocess import call as run
 from math import floor
 from pprint import pprint
 
