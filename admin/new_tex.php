@@ -29,7 +29,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     }
     ?>
 
-    <div class="form-item">
+    <!-- <div class="form-item">
     <h2>Upload texture maps:</h2>
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
     <input type="file" name="texture_maps[]" multiple="multiple" id="texture-maps" required>
@@ -41,7 +41,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
         They must <b>not</b> include the resolution (e.g. not slug_maptype_<b>8k</b>.png).
     </div>
     <ul id="map-list" class="hidden"></ul>
-    </div>
+    </div> -->
 
     <div class="form-item">
     <h2>Upload sphere render:</h2>
@@ -67,7 +67,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
     <label><input id="auto-slug" type="checkbox" name="auto-slug" value="Auto" checked>Auto</label><br>
     <div class="tooltip hidden">Unique identifier used for technical purposes. No punctuation or spaces allowed (e.g. <q>red_brick_02</q>).<br>
-    <b>Must match the uploaded files</b></div>
+    <b>Must match the uploaded files.</b></div>
     </div>
     
     <div class="form-item">

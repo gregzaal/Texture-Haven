@@ -27,131 +27,131 @@ $author = mysqli_real_escape_string($conn, $_POST["author"]);
 $slug = mysqli_real_escape_string($conn, $_POST["slug"]);
 
 
-// File checks
-// Shamelessly copy-pasta'd from https://www.w3schools.com/php/php_file_upload.asp
-$session_hash = random_hash(8);
-$target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tmp_upload", $session_hash);
-qmkdir($target_dir);
-// echo "<pre>";
-// print_r($_FILES);  // DEBUG
-// echo "</pre>";
-foreach ($_FILES['texture_maps']['name'] as $i=>$f){
-    // Texture Maps
-    $tmp_file = $_FILES['texture_maps']['tmp_name'][$i];
-    $file_hash = random_hash(8);
-    $file_name = basename($f);
-    $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
-    $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-    $target_file = join_paths($target_dir, $file_hash."__".$file_name);
-    $uploadOk = 1;
-    $error = "";
-    // Check if image file is a actual image or fake image
-    if(isset($_POST["submit"])) {
-        $check = getimagesize($tmp_file);
-        if($check == false) {
-            $error = "File is not an image.";
-            $uploadOk = 0;
-        }
-    }
-    // Allow certain file formats
-    $allowed_file_types = ['jpg', 'jpeg', 'png'];
-    if (!in_array($ext, $allowed_file_types)){
-        $error = "Only JPG and PNG files are supported.";
-        $uploadOk = 0;
-    }
-    if ($uploadOk == 1) {
-        if (move_uploaded_file($tmp_file, $target_file)) {
-            $uploadOk = 1;
-        } else {
-            $uploadOk = 0;
-            $error = "There was an unknown error uploading your file. Please contact Greg and provide the files that aren't working, along with this path: <pre>".$target_file."</pre>";
-        }
-    }
-    if ($uploadOk == 0) {
-        echo $error;
-        // header("Location: /admin/new_tex.php?error=".$error);
-        die();
-    }
+// // File checks
+// // Shamelessly copy-pasta'd from https://www.w3schools.com/php/php_file_upload.asp
+// $session_hash = random_hash(8);
+// $target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tmp_upload", $session_hash);
+// qmkdir($target_dir);
+// // echo "<pre>";
+// // print_r($_FILES);  // DEBUG
+// // echo "</pre>";
+// foreach ($_FILES['texture_maps']['name'] as $i=>$f){
+//     // Texture Maps
+//     $tmp_file = $_FILES['texture_maps']['tmp_name'][$i];
+//     $file_hash = random_hash(8);
+//     $file_name = basename($f);
+//     $without_ext = pathinfo($file_name, PATHINFO_FILENAME);
+//     $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+//     $target_file = join_paths($target_dir, $file_hash."__".$file_name);
+//     $uploadOk = 1;
+//     $error = "";
+//     // Check if image file is a actual image or fake image
+//     if(isset($_POST["submit"])) {
+//         $check = getimagesize($tmp_file);
+//         if($check == false) {
+//             $error = "File is not an image.";
+//             $uploadOk = 0;
+//         }
+//     }
+//     // Allow certain file formats
+//     $allowed_file_types = ['jpg', 'jpeg', 'png'];
+//     if (!in_array($ext, $allowed_file_types)){
+//         $error = "Only JPG and PNG files are supported.";
+//         $uploadOk = 0;
+//     }
+//     if ($uploadOk == 1) {
+//         if (move_uploaded_file($tmp_file, $target_file)) {
+//             $uploadOk = 1;
+//         } else {
+//             $uploadOk = 0;
+//             $error = "There was an unknown error uploading your file. Please contact Greg and provide the files that aren't working, along with this path: <pre>".$target_file."</pre>";
+//         }
+//     }
+//     if ($uploadOk == 0) {
+//         echo $error;
+//         // header("Location: /admin/new_tex.php?error=".$error);
+//         die();
+//     }
 
-    // Resolutions
-    $standard_resolutions = [1, 2 ,4, 8];  // in 'k' (1k, 2k...)
-    $sizearr = getimagesize($target_file);
-    $x = $sizearr[0];
-    $y = $sizearr[1];
-    $res_int = floor(max($x, $y)/1000);
-    $resolutions = [];
-    foreach ($standard_resolutions as $sr){
-        if ($sr <= $res_int-1){
-            array_push($resolutions, $sr);
-        }
-    }
-    array_push($resolutions, $res_int);
-    // echo "<pre>";
-    // print_r($resolutions);  // DEBUG
-    // echo "</pre>";
-    foreach ($resolutions as $r){
-        $res_str = $r.'k';
-        $final_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug, $res_str);
-        qmkdir($final_dir);
-        $final_file = join_paths($final_dir, $without_ext."_".$res_str.".".$ext);
-        if ($ext == "png" and !$GLOBALS['WORKING_LOCALLY']){
-            $jpg_file = join_paths($final_dir, $without_ext."_".$res_str.".jpg");
-            resize_image($target_file, $jpg_file, 'jpg', 1024*$r, 1024*$r, 95);
-        }
-        if ($r != $res_int){
-            if (!$GLOBALS['WORKING_LOCALLY']){
-                resize_image($target_file, $final_file, $ext, 1024*$r, 1024*$r, 95);     
-            }
-        }else{
-            rename($target_file, $final_file);
-        }
-    }
+//     // Resolutions
+//     $standard_resolutions = [1, 2 ,4, 8];  // in 'k' (1k, 2k...)
+//     $sizearr = getimagesize($target_file);
+//     $x = $sizearr[0];
+//     $y = $sizearr[1];
+//     $res_int = floor(max($x, $y)/1000);
+//     $resolutions = [];
+//     foreach ($standard_resolutions as $sr){
+//         if ($sr <= $res_int-1){
+//             array_push($resolutions, $sr);
+//         }
+//     }
+//     array_push($resolutions, $res_int);
+//     // echo "<pre>";
+//     // print_r($resolutions);  // DEBUG
+//     // echo "</pre>";
+//     foreach ($resolutions as $r){
+//         $res_str = $r.'k';
+//         $final_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug, $res_str);
+//         qmkdir($final_dir);
+//         $final_file = join_paths($final_dir, $without_ext."_".$res_str.".".$ext);
+//         if ($ext == "png" and !$GLOBALS['WORKING_LOCALLY']){
+//             $jpg_file = join_paths($final_dir, $without_ext."_".$res_str.".jpg");
+//             resize_image($target_file, $jpg_file, 'jpg', 1024*$r, 1024*$r, 95);
+//         }
+//         if ($r != $res_int){
+//             if (!$GLOBALS['WORKING_LOCALLY']){
+//                 resize_image($target_file, $final_file, $ext, 1024*$r, 1024*$r, 95);     
+//             }
+//         }else{
+//             rename($target_file, $final_file);
+//         }
+//     }
 
-    // Map previews
-    $map_type = substr($without_ext, strlen($slug)+1);
-    $map_previews = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "map_previews", $slug);
-    qmkdir($map_previews);
-    $map_preview_f = join_paths($map_previews, $map_type.".jpg");
-    if (!$GLOBALS['WORKING_LOCALLY']){
-        resize_image($final_file, $map_preview_f, 'jpg', 640, 640, 85);
-    }
-}
-// ZIP for each resolution set, for each extension type
-$base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
-$files = scandir($base_dir);
-$resolutions = [];
-foreach ($files as $f){
-    if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
-        array_push($resolutions, $f);
-    }
-}
-foreach ($resolutions as $r){
-    $res_dir = join_paths($base_dir, $r);
-    $files = scandir($res_dir);
+//     // Map previews
+//     $map_type = substr($without_ext, strlen($slug)+1);
+//     $map_previews = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "map_previews", $slug);
+//     qmkdir($map_previews);
+//     $map_preview_f = join_paths($map_previews, $map_type.".jpg");
+//     if (!$GLOBALS['WORKING_LOCALLY']){
+//         resize_image($final_file, $map_preview_f, 'jpg', 640, 640, 85);
+//     }
+// }
+// // ZIP for each resolution set, for each extension type
+// $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
+// $files = scandir($base_dir);
+// $resolutions = [];
+// foreach ($files as $f){
+//     if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
+//         array_push($resolutions, $f);
+//     }
+// }
+// foreach ($resolutions as $r){
+//     $res_dir = join_paths($base_dir, $r);
+//     $files = scandir($res_dir);
 
-    $file_sets = [];
-    foreach ($files as $f){
-        if ($f != '.' and $f != '..' and str_contains($f, '.')){
-            $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
-            if ($ext != 'zip'){
-                $file_sets[$ext][$f] = 1;
-            }
-        }
-    }
+//     $file_sets = [];
+//     foreach ($files as $f){
+//         if ($f != '.' and $f != '..' and str_contains($f, '.')){
+//             $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+//             if ($ext != 'zip'){
+//                 $file_sets[$ext][$f] = 1;
+//             }
+//         }
+//     }
 
-    foreach (array_keys($file_sets) as $ext){
-        $all_maps_f = $slug.'_'.$r.'_'.$ext.".zip";
-        $zip_fp = join_paths($res_dir, $all_maps_f);
-        $zip = new ZipArchive;
-        $zip->open($zip_fp, ZipArchive::CREATE);
-        foreach (array_keys($file_sets[$ext]) as $f){
-            $fp = join_paths($res_dir, $f);
-            $content = file_get_contents($fp);
-            $zip->addFromString(pathinfo ( $fp, PATHINFO_BASENAME), $content);
-        }
-        $zip->close();
-    }
-}
+//     foreach (array_keys($file_sets) as $ext){
+//         $all_maps_f = $slug.'_'.$r.'_'.$ext.".zip";
+//         $zip_fp = join_paths($res_dir, $all_maps_f);
+//         $zip = new ZipArchive;
+//         $zip->open($zip_fp, ZipArchive::CREATE);
+//         foreach (array_keys($file_sets[$ext]) as $f){
+//             $fp = join_paths($res_dir, $f);
+//             $content = file_get_contents($fp);
+//             $zip->addFromString(pathinfo ( $fp, PATHINFO_BASENAME), $content);
+//         }
+//         $zip->close();
+//     }
+// }
 
 // Sphere render
 $target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "spheres");
