@@ -841,7 +841,7 @@ ul#navbar {
         }
 
         li {
-            padding: 0.46em 0.5em 0.24em;
+            padding: 0.55em 0.5em 0.34em;
             margin: 0;
             list-style: none;
             white-space: nowrap;
@@ -865,7 +865,7 @@ ul#navbar {
                 width: 22px;
                 height: 22px;
                 margin-left: 0.5em;
-                margin-top: -1px;
+                margin-top: -4px;
                 vertical-align: top;
                 text-align: center;
                 font-size: 70%;
@@ -876,6 +876,20 @@ ul#navbar {
                 opacity: 0.9;
             }
         }
+        li.tag {
+            padding: 0.2em 0.5em 0.2em 1em;
+
+            .material-icons {
+                position: relative;
+                top: -2px;
+                font-size: 1em;
+                opacity: 0.7;
+            }
+        }
+        .last-tag {
+            margin-bottom: 0.5em;
+        }
+
         .current-cat {
             background: $c-accent-light;
         }
@@ -1023,7 +1037,7 @@ ul#navbar {
     display: inline-block;
     margin: 0.5em;
     border: 1px solid rgba(0,0,0,0);
-    width: calc(33.33% - 1em - 2px);
+    width: calc(25% - 1em - 2px);
     @include transition(0.2s);
 
     .thumbnail-wrapper {

@@ -6,7 +6,7 @@
     <div id="navbar-toggle"><i class="material-icons">menu</i></div>
 
     <ul id="navbar">
-        <a href="/hdris"><li>Textures</li></a><!--
+        <a href="/textures"><li>Textures</li></a><!--
         --><a id='shink-hack' href="https://www.patreon.com/texturehaven/posts?public=true"><li>News</li></a><!--
         --><a href="https://www.patreon.com/texturehaven"><li>Support Us</li></a><!--
         --><a href="/p/about-contact.php"><li>About/Contact</li></a>

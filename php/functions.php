@@ -453,8 +453,8 @@ function get_item_from_db($item, $reuse_conn=NULL){
     return $row;
 }
 
-function get_all_cats_or_tags($mode, $conn=NULL){
-    $db = get_from_db("popular", "all", "all", $conn, 0);
+function get_all_cats_or_tags($mode, $cat="all", $conn=NULL){
+    $db = get_from_db("popular", "all", $cat, $conn, 0);
     $all_flags = [];
     foreach ($db as $item){
         $flags = explode(";",  str_replace(',', ';', $item[$mode]));
@@ -471,12 +471,12 @@ function get_all_cats_or_tags($mode, $conn=NULL){
 
 function get_all_categories($conn=NULL){
     // Convenience function
-    return get_all_cats_or_tags("categories", $conn);
+    return get_all_cats_or_tags("categories", "all", $conn);
 }
 
-function get_all_tags($conn=NULL){
+function get_all_tags($cat="all", $conn=NULL){
     // Convenience function
-    return get_all_cats_or_tags("tags", $conn);
+    return get_all_cats_or_tags("tags", $cat, $conn);
 }
 
 function track_search($search_term, $category="", $reuse_conn=NULL){
@@ -561,7 +561,7 @@ function most_popular_in_each_category($reuse_conn=NULL){
 
     $a = [];
     $items = get_from_db("popular", "all", "all", $conn);
-    foreach (array_keys($GLOBALS['STANDARD_CATEGORIES']) as $c){
+    foreach (get_all_categories($conn) as $c){
         $found = false;
         foreach ($items as $h){
             $category_arr = explode(';', $h['categories']);
@@ -621,20 +621,38 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
         $conn = $reuse_conn;
     }
     echo "<div class='category-list-wrapper'>";
-    echo "<ul>";
-    foreach (array_keys($GLOBALS['STANDARD_CATEGORIES']) as $c){
+    echo "<ul id='category-list'>";
+    $categories = get_all_categories($conn);
+    array_unshift($categories, "all");
+    foreach ($categories as $c){
         $num_in_cat = num_items("all", $c, $conn);
         echo "<a href='/textures/?c=".$c."&amp;o={$sort}'>";
-        echo "<li title=\"".$GLOBALS['STANDARD_CATEGORIES'][$c]."\"";
+        echo "<li title=\"".nice_name($c)."\"";
         if ($current != "all" && $c == $current){
             echo " class='current-cat'";
         }
         echo ">";
-        echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
         echo nice_name($c, "category");
         echo "<div class='num-in-cat'>".$num_in_cat."</div>";
         echo "</li>";
         echo "</a>";
+        
+        if ($c != 'all'){
+            $tags_in_cat = get_all_tags($c, $conn);
+            $lt = end($tags_in_cat);
+            foreach ($tags_in_cat as $t){
+                echo "<a href='/textures/?c=".$c."&amp;s={$t}"."&amp;o={$sort}'>";
+                echo "<li class='tag";
+                if ($t == $lt){  // last tag
+                    echo " last-tag";
+                }
+                echo "'>";
+                echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
+                echo nice_name($t);
+                echo "</li>";
+                echo "</a>";
+            }
+        }
     }
     echo "</ul>";
     echo "</div>";
