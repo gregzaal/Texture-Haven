@@ -3,6 +3,7 @@ import sys
 import shutil
 import json
 import zipfile
+import warnings
 from PIL import Image
 from subprocess import call as run
 from math import floor
@@ -169,6 +170,7 @@ def main():
             for f in os.listdir(sf):
                 if f.startswith(slug):
                     fp = os.path.join(sf, f)
+                    warnings.simplefilter('ignore', Image.DecompressionBombWarning)
                     original_size = Image.open(fp).size
                     new_files = do_resolutions(slug, fp, original_size, output_folder)
                     for r in new_files:
