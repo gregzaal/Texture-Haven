@@ -170,6 +170,7 @@ def main():
             for f in os.listdir(sf):
                 if f.startswith(slug):
                     fp = os.path.join(sf, f)
+                    Image.MAX_IMAGE_PIXELS = None
                     warnings.simplefilter('ignore', Image.DecompressionBombWarning)
                     original_size = Image.open(fp).size
                     new_files = do_resolutions(slug, fp, original_size, output_folder)
