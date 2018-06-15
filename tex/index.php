@@ -55,7 +55,7 @@ if ($is_published){
     echo "<div id='preview-download'>";
     echo "<div id='item-preview'>";
     echo "<img src=\"/files/tex_images/spheres/".$slug.".jpg\" />";
-    echo "<img src=\"/files/tex_images/map_previews/".$slug."/albedo.jpg\" id='map-preview-img' class='hide'/>";
+    echo "<img src=\"#\" id='map-preview-img' class='hide'/>";
     echo "</div>";  // #item-preview
 
     echo "<div class='download-buttons'>";
@@ -72,17 +72,23 @@ if ($is_published){
     foreach ($resolutions as $r){
         $res_dir = join_paths($base_dir, $r);
         $files = scandir($res_dir);
-        $all_maps_f = $slug.'_'.$r.".zip";  // TODO multiple ext zips
-        $downloads["all"][$r]["zip"] = $all_maps_f;
         foreach ($files as $f){
             if ($f != '.' and $f != '..' and str_contains($f, '.')){
-                if ($f != $all_maps_f){
-                    $without_ext = pathinfo($f, PATHINFO_FILENAME);
-                    $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
-                    if ($ext != 'zip' and $ext != "png"){
-                        $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
-                        $downloads[$map_type][$r][$ext] = $f;
-                    }
+                $without_ext = pathinfo($f, PATHINFO_FILENAME);
+                $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+                if ($ext == 'zip'){
+                    $map_type = 'all';
+                    $f_split = explode('_', $f);
+                    $ext = str_replace('.zip', '', array_pop($f_split));  // Get only 'jpg' from fname
+                }else{
+                    $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
+                }
+                $r_int = numbers_only($r);
+
+                // Temporarily disable PNG and anything over 4k to spare the server some stress.
+                // Will be re-enabled after respective patreon goals are met.
+                if ($r_int <= 4 and $ext != 'png'){
+                    $downloads[$map_type][$r][$ext] = $f;
                 }
             }
         }
@@ -123,8 +129,10 @@ if ($is_published){
             $i = 0;
             foreach(array_keys($downloads[$map_type][$res]) as $ext){
                 $i += 1;
-                $file = $downloads[$map_type][$res][$ext];
-                $filesize = filesize(join_paths($base_dir, $res, $downloads[$map_type][$res][$ext]))/1024/1024;  // size in MB
+                $fname = $downloads[$map_type][$res][$ext];
+                $subpath = join_paths($res, $fname);
+                $dl_url = join_paths('files', 'textures', $slug, $subpath);
+                $filesize = filesize(join_paths($base_dir, $subpath))/1024/1024;  // size in MB
                 if ($filesize > 10){
                     $d = 0;
                 }else if ($filesize > 1){
@@ -133,7 +141,9 @@ if ($is_published){
                     $d = 2;
                 }
                 $filesize = round($filesize, $d);
-                echo "<div class='dl-btn'";
+                $fhash = simple_hash($fname);
+                echo "<a href=\"/".$dl_url."\" download=\"".$fname."\" target='_blank'>";
+                echo "<div class='dl-btn' id=\"".$info['id']."\" fhash=\"".$fhash."\"";
                 $width = 100/sizeof($downloads[$map_type][$res]);
                 echo " style='width: calc(".$width."% - 2em";
                 if ($i > 1){
@@ -147,6 +157,7 @@ if ($is_published){
                 echo strtoupper($ext);
                 echo " &sdot; ".$filesize." MB";
                 echo "</div>";
+                echo "</a>";
             }
             echo "</div>";  // .res-item
         }

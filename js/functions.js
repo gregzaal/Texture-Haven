@@ -11,7 +11,7 @@ var click_functions = function(){
         }
     });
 
-    // Problem HDRI text
+    // Problem text
     $('.problem-wrapper').children().mouseenter(function() {
         $(this).parent().children('.problem').addClass("problem-hover");
     });
@@ -122,6 +122,10 @@ var click_functions = function(){
             this_menu.addClass("hide");
             $(this).removeClass("map-download-active");
         }
+    });
+    // Download track
+    $('.dl-btn').click(function() {
+        $.post("dl_click.php", {id: $(this).attr("id"), fhash: $(this).attr("fhash")});
     });
 };
 

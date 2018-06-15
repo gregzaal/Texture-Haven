@@ -101,8 +101,17 @@ function random_hash($length=8){
     return $hash;
 }
 
+function simple_hash($str){
+    // Simple not-so-secure 8-char hash
+    return hash('crc32', $GLOBALS['GEN_HASH_SALT'].$str, FALSE);
+}
+
 function simple_chars_only($str){
     return preg_replace("/[^A-Za-z0-9_\- ]/", '', $str);
+}
+
+function numbers_only($str){
+    return preg_replace("/[^0-9]/", '', $str);
 }
 
 function map_range($value, $fromLow, $fromHigh, $toLow, $toHigh) {
@@ -468,31 +477,6 @@ function get_all_categories($conn=NULL){
 function get_all_tags($conn=NULL){
     // Convenience function
     return get_all_cats_or_tags("tags", $conn);
-}
-
-function increment_download_count($id, $res, $reuse_conn=NULL){
-    if (is_null($reuse_conn)){
-        $conn = db_conn_read_write();
-    }else{
-        $conn = $reuse_conn;
-    }
-
-    if (!$id){
-        header("Location: /textures/");
-    }else{
-        // Main download_counting table
-        $sql = "INSERT INTO download_counting (`ip`, `tex_id`, `res`) ";
-        $sql .= "VALUES (INET_ATON(\"".$_SERVER['REMOTE_ADDR']."\"), \"".$id."\", \"".$res."\")";
-        $result = mysqli_query($conn, $sql);
-
-        // Product table
-        $sql = "UPDATE textures SET download_count=download_count+1 WHERE id='".$id."'";
-        $result = mysqli_query($conn, $sql);
-
-        if (is_null($reuse_conn)){
-            $conn->close();
-        }
-    }
 }
 
 function track_search($search_term, $category="", $reuse_conn=NULL){
