@@ -29,34 +29,6 @@ foreach ($PATREON_GOALS as $g){
 }
 $PATREON_EARNINGS = floor(($PATREON_CURRENT_GOAL['amount_cents']*($PATREON_CURRENT_GOAL['completed_percentage']/100))/100);
 
-//TODO
-$STANDARD_CATEGORIES = ["all" => "All HDRI Haven HDRIs",
-                        "outdoor" => "Outside buildings or natural structures",
-                        "skies" => "Few or no nearby trees/buildings protruding above the horizon",
-                        "indoor" => "Inside buildings, caves or other shelters",
-                        "studio" => "In a photography studio with various lighting setups",
-                        "nature" => "Natural or rural environments with few or no man-made elements around",
-                        "urban" => "Man-made environments such as cities or inside buildings",
-                        "night" => "Night time HDRIs",
-                        "sunrise-sunset" => "When the sun is very low or even just below the horizon",
-                        "morning-afternoon" => "Before/after noon when the sun is a bit low in the sky",
-                        "midday" => "Around noon when the sun is high in the sky",
-                        "clear" => "No clouds visible",
-                        "partly cloudy" => "Some clouds visible",
-                        "overcast" => "Very cloudy, usually with flat lighting",
-                        "high contrast" => "Producing clear, harsh shadows usually from a single strong light source (e.g. sun or street lamp)",
-                        "medium contrast" => "Producing soft/weak but distinct shadows or variation in color",
-                        "low contrast" => "Producing very soft shadows usually by large weak light sources (e.g. overcast sky)",
-                        "natural light" => "Lit from natural sources (e.g. sky, sun)",
-                        "artificial light" => "Lit from man-made sources (lamps)",
-                        ];
-$STANDARD_RESOLUTIONS = ["16k" => "16384x8192",
-                         "8k" => "8192x4096",
-                         "4k" => "4096x2048",
-                         "2k" => "2048x1024",
-                         "1k" => "1024x512",
-                         ];
-
 // Don't cache these pages | GET params ignored | matched to $_SERVER['PHP_SELF']
 $NO_CACHE = ["/gallery/do_submit.php",
              "/gallery/moderate.php"
@@ -639,11 +611,11 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
         
         if ($c != 'all'){
             $tags_in_cat = get_all_tags($c, $conn);
-            $lt = end($tags_in_cat);
+            $last_tag = end($tags_in_cat);
             foreach ($tags_in_cat as $t){
                 echo "<a href='/textures/?c=".$c."&amp;s={$t}"."&amp;o={$sort}'>";
                 echo "<li class='tag";
-                if ($t == $lt){  // last tag
+                if ($t == $last_tag){
                     echo " last-tag";
                 }
                 echo "'>";
