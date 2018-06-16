@@ -477,13 +477,14 @@ ul#navbar {
 }
 #banner-img-a {
     @extend #banner-img;
-    background: url(/files/site_images/landing/robert_bodis_red_straight.jpg) no-repeat center center;  // TODO
+    background: url(/files/site_images/landing/1.jpg) no-repeat center center;
 }
 #banner-img-b {
     @extend #banner-img;
-    background: url(/files/site_images/landing/robert_bodis_red_straight.jpg) no-repeat center center;  // TODO
+    background: url(/files/site_images/landing/1.jpg) no-repeat center center;
 }
 .banner-img-credit {
+    display: none;  // hide until we show other people's work too
     position: absolute;
     left: 0;
     bottom: 1em;
