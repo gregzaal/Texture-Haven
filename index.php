@@ -84,7 +84,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
     <div class="segment-montage">
         <a href="/hdris">
-            <div class='button'>Browse 200+ Textures</div>
+            <div class='button'>Browse Textures</div>
         </a>
     </div>
 
