@@ -609,32 +609,34 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
     $categories = get_all_categories($conn);
     array_unshift($categories, "all");
     foreach ($categories as $c){
-        $num_in_cat = num_items("all", $c, $conn);
-        echo "<a href='/textures/?c=".$c."&amp;o={$sort}'>";
-        echo "<li title=\"".nice_name($c)."\"";
-        if ($current != "all" && $c == $current){
-            echo " class='current-cat'";
-        }
-        echo ">";
-        echo nice_name($c, "category");
-        echo "<div class='num-in-cat'>".$num_in_cat."</div>";
-        echo "</li>";
-        echo "</a>";
-        
-        if ($c != 'all'){
-            $tags_in_cat = get_all_tags($c, $conn);
-            $last_tag = end($tags_in_cat);
-            foreach ($tags_in_cat as $t){
-                echo "<a href='/textures/?c=".$c."&amp;s={$t}"."&amp;o={$sort}'>";
-                echo "<li class='tag";
-                if ($t == $last_tag){
-                    echo " last-tag";
+        if ($c){  // Ignore uncategorized
+            $num_in_cat = num_items("all", $c, $conn);
+            echo "<a href='/textures/?c=".$c."&amp;o={$sort}'>";
+            echo "<li title=\"".nice_name($c)."\"";
+            if ($current != "all" && $c == $current){
+                echo " class='current-cat'";
+            }
+            echo ">";
+            echo nice_name($c, "category");
+            echo "<div class='num-in-cat'>".$num_in_cat."</div>";
+            echo "</li>";
+            echo "</a>";
+            
+            if ($c != 'all'){
+                $tags_in_cat = get_all_tags($c, $conn);
+                $last_tag = end($tags_in_cat);
+                foreach ($tags_in_cat as $t){
+                    echo "<a href='/textures/?c=".$c."&amp;s={$t}"."&amp;o={$sort}'>";
+                    echo "<li class='tag";
+                    if ($t == $last_tag){
+                        echo " last-tag";
+                    }
+                    echo "'>";
+                    echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
+                    echo nice_name($t);
+                    echo "</li>";
+                    echo "</a>";
                 }
-                echo "'>";
-                echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
-                echo nice_name($t);
-                echo "</li>";
-                echo "</a>";
             }
         }
     }
@@ -734,9 +736,7 @@ function get_patreon(){
     $remove_names = [
         "Testymctestface",
     ];
-    $add_names = [
-        "Test" => 5,
-    ];
+    $add_names = [];
 
     // Get dummy data if working locally
     if ($GLOBALS['WORKING_LOCALLY']){
