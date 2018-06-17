@@ -193,16 +193,33 @@ if ($uploadOk == 0) {
 }
 // Make JPG with correct background color
 if (!$GLOBALS['WORKING_LOCALLY']){
+    // Main preview
+    $size = 640;
     $jpg_file = join_paths($target_dir, $slug.".jpg");
     $img = new imagick();
-    $img->newImage(640, 640, "rgb(240, 240, 240)");
+    $img->newImage($size, $size, "rgb(240, 240, 240)");
     $tmp_img = new imagick($target_file);
+    $tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
     $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
     $img->setImageFormat('jpg');
     $img->setImageCompression(Imagick::COMPRESSION_JPEG);
     $img->setImageCompressionQuality(90);
     $img->writeImage($jpg_file);
-    // TODO thumbnail for tex grid
+
+    // Thumbnail
+    $size = 350;
+    $target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails");
+    qmkdir($target_dir);
+    $jpg_file = join_paths($target_dir, $slug.".jpg");
+    $img = new imagick();
+    $img->newImage($size, $size, "rgb(240, 240, 240)");
+    $tmp_img = new imagick($target_file);
+    $tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
+    $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
+    $img->setImageFormat('jpg');
+    $img->setImageCompression(Imagick::COMPRESSION_JPEG);
+    $img->setImageCompressionQuality(80);
+    $img->writeImage($jpg_file);
 }
 
 

@@ -38,7 +38,7 @@ foreach ($items as $i){
     // Everything that is in 1k should be in all other folders too
     $resolutions_path = join_paths($base_dir, "textures", $slug);
     if (!file_exists($resolutions_path)){
-        array_push($issues, $resolutions_path);
+        array_push($issues, "All texture files");
     }else{
         $resolutions = scandir($resolutions_path);
         $one_k_path = join_paths($resolutions_path, "1k");

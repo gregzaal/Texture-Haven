@@ -136,12 +136,6 @@ function is_in_the_past($d) {
     return (time() - strtotime($d) > 0);
 }
 
-function clear_cache(){
-    $cache_dir = $_SERVER['DOCUMENT_ROOT']."/php/cache/";
-    $r = array_map('unlink', glob("$cache_dir*.html"));
-    return sizeof($r);  // Number of cache files cleared
-}
-
 function first_in_array($a){
     // Return first item of array, php is silly
     $a = array_reverse($a);
@@ -230,6 +224,12 @@ function qmkdir($d) {
     if (!file_exists($d)){
         mkdir($d, 0777, true);
     }
+}
+
+function clear_cache(){
+    $cache_dir = $_SERVER['DOCUMENT_ROOT']."/php/cache/";
+    $r = array_map('unlink', glob("$cache_dir*.html"));
+    return sizeof($r);  // Number of cache files cleared
 }
 
 
