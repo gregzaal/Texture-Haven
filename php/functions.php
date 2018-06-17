@@ -64,6 +64,18 @@ function str_contains($haystack, $needle) {
     return strpos($haystack, $needle) !== false;
 }
 
+function str_lreplace($search, $replace, $subject) {
+    // Replace only last occurance in string
+    $pos = strrpos($subject, $search);
+
+    if($pos !== false)
+    {
+        $subject = substr_replace($subject, $replace, $pos, strlen($search));
+    }
+
+    return $subject;
+}
+
 function random_hash($length=8){
     $chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
     $hash = "";

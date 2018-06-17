@@ -54,6 +54,7 @@ var on_load = function(){
     ["6.jpg", "Rob Tuytel"],
     ["7.jpg", "Rob Tuytel"],
     ["8.jpg", "Rob Tuytel"],
+    ["9.jpg", "Rob Tuytel"],
     ];
 
     setTimeout(function(){
