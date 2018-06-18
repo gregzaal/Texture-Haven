@@ -898,6 +898,20 @@ ul#navbar {
     }
 }
 
+#sidebar::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+#sidebar::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 5px;
+}
+ 
+#sidebar::-webkit-scrollbar-thumb {
+    background-color: $c-accent-lighter;
+    border-radius: 12px;
+}
+
 
 // ============================================================================
 // Texture Grid
