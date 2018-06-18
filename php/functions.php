@@ -205,6 +205,12 @@ function debug_email($subject, $text){
     // @mail($email_to, $subject, clean_email_string($text), $headers);
 }
 
+function debug_console($str){
+    echo "<script>";
+    echo "console.log(\"".$str."\");";
+    echo "</script>";
+}
+
 function print_ra($array){
     echo "<pre>";
     print_r($array);
@@ -657,7 +663,12 @@ function make_grid_item($i, $sort, $category="all"){
     $html .= "<div class='grid-item'>";
 
     $html .= "<div class='thumbnail-wrapper'>";
-    $html .= "<img class='thumbnail' src=\"/files/tex_images/thumbnails/{$slug}.jpg\" />";
+    $img_url = "/files/tex_images/thumbnails/{$slug}.jpg";
+    $local_image_path = join_paths($GLOBALS['SYSTEM_ROOT'], $img_url);
+    if ($GLOBALS['WORKING_LOCALLY'] and !file_exists($local_image_path)){
+        $img_url = "http://dev.texturehaven.com".$img_url;
+    }
+    $html .= "<img class='thumbnail' src=\"{$img_url}\" />";
 
     $age = time() - strtotime($i['date_published']);
     if ($age < 7*86400){

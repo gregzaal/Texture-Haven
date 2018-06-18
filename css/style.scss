@@ -1257,6 +1257,14 @@ ul#navbar {
         left: 0;
     }
 }
+@media all and (max-width: 1024px){
+    #item-preview {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+    }
+}
 
 .download-buttons {
     position: relative;
@@ -1370,6 +1378,15 @@ ul#navbar {
         &:hover{
             background-color: $c-accent-light;
         }
+    }
+}
+@media all and (max-width: 1024px){
+    .download-buttons {
+        display: block;
+        width: auto;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
