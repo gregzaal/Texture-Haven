@@ -1431,49 +1431,6 @@ ul#navbar {
 
 
 // ============================================================================
-// Vault Info
-// ============================================================================
-
-.vault-wrapper {
-    margin-top: 2em;
-    text-align: center;
-
-    .vault-number {
-        color: $c-accent;
-        font-size: 12em;
-        font-weight: $fw-extra-bold;
-    }
-
-    .patreon-bar-wrapper {
-        margin: 1em 2em;
-
-        .patreon-bar-outer {
-            height: 16px;
-            border: 3px solid $c-accent;
-
-            .patreon-bar-inner {
-                height: 12px;
-                min-width: 12px;
-            }
-
-            .achieved {
-                background-color: $c-green;
-            }
-        }
-
-        .achieved {
-            border-color: $c-green;
-        }
-    }
-
-    p {
-        color: $c-accent;
-        margin-top: 0.3em;
-    }
-}
-
-
-// ============================================================================
 // Gallery
 // ============================================================================
 
@@ -1654,26 +1611,6 @@ ul#navbar {
 
         &:hover {
             @include scale(1.1);
-        }
-    }
-}
-
-
-// ============================================================================
-// Backplates
-// ============================================================================
-
-#backplates-grid {
-    margin-top: 1em;
-
-    .item {
-        display: inline-block;
-        padding: 5px;
-        width: calc(25% - 10px);
-        vertical-align: middle;
-
-        img {
-            width: 100%;
         }
     }
 }
