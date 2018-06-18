@@ -26,13 +26,6 @@ echo ">";
     <div class='social'>
         <a href="https://www.facebook.com/texturehaven/"><img src="/files/site_images/icons/facebook.svg"></a>
         <a href="https://twitter.com/TextureHaven"><img src="/files/site_images/icons/twitter.svg"></a>
-        <!-- TODO email subscriptions -->
-        <!-- <div id='email-form'>
-            <form action='https://gumroad.com/follow_from_embed_form' class='form gumroad-follow-form-embed' method='post'>
-                <input name='seller_id' type='hidden' value='798267932401'>
-                <input name='email' placeholder='Monthly email updates' type='email'><button data-custom-highlight-color='' type='submit'>Subscribe</button>
-            </form>
-        </div> -->
     </div>
 
     <ul class='footer-links'>
