@@ -22,7 +22,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <?php 
 
-$cmd = "pwd && ls";
+$cmd = "../utils/update.sh";
 
 $output = shell_exec($cmd);
 
