@@ -27,7 +27,7 @@ $output = shell_exec($cmd);
 print_ra ($output);
 
 if ($output != "Already up-to-date.\n"){
-    echo "<p>What changed:</p>";
+    echo "<p>Changes:</p>";
     $cmd = "../utils/show_last_changes.sh";
     $output = shell_exec($cmd);
     print_ra ($output);
