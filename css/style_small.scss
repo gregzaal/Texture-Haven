@@ -103,28 +103,6 @@ ul#navbar {
     margin-left: 0;
 }
 
-#email-form {
-    display: block;
-    margin-top: 0.7em;
-    margin-left: 0;
-}
-
-.category-list-images li{
-    margin: 0 0.5em;
-    width: 100px;
-    height: 100px;
-
-    p {
-        line-height: 100px;
-    }
-}
-#hdris-landing-page .category-segment {
-    overflow-x: scroll;
-}
-#hdris-landing-page .grid-item {
-    width: auto;
-}
-
 #sidebar-toggle {
     display: block;
 }
@@ -160,10 +138,4 @@ ul#navbar {
 
 .download-buttons {
     padding: 1em;
-}
-
-#backplates-grid {
-    .item {
-        width: calc(50% - 10px);
-    }
 }
