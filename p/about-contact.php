@@ -33,7 +33,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
     <h1>Contact</h1>
     <p>Got a question? Please read the <a href="/p/faq.php">FAQ</a> first :)</p>
-    <p>The easiest ways to get hold of me is through email: <?php insert_email() ?></p>
+    <p>The easiest ways to get hold of me is through email: <?php info@hdrihaven.com() ?></p>
 
 </div>
 
