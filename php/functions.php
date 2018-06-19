@@ -789,7 +789,7 @@ function get_patreon(){
             [
             "amount_cents" => 150000,
             "completed_percentage" => 83,
-            "description" => "<strong>Enable 16K downloads<br><br></strong>Right now you can only download up to 8K resolution (to keep server costs affordable), but 99% of my HDRIs are actually 16K. It would be just a push of a button to make 16K available, but I need to make sure I can afford it first.<br><br><em>Money used for: server upgrade and higher bandwidth costs.</em>"
+            "description" => "<strong>Test Goal Title<br><br></strong>Test goal description :).</em>"
             ],
         ];
 

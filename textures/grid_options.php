@@ -1,5 +1,5 @@
 <?php
-$sort_options = ["popular" => "Downloads per day, with recent HDRIs weighted more",
+$sort_options = ["popular" => "Downloads per day, with recent content weighted more",
                  "downloads" => "Total downloads over all time",
                  "date_published" => "When they were uploaded"];
 $current_url = $_SERVER['PHP_SELF'];

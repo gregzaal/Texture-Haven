@@ -52,8 +52,8 @@ var click_functions = function(){
             $("#artwork-name").html($(this).attr("artwork-name"));
             $("#author-name").html($(this).attr("author-name"));
             $("#author-link").attr("href", $(this).attr("author-link"));
-            $("#hdri-used-name").html($(this).attr("hdri-used-name"));
-            $("#hdri-used-link").attr("href", $(this).attr("hdri-used-link"));
+            $("#tex-used-name").html($(this).attr("tex-used-name"));
+            $("#tex-used-link").attr("href", $(this).attr("tex-used-link"));
 
             if ($(this).attr("author-link") == "#"){
                 $("#author-link").addClass("hide-link");
