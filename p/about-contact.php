@@ -17,9 +17,6 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
     <h1>About</h1>
     <p>
-        Placeholder
-    </p>
-    <p>
         All textures here are <a href="/p/license.php">CC0</a> (public domain). No paywalls, accounts or email spam. Just download what you want, and use it however.
     </p>
 
