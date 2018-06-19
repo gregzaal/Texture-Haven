@@ -542,7 +542,7 @@ ul#navbar {
 
     #banner-logo {
         width: calc(100% - 3em);
-        max-width: 512px;
+        max-width: 600px;
         filter: drop-shadow( 0 0 4px rgba(0,0,0, 0.3) );
     }
 
@@ -582,7 +582,7 @@ ul#navbar {
 }
 .segment-montage {
     text-align: center;
-    background: url(/files/site_images/bottom_banner.jpg) no-repeat center center;  // TODO
+    background: url(/files/site_images/bottom_banner.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 

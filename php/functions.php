@@ -194,15 +194,14 @@ function clean_email_string($string) {
 }
 
 function debug_email($subject, $text){
-    // TODO uncomment - just disabled while site is WIP
-    // $email_to = $GLOBALS['ADMIN_EMAIL'];
-    // $email_from = "info@texturehaven.com";
-    // $headers = 'From: '.$email_from."\r\n".
-    // 'Reply-To: '.$email_from."\r\n" .
-    // 'MIME-Version: 1.0' . "\r\n" .
-    // 'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-    // 'X-Mailer: PHP/' . phpversion();
-    // @mail($email_to, $subject, clean_email_string($text), $headers);
+    $email_to = $GLOBALS['ADMIN_EMAIL'];
+    $email_from = "info@hdrihaven.com";
+    $headers = 'From: '.$email_from."\r\n".
+    'Reply-To: '.$email_from."\r\n" .
+    'MIME-Version: 1.0' . "\r\n" .
+    'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    @mail($email_to, "texhav__".$subject, clean_email_string($text), $headers);
 }
 
 function debug_console($str){

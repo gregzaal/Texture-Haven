@@ -1,6 +1,6 @@
 <div id="header">
     <div id="header-logo">
-        <a href="/"><img src="/files/site_images/logo_line.svg" width="256" /></a>
+        <a href="/"><img src="/files/site_images/logo_line_tmp.png" /></a>  <!-- TODO SVG -->
     </div>
 
     <div id="navbar-toggle"><i class="material-icons">menu</i></div>
