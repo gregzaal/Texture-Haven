@@ -85,9 +85,9 @@ if ($is_published){
                 }
                 $r_int = numbers_only($r);
 
-                // Temporarily disable PNG and anything over 4k to spare the server some stress.
+                // Temporarily disable anything over 4k to spare the server some stress.
                 // Will be re-enabled after respective patreon goals are met.
-                if ($r_int <= 4 and $ext != 'png'){
+                if ($r_int <= 4){
                     $downloads[$map_type][$r][$ext] = $f;
                 }
             }
