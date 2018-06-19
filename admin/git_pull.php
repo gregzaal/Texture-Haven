@@ -27,7 +27,7 @@ $output = shell_exec($cmd);
 print_ra ($output);
 
 if ($output != "Already up-to-date.\n"){
-    echo "<p>Changes:</p>";
+    echo "<p>What changed:</p>";
     $cmd = "../utils/show_last_changes.sh";
     $cmd .= "cd ../ && pwd && git diff master@{1} master";
     $output = shell_exec($cmd);
