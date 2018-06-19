@@ -23,16 +23,15 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 <?php 
 
 $cmd = "../utils/update.sh";
-$cmd .= " && ";
-$cmd .= "echo -e \"Last Changes:\"";
-$cmd .= " && ";
-$cmd .= "git diff master@{1} master";
-
 $output = shell_exec($cmd);
+print_ra ($output);
 
-echo '<pre>';
-echo $output;
-echo '</pre>';
+if ($output != "Already up-to-date."){
+    echo "<p>Changes:</p>";
+    $cmd .= "cd ../ && pwd && git diff master@{1} master";
+    $output = shell_exec($cmd);
+    print_ra ($output);
+}
 
 ?>
 
