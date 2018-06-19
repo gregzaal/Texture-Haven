@@ -28,10 +28,10 @@
     </div>
     </a>
 
-    <a href="/admin/clear_cache.php">
+    <a href="/admin/git_pull.php">
     <div class='header-item'>
-        <i class="fa fa-eraser" aria-hidden="true"></i>
-        <p>Clear Cache</p>
+        <i class="fab fa-github" aria-hidden="true"></i>
+        <p>Git Pull</p>
     </div>
     </a>
 
