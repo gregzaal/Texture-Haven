@@ -26,7 +26,9 @@ $cmd = "pwd && ls";
 
 $output = shell_exec($cmd);
 
+echo '<pre>';
 echo $output;
+echo '</pre>';
 
 ?>
 
