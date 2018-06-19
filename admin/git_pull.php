@@ -23,13 +23,13 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 <?php 
 
 $cmd = "../utils/update.sh";
-$output = shell_exec($cmd);
+$output = htmlspecialchars(shell_exec($cmd));
 print_ra ($output);
 
 if ($output != "Already up-to-date.\n"){
     echo "<p>Changes:</p>";
     $cmd = "../utils/show_last_changes.sh";
-    $output = shell_exec($cmd);
+    $output = htmlspecialchars(shell_exec($cmd));
     print_ra ($output);
 }
 
