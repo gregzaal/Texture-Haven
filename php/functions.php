@@ -735,18 +735,52 @@ function pledge_rank($pledge_amount){
     return $pledge_rank;
 }
 
+function get_name_changes($reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+    
+    $sql = "SELECT * FROM patron_name_mod";
+    $result = mysqli_query($conn, $sql);
+    $array = array();
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $array[$row['id']] = $row;
+        }
+    }
+    if (is_null($reuse_conn)){
+        $conn->close();
+    }
+
+    $name_replacements = [];
+    $add_names = [];
+    $remove_names = [];
+    foreach ($array as $i){
+        $n_from = $i['n_from'];
+        $n_to = $i['n_to'];
+        if ($n_to and $n_from){
+            $name_replacements[$n_from] = $n_to;
+            debug_console("Replace ".$n_from.' -> '.$n_to);
+        }else if($n_to and !$n_from){
+            $add_names[$n_to] = $i['rank'];
+            debug_console("Add ".$n_to);
+        }else{
+            array_push($remove_names, $n_from);
+            debug_console("Remove ".$n_from);
+        }
+    }
+
+    return [$name_replacements, $add_names, $remove_names];
+}
+
 function get_patreon(){
     $patreoncache = $_SERVER['DOCUMENT_ROOT'].'/php/patreon_data/_latest.json';
 
-    // TODO use DB instead of hard coding here
     // Some users request name change
-    $name_replacements = [
-        "Test" => "Tester",
-        ];
-    $remove_names = [
-        "Testymctestface",
-    ];
-    $add_names = [];
+    $conn = db_conn_read_only();
+    list($name_replacements, $add_names, $remove_names) = get_name_changes($conn);
 
     // Get dummy data if working locally
     if ($GLOBALS['WORKING_LOCALLY']){
