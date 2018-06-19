@@ -268,7 +268,7 @@ function include_start_html($title, $slug="") {
     $html = str_replace('%URL%', "https://texturehaven.com/", $html);
 
     if ($slug != ""){
-        $html = str_replace('%FEATURE%', "https://texturehaven.com/files/tex_images/meta/{$slug}.jpg", $html);
+        $html = str_replace('%FEATURE%', "https://texturehaven.com/files/tex_images/spheres/{$slug}.jpg", $html);
     }else{
         $html = str_replace('%FEATURE%', "https://texturehaven.com/feature.jpg", $html);
     }
