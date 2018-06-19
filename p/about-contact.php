@@ -10,7 +10,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
     </div>
     <h1>Hi there!</h1>
     <p>
-        My name is Rob Tuytel, I’m from the Netherlands and I mainly work as an environment designer. I produce VR projects with historical backgrounds and I also teach a course on the Udemy platform for the last few years.
+        My name is Rob Tuytel, I'm from the Netherlands and I mainly work as an environment designer. I produce VR projects with historical backgrounds and I also teach a course on the Udemy platform for the last few years.
     </p>
 
     <div style="clear: both"></div>
