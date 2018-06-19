@@ -26,13 +26,6 @@ $cmd = "../utils/update.sh";
 $output = shell_exec($cmd);
 print_ra ($output);
 
-if ($output != "Already up-to-date.\n"){
-    echo "<p>Changes:</p>";
-    $cmd .= "cd ../ && pwd && git diff master@{1} master";
-    $output = shell_exec($cmd);
-    print_ra ($output);
-}
-
 ?>
 
 </div>
