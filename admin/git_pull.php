@@ -23,6 +23,10 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 <?php 
 
 $cmd = "../utils/update.sh";
+$cmd .= " && ";
+$cmd .= "echo -e \"Last Changes:\"";
+$cmd .= " && ";
+$cmd .= "git diff master@{1} master";
 
 $output = shell_exec($cmd);
 
