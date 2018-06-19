@@ -7,8 +7,6 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 <div id="page-wrapper">
     <h1>Frequently Asked Questions</h1>
 
-    <!-- TODO -->
-
     <div class="anchor-wrapper"><a class="anchor" name="what"></a></div>
     <a href="#what"><h2>What is a scanned texture ?</h2></a>
     <p>
