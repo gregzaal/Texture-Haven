@@ -164,7 +164,7 @@ if ($is_published){
         echo "</div>";  // .res-menu
         echo "</div>";  // .map-type
     }
-    echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='http://localhaven:81/p/license.php'>CC0</a><p>";
+    echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='/p/license.php'>CC0</a><p>";
     echo "</div>";  // .download-buttons
     echo "</div>";  // #preview-download
 }
