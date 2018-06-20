@@ -19,6 +19,9 @@ if (empty($_GET["t"])){
     header("Location: /textures/");
 }
 
+$slug = htmlspecialchars($slug);
+$category = htmlspecialchars($category);
+
 $conn = db_conn_read_only();
 $info = get_item_from_db($slug, $conn);
 

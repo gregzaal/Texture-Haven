@@ -18,6 +18,10 @@ if (isset($_GET["c"]) && trim($_GET["c"])){
     $category = $_GET["c"];
 }
 
+$sort = htmlspecialchars($sort);
+$search = htmlspecialchars($search);
+$category = htmlspecialchars($category);
+
 include_start_html("Textures: ".nice_name($category, "category"));
 include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
@@ -42,7 +46,7 @@ track_search($search, $category, $reuse_conn=NULL)
     echo "<div class='title-bar'>";
     echo "<h1>";
     if ($search != "all") {
-        echo "Search: \"".htmlspecialchars($search)."\"";
+        echo "Search: \"".$search."\"";
         if ($category != "all") {
             echo " in category: ".nice_name($category, "category");
         }
