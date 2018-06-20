@@ -665,7 +665,7 @@ function make_grid_item($i, $sort, $category="all"){
     $img_url = "/files/tex_images/thumbnails/{$slug}.jpg";
     $local_image_path = join_paths($GLOBALS['SYSTEM_ROOT'], $img_url);
     if ($GLOBALS['WORKING_LOCALLY'] and !file_exists($local_image_path)){
-        $img_url = "http://dev.texturehaven.com".$img_url;
+        $img_url = "http://texturehaven.com".$img_url;
     }
     $html .= "<img class='thumbnail' src=\"{$img_url}\" />";
 
