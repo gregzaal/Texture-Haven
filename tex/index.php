@@ -87,12 +87,7 @@ if ($is_published){
                     $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
                 }
                 $r_int = numbers_only($r);
-
-                // Temporarily disable anything over 4k to spare the server some stress.
-                // Will be re-enabled after respective patreon goals are met.
-                if ($r_int <= 4){
-                    $downloads[$map_type][$r][$ext] = $f;
-                }
+                $downloads[$map_type][$r][$ext] = $f;
             }
         }
     }
