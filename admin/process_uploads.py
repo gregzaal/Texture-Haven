@@ -16,19 +16,17 @@ def get_config():
     cf = os.path.join(script_dir, 'process_uploads.cfg')
     if not os.path.exists(cf):
         print ("Config file doesn't exist!")
-        pause()
         sys.exit(0)
     with open(cf, 'r') as f:
         data = json.load(f)
     return data
+
 
 config = get_config()
 input_folder = config['input_path']
 output_folder = config['output_path']
 imagemagick_convert = config['imagemagick_convert_exe']
 
-def pause():
-    input("Press any key to continue")
 
 def qmkdir(p):
     if not os.path.exists(p):
@@ -190,7 +188,5 @@ def main():
     if errors:
         print ("Errors:")
         pprint (errors)
-
-    pause()
 
 main()
