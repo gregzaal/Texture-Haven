@@ -159,6 +159,8 @@ def make_zips(slug, r, files):
 def main():
 
     subfolders = os.listdir(input_folder)
+    checked = 0
+    processed = 0
     errors = []
     for slug in subfolders:
         sf = os.path.join(input_folder, slug)
@@ -166,7 +168,9 @@ def main():
             all_new_files = {}
             errors_here = False
             for f in os.listdir(sf):
+                checked += 1
                 if f.startswith(slug):
+                    processed += 1
                     fp = os.path.join(sf, f)
                     Image.MAX_IMAGE_PIXELS = None
                     warnings.simplefilter('ignore', Image.DecompressionBombWarning)
@@ -185,6 +189,7 @@ def main():
                 for r in all_new_files:
                     make_zips(slug, r, all_new_files[r])
                 shutil.rmtree(sf)  # Delete successfully uploaded folder
+    print ("Checked:", checked, " -  Processed:", processed, " -  Errors:", len(errors))
     if errors:
         print ("Errors:")
         pprint (errors)
