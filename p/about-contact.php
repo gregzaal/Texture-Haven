@@ -17,6 +17,9 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
     <h1>About</h1>
     <p>
+        The purpose of Texture Haven is to provide a platform of high quality PBR textures for free to everyone, with no catch.
+    </p>
+    <p>
         All textures here are <a href="/p/license.php">CC0</a> (public domain). No paywalls, accounts or email spam. Just download what you want, and use it however.
     </p>
 
