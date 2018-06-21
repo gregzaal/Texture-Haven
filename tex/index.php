@@ -104,7 +104,7 @@ if ($is_published){
             "spec" => "Specular",
         ];
         foreach (array_keys($map_name_arr) as $m){
-            if ($map_type == $m){
+            if (strtolower($map_type) == $m){
                 $map_type_str = $map_name_arr[$m];
             }
         }
@@ -143,9 +143,7 @@ if ($is_published){
                 echo "<a href=\"/".$dl_url."\" download=\"".$fname."\" target='_blank'>";
                 echo "<div class='dl-btn' id=\"".$info['id']."\" fhash=\"".$fhash."\"";
                 $width = 100/sizeof($downloads[$map_type][$res]);
-                echo " style='width: calc(".$width."% - 2em";
-                echo ")'";
-                echo ">";
+                echo " style='width: calc(".$width."% - 2em)'>";
                 if ($i == 1){
                     echo $res." &sdot; ";
                 }
