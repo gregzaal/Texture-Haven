@@ -254,7 +254,7 @@
             }
         }
     }
-    @media all and (max-width: 1055px){
+    @media all and (max-width: 1102px){
         // Hide when it doesn't fit
         .patreon-bar-wrapper {
             display: none;
@@ -306,8 +306,8 @@ ul#navbar {
 .nav-bar-spacer {
     height: $header-height;
 }
-@media all and (max-width: 788px) and (min-width: 760px){
-    #shink-hack {
+@media all and (max-width: 838px) and (min-width: 760px){
+    .shrink-hack {
         display: none;
     }
 }

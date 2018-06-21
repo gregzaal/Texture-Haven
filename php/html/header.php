@@ -7,7 +7,8 @@
 
     <ul id="navbar">
         <a href="/textures"><li>Textures</li></a><!--
-        --><a id='shink-hack' href="https://www.patreon.com/texturehaven/posts?public=true"><li>News</li></a><!--
+        --><a class='shrink-hack' href="https://hdrihaven.com/"><li>HDRIs</li></a><!--
+        --><a class='shrink-hack' href="https://www.patreon.com/texturehaven/posts?public=true"><li>News</li></a><!--
         --><a href="https://www.patreon.com/texturehaven"><li>Support Us</li></a><!--
         --><a href="/p/about-contact.php"><li>About/Contact</li></a>
     </ul>
