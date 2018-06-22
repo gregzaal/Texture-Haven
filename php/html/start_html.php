@@ -36,7 +36,7 @@ if (!in_array($_SERVER['PHP_SELF'], $GLOBALS['NO_CACHE'])){
     <meta property="og:image" content="%FEATURE%" />
 
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     %GALLERYJS%
 
     <script src="/js/functions.js"></script>
