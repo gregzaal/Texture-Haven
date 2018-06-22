@@ -27,7 +27,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
 $conn = db_conn_read_write();
 
-track_search($search, $category, $reuse_conn=NULL)
+// track_search($search, $category, $reuse_conn=NULL)
 ?>
 
 <div id="sidebar-toggle"><i class="material-icons">apps</i></div>
