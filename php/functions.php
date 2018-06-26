@@ -286,13 +286,19 @@ function include_disqus($id) {
     echo str_replace('%ID%', $id, $html);
 }
 
-function insert_email(){
+function insert_email($text="##email##"){
     echo '<script type="text/javascript">';
     echo 'var s3 = "texturehaven.com";';
     echo 'var s1 = "info";';
     echo 'var s2 = "@";';
     echo 'var s4 = s1 + s2 + s3;';
-    echo 'document.write("<a href=" + "mail" + "to:" + s1 + s2 + s3 + " target=\"_blank\">" + s4 + "</a>");';
+    echo 'document.write("<a href=" + "mail" + "to:" + s1 + s2 + s3 + " target=\"_blank\">';
+    if ($text == "##email##"){
+        echo '" + s4 + "';
+    }else{
+        echo $text;
+    }
+    echo '</a>");';
     echo '</script>';
 }
 

@@ -65,99 +65,106 @@ if ($is_published){
     echo "<h2>Download:</h2>";
     $downloads = [];
     $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "textures", $slug);
-    $files = scandir($base_dir);
-    $resolutions = [];
-    foreach ($files as $f){
-        if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
-            array_push($resolutions, $f);
-        }
-    }
-    foreach ($resolutions as $r){
-        $res_dir = join_paths($base_dir, $r);
-        $files = scandir($res_dir);
+    if (file_exists($base_dir)){
+        $files = scandir($base_dir);
+        $resolutions = [];
         foreach ($files as $f){
-            if ($f != '.' and $f != '..' and str_contains($f, '.')){
-                $without_ext = pathinfo($f, PATHINFO_FILENAME);
-                $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
-                if ($ext == 'zip'){
-                    $map_type = 'all';
-                    $f_split = explode('_', $f);
-                    $ext = str_replace('.zip', '', array_pop($f_split));  // Get only 'jpg' from fname
-                }else{
-                    $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
-                }
-                $r_int = numbers_only($r);
-                $downloads[$map_type][$r][$ext] = $f;
+            if (!str_contains($f, '.')){  // Only get resolution folders, not files. is_dir doesn't work reliably on windows, so we assume all folders do not contain '.'
+                array_push($resolutions, $f);
             }
         }
+        foreach ($resolutions as $r){
+            $res_dir = join_paths($base_dir, $r);
+            $files = scandir($res_dir);
+            foreach ($files as $f){
+                if ($f != '.' and $f != '..' and str_contains($f, '.')){
+                    $without_ext = pathinfo($f, PATHINFO_FILENAME);
+                    $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+                    if ($ext == 'zip'){
+                        $map_type = 'all';
+                        $f_split = explode('_', $f);
+                        $ext = str_replace('.zip', '', array_pop($f_split));  // Get only 'jpg' from fname
+                    }else{
+                        $map_type = substr($without_ext, strlen($slug)+1, strlen($r)*-1-1);
+                    }
+                    $r_int = numbers_only($r);
+                    $downloads[$map_type][$r][$ext] = $f;
+                }
+            }
+        }
+        foreach (array_keys($downloads) as $map_type){
+            $map_type_str = nice_name($map_type);
+            $map_name_arr = [
+                "all" => "<b>All Maps</b>",
+                "alb" => "Albedo",
+                "diff" => "Diffuse",
+                "ao" => "AO",
+                "disp" => "Displacement",
+                "nor" => "Normal",
+                "rough" => "Roughness",
+                "spec" => "Specular",
+            ];
+            foreach (array_keys($map_name_arr) as $m){
+                if (strtolower($map_type) == $m){
+                    $map_type_str = $map_name_arr[$m];
+                }
+            }
+            
+            echo "<div class='map-type'>";
+            echo "<div class='map-preview";
+            if ($map_type == "all"){
+                echo " map-preview-active' id='map-preview-allmaps";
+            }
+            echo "' map='".$map_type."'><p>";
+            echo "<img src='/files/site_images/icons/eye.svg' class='map-preview-icon'>";
+            echo "</p></div>";
+            echo "<div class='map-download'><p>";
+            echo "<img src='/files/site_images/icons/download_white.svg'>";
+            echo $map_type_str;
+            echo "</p></div>";
+            echo "<div class='res-menu hide'>";
+            foreach(array_keys($downloads[$map_type]) as $res){
+                echo "<div class='res-item'>";
+                $i = 0;
+                foreach(array_keys($downloads[$map_type][$res]) as $ext){
+                    $i += 1;
+                    $fname = $downloads[$map_type][$res][$ext];
+                    $subpath = join_paths($res, $fname);
+                    $dl_url = join_paths('files', 'textures', $slug, $subpath);
+                    $filesize = filesize(join_paths($base_dir, $subpath))/1024/1024;  // size in MB
+                    if ($filesize > 10){
+                        $d = 0;
+                    }else if ($filesize > 1){
+                        $d = 1;
+                    }else{
+                        $d = 2;
+                    }
+                    $filesize = round($filesize, $d);
+                    $fhash = simple_hash($fname);
+                    echo "<a href=\"/".$dl_url."\" download=\"".$fname."\" target='_blank'>";
+                    echo "<div class='dl-btn' id=\"".$info['id']."\" fhash=\"".$fhash."\"";
+                    $width = 100/sizeof($downloads[$map_type][$res]);
+                    echo " style='width: calc(".$width."% - 2em)'>";
+                    if ($i == 1){
+                        echo $res." &sdot; ";
+                    }
+                    echo strtoupper($ext);
+                    echo " &sdot; ".$filesize." MB";
+                    echo "</div>";
+                    echo "</a>";
+                }
+                echo "</div>";  // .res-item
+            }
+            echo "</div>";  // .res-menu
+            echo "</div>";  // .map-type
+        }
+        echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='/p/license.php'>CC0</a><p>";
+    }else{
+        echo "<p>Texture files do not exist :(</p>";
+        echo "<p>Please ";
+        insert_email("let us know");
+        echo " that you're seeing this error.</p>";
     }
-    foreach (array_keys($downloads) as $map_type){
-        $map_type_str = nice_name($map_type);
-        $map_name_arr = [
-            "all" => "<b>All Maps</b>",
-            "alb" => "Albedo",
-            "diff" => "Diffuse",
-            "ao" => "AO",
-            "disp" => "Displacement",
-            "nor" => "Normal",
-            "rough" => "Roughness",
-            "spec" => "Specular",
-        ];
-        foreach (array_keys($map_name_arr) as $m){
-            if (strtolower($map_type) == $m){
-                $map_type_str = $map_name_arr[$m];
-            }
-        }
-        
-        echo "<div class='map-type'>";
-        echo "<div class='map-preview";
-        if ($map_type == "all"){
-            echo " map-preview-active' id='map-preview-allmaps";
-        }
-        echo "' map='".$map_type."'><p>";
-        echo "<img src='/files/site_images/icons/eye.svg' class='map-preview-icon'>";
-        echo "</p></div>";
-        echo "<div class='map-download'><p>";
-        echo "<img src='/files/site_images/icons/download_white.svg'>";
-        echo $map_type_str;
-        echo "</p></div>";
-        echo "<div class='res-menu hide'>";
-        foreach(array_keys($downloads[$map_type]) as $res){
-            echo "<div class='res-item'>";
-            $i = 0;
-            foreach(array_keys($downloads[$map_type][$res]) as $ext){
-                $i += 1;
-                $fname = $downloads[$map_type][$res][$ext];
-                $subpath = join_paths($res, $fname);
-                $dl_url = join_paths('files', 'textures', $slug, $subpath);
-                $filesize = filesize(join_paths($base_dir, $subpath))/1024/1024;  // size in MB
-                if ($filesize > 10){
-                    $d = 0;
-                }else if ($filesize > 1){
-                    $d = 1;
-                }else{
-                    $d = 2;
-                }
-                $filesize = round($filesize, $d);
-                $fhash = simple_hash($fname);
-                echo "<a href=\"/".$dl_url."\" download=\"".$fname."\" target='_blank'>";
-                echo "<div class='dl-btn' id=\"".$info['id']."\" fhash=\"".$fhash."\"";
-                $width = 100/sizeof($downloads[$map_type][$res]);
-                echo " style='width: calc(".$width."% - 2em)'>";
-                if ($i == 1){
-                    echo $res." &sdot; ";
-                }
-                echo strtoupper($ext);
-                echo " &sdot; ".$filesize." MB";
-                echo "</div>";
-                echo "</a>";
-            }
-            echo "</div>";  // .res-item
-        }
-        echo "</div>";  // .res-menu
-        echo "</div>";  // .map-type
-    }
-    echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='/p/license.php'>CC0</a><p>";
     echo "</div>";  // .download-buttons
     echo "</div>";  // #preview-download
 }
