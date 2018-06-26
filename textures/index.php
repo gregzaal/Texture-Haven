@@ -6,6 +6,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 $sort = "popular";
 $search = "all";
 $category = "all";
+$author = "all";
 
 // Get params (if they were passed)
 if (isset($_GET["o"]) && trim($_GET["o"])){
@@ -17,10 +18,14 @@ if (isset($_GET["s"]) && trim($_GET["s"])){
 if (isset($_GET["c"]) && trim($_GET["c"])){
     $category = $_GET["c"];
 }
+if (isset($_GET["a"]) && trim($_GET["a"])){
+    $author = $_GET["a"];
+}
 
 $sort = htmlspecialchars($sort);
 $search = htmlspecialchars($search);
 $category = htmlspecialchars($category);
+$author = htmlspecialchars($author);
 
 include_start_html("Textures: ".nice_name($category, "category"));
 include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
@@ -55,6 +60,9 @@ $conn = db_conn_read_write();
     }else{
         echo "Category: ".nice_name($category, "category");
     }
+    if ($author != "all") {
+        echo " by ".$author;
+    }
     echo "</h1>";
     
     include ($_SERVER['DOCUMENT_ROOT'].'/textures/grid_options.php');
@@ -62,7 +70,7 @@ $conn = db_conn_read_write();
     echo "</div>";  // .title-bar
 
     echo "<div id='item-grid'>";
-    echo make_item_grid($sort, $search, $category, $conn, 0);
+    echo make_item_grid($sort, $search, $category, $author, $conn, 0);
     echo "</div>"
     ?>
 </div>

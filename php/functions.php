@@ -334,7 +334,7 @@ function num_items($search="all", $category="all", $reuse_conn=NULL){
     }else{
         $conn = $reuse_conn;
     }
-    $search_text = make_search_SQL(mysqli_real_escape_string($conn, $search), $category);
+    $search_text = make_search_SQL(mysqli_real_escape_string($conn, $search), $category, "all");
 
     $sql = "SELECT name FROM textures ".$search_text;    
     $rows = mysqli_query($conn, $sql)->num_rows;
@@ -365,7 +365,7 @@ function make_sort_SQL($sort) {
     return $sql;
 }
 
-function make_search_SQL($search, $category="all") {
+function make_search_SQL($search, $category="all", $author="all") {
     // Return the WHERE part of an SQL query based on the search
     
     $only_past = "date_published <= NOW()";
@@ -393,10 +393,15 @@ function make_search_SQL($search, $category="all") {
     if ($category != "all"){
         $sql .= " AND (categories LIKE '%".$category."%')";
     }
+
+    if ($author != "all"){
+        $sql .= " AND (author LIKE '".$author."')";
+    }
+
     return $sql;
 }
 
-function get_from_db($sort="popular", $search="all", $category="all", $reuse_conn=NULL, $limit=0){
+function get_from_db($sort="popular", $search="all", $category="all", $author="all", $reuse_conn=NULL, $limit=0){
     $sort_text = make_sort_SQL($sort);
 
     // Create connection
@@ -405,7 +410,7 @@ function get_from_db($sort="popular", $search="all", $category="all", $reuse_con
     }else{
         $conn = $reuse_conn;
     }
-    $search_text = make_search_SQL(mysqli_real_escape_string($conn, $search), $category);
+    $search_text = make_search_SQL(mysqli_real_escape_string($conn, $search), $category, $author);
 
     $sql = "SELECT * FROM textures ".$search_text." ".$sort_text;
     if ($limit > 0){
@@ -447,7 +452,7 @@ function get_item_from_db($item, $reuse_conn=NULL){
 }
 
 function get_all_cats_or_tags($mode, $cat="all", $conn=NULL){
-    $db = get_from_db("popular", "all", $cat, $conn, 0);
+    $db = get_from_db("popular", "all", $cat, "all", $conn, 0);
     $all_flags = [];
     foreach ($db as $item){
         $flags = explode(";",  str_replace(',', ';', $item[$mode]));
@@ -500,7 +505,7 @@ function get_similar($category, $slug, $reuse_conn=NULL){
     }else{
         $conn = $reuse_conn;
     }
-    $items = get_from_db("popular", "all", $category, $conn, 0);
+    $items = get_from_db("popular", "all", $category, "all", $conn, 0);
     if (is_null($reuse_conn)){
         $conn->close();
     }
@@ -553,7 +558,7 @@ function most_popular_in_each_category($reuse_conn=NULL){
     }
 
     $a = [];
-    $items = get_from_db("popular", "all", "all", $conn);
+    $items = get_from_db("popular", "all", "all", "all", $conn);
     foreach (get_all_categories($conn) as $c){
         $found = false;
         foreach ($items as $h){
@@ -702,14 +707,20 @@ function make_grid_item($i, $sort, $category="all"){
     return $html;
 }
 
-function make_item_grid($sort="popular", $search="all", $category="all", $conn=NULL, $limit=0){
-    $items = get_from_db($sort, $search, $category, $conn, $limit);
+function make_item_grid($sort="popular", $search="all", $category="all", $author="all", $conn=NULL, $limit=0){
+    $items = get_from_db($sort, $search, $category, $author, $conn, $limit);
     $html = "";
     if (!$items) {
         $html .= "<p>";
-        $html .= "<p>Sorry! There are no textures that match the search \"".htmlspecialchars($search)."\"";
+        $html .= "<p>Sorry! There are no textures";
+        if ($search != 'all'){
+            $html .= " that match the search \"".htmlspecialchars($search)."\"";
+        }
         if ($category != 'all'){
             $html .= " in the category \"".nice_name($category, "category")."\"";
+        }
+        if ($author != 'all'){
+            $html .= " by ".$author;
         }
         $html .= " :(</p>";
     }else{

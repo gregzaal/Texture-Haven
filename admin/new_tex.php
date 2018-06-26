@@ -114,7 +114,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <div id="button-list">
     <?php
     echo "<div class='cat-type'>";
-    $db = get_from_db("popular", "all", "all", NULL, 0);
+    $db = get_from_db("popular", "all", "all", "all", NULL, 0);
     $all_tags = [];
     foreach ($db as $item){
         $tags = explode(";",  str_replace(',', ';', $item['tags']));
