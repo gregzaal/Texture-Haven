@@ -172,7 +172,7 @@ if ($is_published){
     echo "<ul class='item-info-list'>";
 
     echo "<li>";
-    echo "<b>Author:</b> <a href=\"/textures/?s=".to_slug($info['author'])."\">".$info['author']."</a>";
+    echo "<b>Author:</b> <a href=\"/textures/?s=".$info['author']."\">".$info['author']."</a>";
     echo "</li>";
 
     echo "<li>";

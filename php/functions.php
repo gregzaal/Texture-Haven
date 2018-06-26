@@ -378,12 +378,16 @@ function make_search_SQL($search, $category="all") {
         $terms_sql = "";
         foreach ($terms as $t){
             $i++;
-            if ($i > 1){
-                $terms_sql .= " AND";
-            }
-            $terms_sql .= " (CONCAT(';',tags,';') REGEXP '[; ]".$t."[; ]' OR CONCAT(';',categories,';') REGEXP '[; ]".$t."[; ]' OR name LIKE '%".$t."%')";
+            $terms_sql .= " AND ";
+            $terms_sql .= "(";
+            $terms_sql .= "CONCAT(';',tags,';') REGEXP '[; ]".$t."[; ]'";
+            $terms_sql .= " OR ";
+            $terms_sql .= "CONCAT(';',categories,';') REGEXP '[; ]".$t."[; ]'";
+            $terms_sql .= " OR ";
+            $terms_sql .= "name LIKE '%".$t."%'";
+            $terms_sql .= ")";
         }
-        $sql .= " AND ".$terms_sql;
+        $sql .= $terms_sql;
     }
 
     if ($category != "all"){
