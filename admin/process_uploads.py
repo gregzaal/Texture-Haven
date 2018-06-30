@@ -51,6 +51,9 @@ def do_resize(img, size, out, compression=85):
 
 def make_jpg(img, compression=95):
     dirname = os.path.dirname(img)
+    dirname = dirname.replace('/png/', '/jpg/')
+    dirname = dirname.replace('\\png\\', '\\jpg\\')
+    qmkdir(dirname)
     name, ext = os.path.splitext(os.path.basename(img))
     out = os.path.join(dirname, name+'.jpg')
     cmd = [imagemagick_convert]
@@ -103,9 +106,9 @@ def do_resolutions(slug, img, original_size, outpath):
     for r in resolutions:
         res_str = make_res_str(r)
         res_actual = r*1024
-        res_path = os.path.join(outpath, "textures", slug, res_str)
-        qmkdir(res_path)
-        out = os.path.join(res_path, name+"_"+res_str+".png")
+        end_dir = os.path.join(outpath, "textures", "png", res_str, slug)
+        qmkdir(end_dir)
+        out = os.path.join(end_dir, name+"_"+res_str+".png")
         print (' '+res_str, end='\n' if r == resolutions[-1] else '', flush=True)
         if r == res_int_max:
             shutil.copy2(img, out)
@@ -134,7 +137,7 @@ def do_resolutions(slug, img, original_size, outpath):
 
     return return_files
 
-def make_zips(slug, r, files):
+def make_zips(slug, r, files, outpath):
     # Unused, done on server
     # Split into extensions
     extensions = {}
@@ -146,10 +149,14 @@ def make_zips(slug, r, files):
         else:
             extensions[ext] = [f]
 
+    zipdir = os.path.join(outpath, "textures", "zip")
+    res_str = str(r)+'k'
     for ext in extensions:
-        zfn = slug+'_'+str(r)+'k_'+ext+'.zip'
+        zfn = slug+'_'+res_str+'_'+ext+'.zip'
         print ("Zipping", zfn)
-        zfp = os.path.join(os.path.dirname(f), zfn)
+        final_zipdir = os.path.join(zipdir, res_str, slug)
+        qmkdir(final_zipdir)
+        zfp = os.path.join(final_zipdir, zfn)
         z = zipfile.ZipFile(zfp, "w")
         for f in extensions[ext]:
             fname = os.path.basename(f)
@@ -187,7 +194,7 @@ def main():
                     print("Error:", str(errors[-1]))
             if not errors_here:
                 for r in all_new_files:
-                    make_zips(slug, r, all_new_files[r])
+                    make_zips(slug, r, all_new_files[r], output_folder)
                 shutil.rmtree(sf)  # Delete successfully uploaded folder
     print ("Checked:", checked, " -  Processed:", processed, " -  Errors:", len(errors))
     if errors:
