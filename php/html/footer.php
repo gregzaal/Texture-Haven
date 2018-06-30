@@ -9,14 +9,13 @@ echo ">";
     <div class='footer-patrons'>
         <h2>Patrons</h2>
         <div class="patron-list">
-            <!-- None yet :(<br><a href="https://www.patreon.com/texturehaven">Be the first?</a> -->
             <?php
             foreach ($GLOBALS['PATRON_LIST'] as $p){
                 echo "<span class='patron patron-rank-".$p[1]."'>".$p[0]."</span> ";
             }
             ?>
         </div>
-        <a href="https://www.patreon.com/texturehaven">
+        <a href="https://www.patreon.com/texturehaven/overview">
             <div class="button-red">
                 Join the ranks, support Texture Haven on Patreon.
             </div>

@@ -9,7 +9,7 @@
         <a href="/textures"><li>Textures</li></a><!--
         --><a class='shrink-hack' href="https://hdrihaven.com/"><li>HDRIs</li></a><!--
         --><a class='shrink-hack' href="https://www.patreon.com/texturehaven/posts?public=true"><li>News</li></a><!--
-        --><a href="https://www.patreon.com/texturehaven"><li>Support Us</li></a><!--
+        --><a href="https://www.patreon.com/texturehaven/overview"><li>Support Us</li></a><!--
         --><a href="/p/about-contact.php"><li>About/Contact</li></a>
     </ul>
 
@@ -21,7 +21,7 @@
         echo $GLOBALS['PATREON_CURRENT_GOAL']['amount_cents']/100;
         echo ")";
         ?>">
-        <a href="https://www.patreon.com/texturehaven">
+        <a href="https://www.patreon.com/texturehaven/overview">
         <div class="patreon-bar-outer">
             <div class="patreon-bar-inner-wrapper">
                 <div class="patreon-bar-inner" style="width: <?php
