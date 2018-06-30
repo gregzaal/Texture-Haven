@@ -126,7 +126,9 @@ if ($is_published){
         foreach(array_keys($downloads[$map_type]) as $res){
             echo "<div class='res-item'>";
             $i = 0;
-            foreach(array_keys($downloads[$map_type][$res]) as $ext){
+            $extensions = array_keys($downloads[$map_type][$res]);
+            sort($extensions);
+            foreach($extensions as $ext){
                 $i += 1;
                 $fname = $downloads[$map_type][$res][$ext];
                 $format = $ext;
@@ -141,7 +143,7 @@ if ($is_published){
                 }else{
                     $d = 1;
                 }
-                $filesize = round($filesize, $d);
+                $filesize = max(0.1, round($filesize, $d));
                 $fhash = simple_hash($fname);
                 echo "<a href=\"/".$dl_url."\" download=\"".$fname."\" target='_blank'>";
                 echo "<div class='dl-btn' id=\"".$info['id']."\" fhash=\"".$fhash."\"";
