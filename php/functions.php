@@ -224,6 +224,21 @@ function join_paths() {
     return preg_replace('#/+#','/',join('/', $paths));
 }
 
+function listdir($d, $mode="ALL"){
+    // List contents of folder, without hidden files
+    $sd = scandir($d);
+    $files = [];
+    foreach ($sd as $f){
+        if (!starts_with($f, '.')){
+            $is_file = str_contains($f, '.');  // is_dir doesn't work reliably on windows, so we assume all folders do not contain '.' #YOLO
+            if (($mode == "ALL") or ($mode == "FOLDERS" and !$is_file) or ($mode == "FILES" and $is_file)){
+                array_push($files, $f);
+            }
+        }
+    }
+    return $files;
+}
+
 function qmkdir($d) {
     // Quitly mkdir if it doesn't exist aleady, recursively
     if (!file_exists($d)){
