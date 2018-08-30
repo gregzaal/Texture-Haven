@@ -798,13 +798,10 @@ function get_name_changes($reuse_conn=NULL){
         $n_to = $i['n_to'];
         if ($n_to and $n_from){
             $name_replacements[$n_from] = $n_to;
-            debug_console("Replace ".$n_from.' -> '.$n_to);
         }else if($n_to and !$n_from){
             $add_names[$n_to] = $i['rank'];
-            debug_console("Add ".$n_to);
         }else{
             array_push($remove_names, $n_from);
-            debug_console("Remove ".$n_from);
         }
     }
 
