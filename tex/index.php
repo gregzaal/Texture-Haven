@@ -172,10 +172,8 @@ if ($is_published){
     }
     echo "</div>";  // .download-buttons
     echo "</div>";  // #preview-download
-}
 
 
-if ($is_published){
     if ($GLOBALS['WORKING_LOCALLY'] && is_in_the_past($info['date_published']) == False){
         echo "<p style='text-align:center;opacity:0.5;'>(working locally on a yet-to-be-published texture)</p>";
     }
@@ -224,13 +222,27 @@ if ($is_published){
 
     echo "</div>";  // .item-info
 
+
+    $similar = get_similar($slug, $conn);
+    if ($similar){
+        echo "<h2>";
+        echo "Similar Textures";
+        echo "</h2>";
+        echo "<div id='similar-textures'>";
+        echo "<div id='tex-grid'>";
+        foreach ($similar as $s){
+            echo make_grid_item($s);
+        }
+        echo "</div>";
+        echo "</div>";
+    }
+
 }else{
     echo "<h1 class='coming-soon'>Coming soon :)</h1>";
 }
 
 /*
 TODO:
-    Similar Textures
     User renders
 */
 
