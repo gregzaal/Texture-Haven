@@ -73,7 +73,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     
     <div class="form-item">
     <h2>Is seamless:</h2>
-    <input id="form-seamless" type="checkbox" name="seamless" value="Seamless"><br>
+    <input id="form-seamless" type="checkbox" name="seamless" value="Seamless" checked><br>
     </div>
     
     <div class="form-item">
