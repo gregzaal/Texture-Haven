@@ -172,7 +172,7 @@ if ($result == 1){
     $sql_fields['twitface'] = format_vars(mysqli_real_escape_string($conn, $_POST["twitface"]), $vars);
     $sql_fields['reddit'] = format_vars(mysqli_real_escape_string($conn, $_POST["reddit"]), $vars);
     $sql_fields['link'] = "https://texturehaven.com/tex/?t=".$slug;
-    $sql_fields['image'] = "https://texturehaven.com/files/tex_images/meta/".$slug.".jpg";
+    $sql_fields['image'] = "https://texturehaven.com/files/tex_images/spheres/".$slug.".jpg";
     $sql_fields['post_datetime'] = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime($date_published)));
     foreach (array_keys($sql_fields) as $k){
         $sql_fields[$k] = "'".$sql_fields[$k]."'";
