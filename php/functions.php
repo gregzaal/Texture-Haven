@@ -295,6 +295,12 @@ function include_start_html($title, $slug="", $canonical="", $t1="") {
     }
     $html = str_replace('%KEYWORDS%', $keywords, $html);
 
+    $author = "Rob Tuytel, Greg Zaal";
+    if ($t1 != ""){
+        $author = $t1['author'];
+    }
+    $html = str_replace('%AUTHOR%', $author, $html);
+
     if ($canonical != ""){
         $html = str_replace('%URL%', $canonical, $html);
     }else{

@@ -34,6 +34,7 @@ $canonical = "https://texturehaven.com/tex/?t=".$slug;
 $t1 = [];
 $t1 ['name'] = $info['name'];
 $t1 ['date_published'] = $info['date_published'];
+$t1 ['author'] = $info['author'];
 $category_arr = explode(';', $info['categories']);
 $tag_arr = explode(';', $info['tags']);
 $tags = array_merge($category_arr, $tag_arr);
