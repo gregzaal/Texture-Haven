@@ -30,7 +30,8 @@ if (sizeof($info) <= 1){
     header("Location: /textures/?s=".$slug);
 }
 
-include_start_html($info['name'], $slug);
+$canonical = "https://texturehaven.com/tex/?t=".$slug;
+include_start_html($info['name'], $slug, $canonical);
 include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
 
