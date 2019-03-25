@@ -279,7 +279,7 @@ function include_start_html($title, $slug="", $canonical="", $t1="") {
         <meta name=\"tex1:display-name\" content=\"Texture Haven\" />
         <meta name=\"tex1:display-domain\" content=\"texturehaven.com\" />
         <meta name=\"tex1:patreon\" content=\"TextureHaven\" />
-        <meta name=\"tex1:twitter\" content=\"https://twitter.com/TextureHaven\" />
+        <meta name=\"tex1:twitter\" content=\"texturehaven\" />
         <meta name=\"tex1:instagram\" content=\"\" />
         <meta name=\"tex1:logo\" content=\"https://texturehaven.com/files/site_images/logo_line_tmp.png\" />
         <meta name=\"tex1:icon\" content=\"https://texturehaven.com/favicon.png\" />
