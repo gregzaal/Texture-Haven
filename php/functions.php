@@ -280,7 +280,7 @@ function include_start_html($title, $slug="") {
     $html = str_replace('%METATITLE%', $title, $html);
     $html = str_replace('%DESCRIPTION%', '100% Free High Quality Textures for Everyone', $html);
     $html = str_replace('%KEYWORDS%', 'Texture,PBR,free,cc0,creative commons', $html);
-    $html = str_replace('%URL%', "https://texturehaven.com/", $html);
+    $html = str_replace('%URL%', "https://texturehaven.com$_SERVER[REQUEST_URI]", $html);
 
     if ($slug != ""){
         $html = str_replace('%FEATURE%', "https://texturehaven.com/files/tex_images/spheres/{$slug}.jpg", $html);
