@@ -17,10 +17,10 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
     <h2>IP Logging</h2>
     <p>
-        This server logs your IP address when you download an HDRI (after some minor obfuscation).
+        This server logs your IP address when you download a texture (after some minor obfuscation).
     </p>
     <p>
-        This helps us to see which HDRIs are downloaded the most by letting us track unique downloads (ignoring multiple downloads of the same HDRI) instead of only total downloads, thus helping us see more accurately what is popular and making decisions about what to shoot next.
+        This helps us to see which textures are downloaded the most by letting us track unique downloads (ignoring multiple downloads of the same texture) instead of only total downloads, thus helping us see more accurately what is popular and making decisions about what to shoot next.
     </p>
     <p>
         If you're not comfortable with this, you can use a VPN to obscure your public IP address.
@@ -34,7 +34,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
         Google likely uses this data in some of their own services and systems such as advertisement targeting and behaviour tracking. You can read more about how they use your data <a href="https://policies.google.com/technologies/partner-sites">here</a>.
     </p>
     <p>
-        If you are not comfortable with this, you can use an ad-blocker such as <a href="https://github.com/gorhill/uBlock">uBlock Origin</a> to block all tracking by Google Analytics. Note that HDRI Haven does not display ads, so I'm fully comfortable with and encourage you to use an ad-blocker.
+        If you are not comfortable with this, you can use an ad-blocker such as <a href="https://github.com/gorhill/uBlock">uBlock Origin</a> to block all tracking by Google Analytics. Note that Texture Haven does not display ads, so I'm fully comfortable with and encourage you to use an ad-blocker.
     </p>
 
     <h2>Disqus</h2>
