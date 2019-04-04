@@ -1,7 +1,8 @@
 <?php
 header('Content-type: application/xml; charset=utf-8');
 echo '<?xml version="1.0" encoding="UTF-8"?>';
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
 include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 // Main Pages
@@ -26,6 +27,9 @@ foreach ($textures as $t){
     echo "<lastmod>".date("Y-m-d", strtotime($t['date_published']))."</lastmod>";
     echo "<priority>0.8</priority>";
     echo "<changefreq>monthly</changefreq>";
+    echo "<image:image>";
+    echo "<image:loc>https://texturehaven.com/files/tex_images/spheres/".$t['slug'].".jpg</image:loc>";
+    echo "</image:image>";
     echo "</url>";
 }
 
