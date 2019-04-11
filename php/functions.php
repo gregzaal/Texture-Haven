@@ -747,7 +747,11 @@ function make_grid_item($i, $category="all"){
     if ($GLOBALS['WORKING_LOCALLY'] and !file_exists($local_image_path)){
         $img_url = "http://texturehaven.com".$img_url;
     }
-    $html .= "<img class='thumbnail' src=\"{$img_url}\" />";
+    $html .= "<img ";
+    $html .= "class='thumbnail' ";
+    $html .= "src=\"{$img_url}\" ";
+    $html .= "alt=\"Texture: {$i['name']}\" ";
+    $html .= "/>";
 
     $age = time() - strtotime($i['date_published']);
     if ($age < 7*86400){
