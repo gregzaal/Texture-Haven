@@ -786,7 +786,6 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
     $items = get_from_db($sort, $search, $category, $author, $conn, $limit);
     $html = "";
     if (!$items) {
-        $html .= "<p>";
         $html .= "<p>Sorry! There are no textures";
         if ($search != 'all'){
             $html .= " that match the search \"".htmlspecialchars($search)."\"";
@@ -799,6 +798,12 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
         }
         $html .= " :(</p>";
     }else{
+        if ($search != "all"){
+            $html .= "<h2 style='padding: 0; margin: 0'>";
+            $html .= sizeof($items);
+            $html .= " results";
+            $html .= "</h2>";
+        }
         foreach ($items as $i){
             $html .= make_grid_item($i, $category);
         }
