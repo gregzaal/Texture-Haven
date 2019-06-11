@@ -707,7 +707,7 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
             echo "</li>";
             echo "</a>";
             
-            if ($c != 'all'){
+            if ($c != 'all' && $c == $current){
                 $tags_in_cat = get_all_tags($c, $conn);
                 $last_tag = end($tags_in_cat);
                 foreach ($tags_in_cat as $t){
