@@ -702,6 +702,7 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
                 echo " class='current-cat'";
             }
             echo ">";
+            echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
             echo nice_name($c, "category");
             echo "<div class='num-in-cat'>".$num_in_cat."</div>";
             echo "</li>";
