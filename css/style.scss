@@ -904,6 +904,8 @@ ul#navbar {
 }
 
 .grid-item {
+    $grid-item-padding: 1.225em;  // This exact padding means the 350px image isn't resized when viewed on a 1080p screen. #whoneedsfutureproofing
+
     position: relative;
     display: inline-block;
     margin: 0.5em;
@@ -912,7 +914,7 @@ ul#navbar {
     @include transition(0.2s);
 
     .thumbnail-wrapper {
-        padding: 1em;
+        padding: $grid-item-padding;
     }
     .thumbnail {
         width: 100%; 
@@ -923,8 +925,8 @@ ul#navbar {
         position: absolute;
         bottom: 0;
         height: 25%;
-        width: calc(100% - 2em);
-        margin: 0 1em 1em;
+        width: calc(100% - (#{$grid-item-padding} * 2));
+        margin: 0 $grid-item-padding $grid-item-padding;
         background: linear-gradient(transparent, rgba(black, 0.5));
         opacity: 0;
         @include transition(0.2s);
@@ -960,8 +962,8 @@ ul#navbar {
     }
     .problem-triangle, .problem-triangle-shadow {
         position: absolute;
-        top: 1em;
-        left: 1em;
+        top: $grid-item-padding;
+        left: $grid-item-padding;
         width: 0;
         height: 0;
         border-style: solid;
@@ -975,8 +977,8 @@ ul#navbar {
     }
     .problem {
         position: absolute;
-        top: 1em;
-        left: 1em;
+        top: $grid-item-padding;
+        left: $grid-item-padding;
         padding: 1.44em 0;
         width: 0;
         opacity: 0;
@@ -1000,8 +1002,8 @@ ul#navbar {
 
     .new {
         position: absolute;
-        top: 1.65em;
-        right: 1em;
+        top: calc(#{$grid-item-padding} + 0.65em);
+        right: $grid-item-padding;
         color: #eee;
         transform: rotate(45deg);
         font-weight: bold;
@@ -1010,8 +1012,8 @@ ul#navbar {
     }
     .new-triangle, .new-triangle-shadow {
         position: absolute;
-        top: 1em;
-        right: 1em;
+        top: $grid-item-padding;
+        right: $grid-item-padding;
         width: 0;
         height: 0;
         border-style: solid;
@@ -1124,6 +1126,13 @@ ul#navbar {
     #map-preview-img {
         position: absolute;
         left: 0;
+    }
+
+    #map-preview-zoom {
+        position: absolute;
+        right: 0.5em;
+        bottom: 0.5em;
+        width: 2.5em;
     }
 }
 @media all and (max-width: 1024px){
