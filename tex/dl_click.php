@@ -13,6 +13,10 @@ if(isset($_POST['id']) and isset($_POST['fhash'])){
     $conn = db_conn_read_write();
 
     // Main download_counting table
+    if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+        // Use original IP instead of Cloudflare node IP
+        $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+    }
     $ip_hash = simple_hash($_SERVER['REMOTE_ADDR']);
     $sql = "INSERT INTO download_counting (`ip`, `tex_id`, `file_hash`) ";
     $sql .= "VALUES (\"".$ip_hash."\", \"".$id."\", \"".$file_hash."\")";
