@@ -904,49 +904,50 @@ ul#navbar {
 }
 
 .grid-item {
-    $grid-item-padding: 1.225em;  // This exact padding means the 350px image isn't resized when viewed on a 1080p screen. #whoneedsfutureproofing
+    $grid-item-padding: 1.287em;  // This exact padding means the 350px image isn't resized when viewed on a 1080p screen. #whoneedsfutureproofing
 
     position: relative;
     display: inline-block;
     margin: 0.5em;
-    border: 1px solid rgba(0,0,0,0);
-    width: calc(25% - 1em - 2px);
+    width: calc(25% - 1em);
     @include transition(0.2s);
 
     .thumbnail-wrapper {
         padding: $grid-item-padding;
     }
     .thumbnail {
-        width: 100%; 
-        box-shadow: 0 0 2px 1px rgba(black,0.05);
+        width: 100%;
     }
 
     .description-wrapper {
         position: absolute;
         bottom: 0;
-        height: 25%;
-        width: calc(100% - (#{$grid-item-padding} * 2));
-        margin: 0 $grid-item-padding $grid-item-padding;
-        background: linear-gradient(transparent, rgba(black, 0.5));
+        height: 100%;
+        width: 100%;
+        background: radial-gradient(rgba($c-background, 0.1), transparent);
         opacity: 0;
+        text-align: center;
+        filter: blur(10px);
+        transform: scaleY(0.2);
         @include transition(0.2s);
     }
     .description {
         position: absolute;
-        bottom: 0.5em;
-        left: 0.5em;
+        bottom: 44%;
+        width: 100%;
         color: $c-text-light;
 
         h3 {
             color: $c-text-light;
             padding-bottom: 0.2em;
-            text-shadow: 1px 1px 1px rgba(black, 0.5);
+            text-shadow: 1px 1px 1px rgb(0, 0, 0), 1px 1px 3px rgba(0, 0, 0,0.5);
         }
         p {
-            text-shadow: 1px 1px 1px rgba(black, 0.5);
-            opacity: 0.7;
+            text-shadow: 1px 1px 1px rgb(0, 0, 0), 1px 1px 3px rgba(0, 0, 0,0.5);
+            opacity: 0.8;
             margin: 0;
             line-height: 1;
+            font-size: 1em;
         }
     }
 
@@ -1001,28 +1002,28 @@ ul#navbar {
     }
 
     .new {
+        opacity: 0;
         position: absolute;
-        top: calc(#{$grid-item-padding} + 0.65em);
-        right: $grid-item-padding;
+        top: 2.2em;
+        right: 1.6em;
         color: #eee;
-        transform: rotate(45deg);
         font-weight: bold;
         text-shadow: 1px 1px 2px rgba(0,0,0, 0.2);
-        font-size: $std-font-size;
+        font-size: 1.1em;
+        @include transition(0.15s);
     }
-    .new-triangle, .new-triangle-shadow {
+    .new-triangle {
         position: absolute;
-        top: $grid-item-padding;
-        right: $grid-item-padding;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 4em 4em 0;
-        border-color: transparent $c-green transparent transparent;
+        top: 2em;
+        right: 2em;
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        background-color: $c-green;
+        @include transition(0.2s);
     }
-    .new-triangle-shadow {
-        border-width: 0 51px 51px 0;
-        border-color: transparent rgba(0,0,0,0.15) transparent transparent;
+    .new-triangle-shadow {  // TODO legacy remove
+        display: none;
     }
 
     .has-backplates {
@@ -1033,14 +1034,24 @@ ul#navbar {
     }
 
     &:hover {
-        border: 1px solid rgba(0,0,0,0.1);
-        background-color: $c-background-light;
-        @include drop-shadow();
         @include transition(0.15s);
 
         .description-wrapper {
             opacity: 1;
+            filter: none;
+            transform: none;
             @include transition(0.15s);
+        }
+        .new-triangle {
+            top: 1.5em;
+            right: 1.5em;
+            width: 3em;
+            height: 3em;
+            transition: all 0.2s cubic-bezier(.47,-0.01,.27,1.73);
+        }
+        .new {
+            opacity: 1;
+            @include transition(0.2s);
         }
     }
 }

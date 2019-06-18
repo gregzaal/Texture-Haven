@@ -757,7 +757,6 @@ function make_grid_item($i, $category="all"){
     $age = time() - strtotime($i['date_published']);
     if ($age < 7*86400){
         // Show "New!" in right corner if item is less than 7 days old
-        $html .= '<div class="new-triangle-shadow"></div>';
         $html .= '<div class="new-triangle"></div>';
         $html .= '<div class="new">New!</div>';
     }
