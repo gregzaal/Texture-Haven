@@ -68,7 +68,7 @@ foreach ($array as $info){
     echo "</td>";
 
     echo "<td>";
-    echo "<a href='/tex/?h=".$info['slug']."'>";
+    echo "<a href='/tex/?t=".$info['slug']."'>";
     echo $info['name'];
     echo "</a>";
     echo "<br><span style='font-size: 70%; opacity: 0.4'>";
