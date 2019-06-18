@@ -928,12 +928,13 @@ ul#navbar {
         opacity: 0;
         text-align: center;
         filter: blur(10px);
-        transform: scaleY(0.2);
+        transform: scaleY(0.05);
         @include transition(0.2s);
     }
     .description {
-        position: absolute;
-        bottom: 44%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
         width: 100%;
         color: $c-text-light;
 
