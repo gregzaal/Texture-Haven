@@ -66,7 +66,7 @@ if ($is_published){
     echo "<div id='item-preview'>";
     echo "<img src=\"/files/tex_images/spheres/".$slug.".jpg\" />";
     echo "<div id='map-preview-img' class='hide'/>";
-    echo "<div id='map-preview-zoom-btns'>";
+    echo "<div id='map-preview-zoom-btns' class='hide-mobile'>";
     echo "<div id='map-preview-resolution'>";
     echo "<span id='map-preview-resolution-select' class='button'>640p</span>";
     echo "<ul id='map-preview-resolution-list' class='hidden'>";
