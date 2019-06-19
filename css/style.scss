@@ -1138,13 +1138,92 @@ ul#navbar {
     #map-preview-img {
         position: absolute;
         left: 0;
+        top: 0;
+        margin: 30px;
+        width: calc(100% - 60px);
+        height: calc(100% - 60px);
+        background-size: 100%;
+        background-position: 50% 50%;
     }
 
-    #map-preview-zoom {
+    #map-preview-zoom-btns {
         position: absolute;
-        right: 0.5em;
-        bottom: 0.5em;
-        width: 2.5em;
+        bottom: 0;
+        margin: 0.5em;
+        width: calc(100% - 1em);
+        text-align: right;
+        font-family: monospace;
+        user-select: none;
+        -moz-user-select: none;
+
+        .map-preview-zoom {
+            color: $c-text-light;
+            font-size: 3em;
+            padding: 0.1em;
+            line-height: 0.8em;
+            vertical-align: bottom;
+            cursor: pointer;
+            @include text-shadow(1);
+            @include transition();
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+
+        #map-preview-resolution {
+            position: relative;
+            display: inline-block;
+            margin-right: 1em;
+            text-align: center;
+
+            &:hover {
+                #map-preview-resolution-select {
+                    background-color: rgba($c-accent, 1);
+                    border-color: rgba($c-accent-light, 1);
+                }
+            }
+        }
+        #map-preview-resolution-select {
+            background-color: rgba($c-accent, 0);
+            border-color: rgba($c-accent-light, 0);
+            padding: 0.5em 0.7em;
+            cursor: pointer;
+            @include text-shadow(1);
+
+            i {
+                margin-left: 0.3em;
+                font-size: 1em;
+                vertical-align: text-bottom;
+            }
+
+            img {
+                padding: 0;
+                width: 75%;
+            }
+        }
+        #map-preview-resolution-list {
+            position: absolute;
+            bottom: 100%;
+            width: calc(100% - 2px);
+            margin: 0;
+            list-style: none;
+            background-color: $c-background;
+            border: 1px solid $c-accent;
+
+            li {
+                margin: 0;
+                padding: 0.5em;
+                cursor: pointer;
+                @include transition(0.2s);
+
+                &:hover {
+                    background-color: $c-accent-lighter;
+                    color: $c-text-light;
+                    @include transition(0.1s);
+                }
+            }
+        }
     }
 }
 @media all and (max-width: 1024px){

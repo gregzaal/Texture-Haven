@@ -46,8 +46,6 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 echo "<div id='item-page'>";
 echo "<div id='page-wrapper'>";
 
-echo "<div id='page-data' slug='".$slug."'></div>";
-
 echo "<h1>";
 echo "<a href='/textures/?c=all'>";
 echo "Textures";
@@ -67,7 +65,19 @@ if ($is_published){
     echo "<div id='preview-download'>";
     echo "<div id='item-preview'>";
     echo "<img src=\"/files/tex_images/spheres/".$slug.".jpg\" />";
-    echo "<img src=\"#\" id='map-preview-img' class='hide'/>";
+    echo "<div id='map-preview-img' class='hide'/>";
+    echo "<div id='map-preview-zoom-btns'>";
+    echo "<div id='map-preview-resolution'>";
+    echo "<span id='map-preview-resolution-select' class='button'>640p</span>";
+    echo "<ul id='map-preview-resolution-list' class='hidden'>";
+    echo "<li>1k</li>";
+    echo "<li>2k</li>";
+    echo "</ul>";  // #map-preview-resolution-list
+    echo "</div>";  // #map-preview-resolution
+    echo "<span class='map-preview-zoom' id='map-preview-zoom-out'>-</span>";
+    echo "<span class='map-preview-zoom' id='map-preview-zoom-in'>+</span>";
+    echo "</div>";  // #zoom-btns
+    echo "</div>";  // #map-preview-img
     echo "</div>";  // #item-preview
 
     echo "<div class='download-buttons'>";
@@ -101,6 +111,7 @@ if ($is_published){
         }
     }
 
+    $preview_zooms = [];
     foreach (array_keys($downloads) as $map_type){
         $map_type_str = nice_name($map_type);
         $map_name_arr = [
@@ -139,6 +150,15 @@ if ($is_published){
             sort($extensions);
             foreach($extensions as $ext){
                 $i += 1;
+
+                if ($ext == 'jpg'){
+                    if (array_key_exists($map_type, $preview_zooms)){
+                        array_push($preview_zooms[$map_type], $res);
+                    }else{
+                        $preview_zooms[$map_type] = [$res];
+                    }
+                }
+
                 $fname = $downloads[$map_type][$res][$ext];
                 $format = $ext;
                 if ($map_type == 'all'){
@@ -262,6 +282,8 @@ if (!$GLOBALS['WORKING_LOCALLY']){
 
 echo "</div>";  // #page-wrapper
 echo "</div>";  // #item-page
+
+echo "<div id='page-data' slug='".$slug."'>".json_encode($preview_zooms)."</div>";
 ?>
 
 
