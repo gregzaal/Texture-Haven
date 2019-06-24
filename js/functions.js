@@ -49,10 +49,10 @@ var click_functions = function(){
         $('#lightbox-img').attr("src", $(this).attr("lightbox-src"));
         
         if ($("#artwork-name").length){  // Gallery
-            $("#artwork-name").html()($(this).attr("artwork-name"));
-            $("#author-name").html()($(this).attr("author-name"));
+            $("#artwork-name").html($(this).attr("artwork-name"));
+            $("#author-name").html($(this).attr("author-name"));
             $("#author-link").attr("href", $(this).attr("author-link"));
-            $("#tex-used-name").html()($(this).attr("tex-used-name"));
+            $("#tex-used-name").html($(this).attr("tex-used-name"));
             $("#tex-used-link").attr("href", $(this).attr("tex-used-link"));
 
             if ($(this).attr("author-link") == "#"){
