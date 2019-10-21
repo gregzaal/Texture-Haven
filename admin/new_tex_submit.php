@@ -101,6 +101,7 @@ if (!$GLOBALS['WORKING_LOCALLY']){
 // Database stuff
 $sql_fields = [];
 $sql_fields['name'] = $name;
+$sql_fields['scale'] = $scale;
 $sql_fields['author'] = $author;
 $sql_fields['slug'] = $slug;
 function format_tagcat($s, $conn){

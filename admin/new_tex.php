@@ -70,12 +70,19 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     <div class="tooltip hidden">Unique identifier used for technical purposes. No punctuation or spaces allowed (e.g. <q>red_brick_02</q>).<br>
     <b>Must match the uploaded files.</b></div>
     </div>
-    
+
     <div class="form-item">
     <h2>Is seamless:</h2>
     <input id="form-seamless" type="checkbox" name="seamless" value="Seamless" checked><br>
     </div>
-    
+
+    <div class="form-item">
+    <h2>Real world scale:</h2>
+    <input id="form-scale" type="text" name="scale" value="" placeholder="e.g. 2m">
+    <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i>
+    <div class="tooltip hidden">The size of this texture in the real world. Any text can be shown, e.g. <q>2m</q>, <q>30cm</q> <q>5m x 1m</q>, etc.</div>
+    </div>
+
     <div class="form-item">
     <h2>Author:</h2>
     <input id="form-author" type="text" name="author" value="Rob Tuytel">

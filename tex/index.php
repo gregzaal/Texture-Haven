@@ -210,17 +210,24 @@ if ($is_published){
 
     echo "<ul class='item-info-list'>";
 
-    echo "<li>";
-    echo "<b>Author:</b> <a href=\"/textures/?a=".$info['author']."\">".$info['author']."</a>";
+    echo "<li title='Real-world scale: ".$info['author']."'>";
+    echo "<b><i class='material-icons'>person</i></b> <a href=\"/textures/?a=".$info['author']."\">".$info['author']."</a>";
     echo "</li>";
 
-    echo "<li>";
-    echo "<b>Published:</b> ".date("d F Y", strtotime($info['date_published']))." (".time_ago($info['date_published']).")";
+    echo "<li title='Date published'>";
+    echo "<b><i class='material-icons'>date_range</i></b> ".date("d F Y", strtotime($info['date_published']))." (".time_ago($info['date_published']).")";
     echo "</li>";
-    
+
+    if ($info['scale']){
+        echo "<li title='Real-world scale: ".$info['scale']."'>";
+        echo "<b><i class='material-icons'>accessibility</i></b> ";
+        echo $info['scale'];
+        echo "</li>";
+    }
+
     $downloads_per_day = round($info['download_count']/((time() - strtotime($info['date_published']))/86400));
-    echo "<li title=\" (".$downloads_per_day." per day)\">";
-    echo "<b>Downloads:</b> ".$info['download_count'];
+    echo "<li title=\"Total downloads - ".$downloads_per_day." per day\">";
+    echo "<b><i class='material-icons'>cloud_download</i></b> ".$info['download_count'];
     echo "</li>";
 
     echo "<br><li>";

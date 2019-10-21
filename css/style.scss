@@ -1334,6 +1334,7 @@ ul#navbar {
         border-right: 1px solid $c-accent-lighter;
         font-size: 0.9em;
         text-align: center;
+        white-space: nowrap;
         cursor: pointer;
 
         &:last-child {
@@ -1394,6 +1395,10 @@ ul#navbar {
         b {
             font-weight: $fw-normal;
             color: $c-text-dark;
+        }
+
+        i {
+            vertical-align: top;
         }
     }
 }
