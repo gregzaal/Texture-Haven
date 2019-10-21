@@ -756,12 +756,12 @@ ul#navbar {
 #sidebar::-webkit-scrollbar {
     width: 12px;
 }
- 
+
 #sidebar::-webkit-scrollbar-track {
     background-color: transparent;
     margin: 5px;
 }
- 
+
 #sidebar::-webkit-scrollbar-thumb {
     background-color: $c-accent-lighter;
     border-radius: 12px;
@@ -988,7 +988,7 @@ ul#navbar {
         white-space: nowrap;
         overflow: hidden;
         @include transition();
-        
+
         .problem-text {
             font-size: $std-font-size;
             text-align: center;
@@ -1420,7 +1420,7 @@ ul#navbar {
         &:hover {
             @include drop-shadow(0.8);
         }
-        
+
         img {
             display: block;
             width: auto;

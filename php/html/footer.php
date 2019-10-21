@@ -1,5 +1,5 @@
 </div>  <!-- #push-footer -->
-<?php 
+<?php
 echo "<div id='footer'";
 if (starts_with($_SERVER['REQUEST_URI'], "/textures/")){
     echo " class='footer-cat'";

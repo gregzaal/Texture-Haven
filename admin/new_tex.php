@@ -53,7 +53,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
         <img src="#" id="sphere-render-preview">
     </div>
     </div>
-    
+
     <div class="form-item">
     <h2>Name:</h2>
     <input id="form-name" type="text" name="name" value="">
@@ -105,7 +105,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     ?>
     </div>
     </div>
-    
+
     <div class="form-item">
     <h2>Tags:</h2>
     <input id="form-tags" type="text" name="tags" value="">
@@ -144,19 +144,19 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
     ?>
     </div>
     </div>
-    
+
     <div class="form-item">
     <h2>When to publish:</h2>
     <input id="form-date-published" type="text" name="date_published" value="Immediately">
     <i class="fa fa-question-circle show-tooltip" aria-hidden="true"></i><br>
     <div class="tooltip hidden">The date and time (24h format) when this product should be published, in the format: <q>YYYY/MM/DD HH:MM:SS</q>.<br>(e.g. <q>2017/05/22 17:59</q>, or just <q>2017/05/22</q> which will publish at midnight).</div>
     </div>
-    
+
     <div class="form-item">
     <h2>Facebook:</h2>
     <input id="form-twitface" type="text" name="twitface" value="New Texture - ##name##: ##link## #free #pbr #texture #cc0 #b3d">
     </div>
-    
+
     <div class="form-item">
     <h2>Reddit:</h2>
     <input id="form-reddit" type="text" name="reddit" value="##name##">

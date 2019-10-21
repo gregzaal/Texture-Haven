@@ -146,7 +146,7 @@ if ($result == 1){
     echo "successfully added to the database.";
     echo "</p>";
     echo "<p>If you need to edit or update this texture, you can do so from the <a href='https://east1-phpmyadmin.dreamhost.com/sql.php?server=1&db=texturehaven&table=textures&pos=0'>phpMyAdmin interface</a>.</p>";
-    
+
     echo '<a href="/admin" class="no-underline">';
     echo '<div class="button"><i class="fa fa-home" aria-hidden="true"></i> Admin Home</div>';
     echo '</a> ';

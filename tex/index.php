@@ -129,7 +129,7 @@ if ($is_published){
                 $map_type_str = $map_name_arr[$m];
             }
         }
-        
+
         echo "<div class='map-type'>";
         echo "<div class='map-preview";
         if ($map_type == "all"){
