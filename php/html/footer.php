@@ -34,7 +34,7 @@ echo ">";
         <li><a href="/p/license.php">License</a></li>
         <li><a href="/p/privacy.php">Privacy</a></li>
         <li><a href="/p/faq.php">FAQ</a></li>
-        <li><a href="/p/finance-reports.php">Finance Reports</a></li>
+        <!-- <li><a href="/p/finance-reports.php">Finance Reports</a></li> -->
         <li><a href="https://github.com/gregzaal/Texture-Haven">Source</a></li>
         <!-- <li><a href="/p/stats.php">Stats</a></li> -->
     </ul>
