@@ -55,7 +55,7 @@ $conn = db_conn_read_write();
 </div>
 
 <div id="item-grid-wrapper">
-    <?php 
+    <?php
     echo "<div class='title-bar'>";
     echo "<h1>";
     if ($search != "all") {
@@ -72,7 +72,7 @@ $conn = db_conn_read_write();
         echo " by ".$author;
     }
     echo "</h1>";
-    
+
     include ($_SERVER['DOCUMENT_ROOT'].'/textures/grid_options.php');
 
     echo "</div>";  // .title-bar

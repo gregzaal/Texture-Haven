@@ -20,7 +20,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <h1>Processed Uploads</h1>
 
-<?php 
+<?php
 
 $cmd = "../utils/process_uploads.sh";
 $output = htmlspecialchars(shell_exec($cmd));

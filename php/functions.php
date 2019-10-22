@@ -394,7 +394,7 @@ function num_items($search="all", $category="all", $reuse_conn=NULL){
     }
     $search_text = make_search_SQL(mysqli_real_escape_string($conn, $search), $category, "all");
 
-    $sql = "SELECT name FROM textures ".$search_text;    
+    $sql = "SELECT name FROM textures ".$search_text;
     $rows = mysqli_query($conn, $sql)->num_rows;
 
     if (is_null($reuse_conn)){
@@ -425,7 +425,7 @@ function make_sort_SQL($sort) {
 
 function make_search_SQL($search, $category="all", $author="all") {
     // Return the WHERE part of an SQL query based on the search
-    
+
     $only_past = "date_published <= NOW()";
     $sql = "WHERE ".$only_past;
 
@@ -707,7 +707,7 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
             echo "<div class='num-in-cat'>".$num_in_cat."</div>";
             echo "</li>";
             echo "</a>";
-            
+
             if ($c != 'all' && $c == $current){
                 $tags_in_cat = get_all_tags($c, $conn);
                 $last_tag = end($tags_in_cat);
@@ -769,7 +769,7 @@ function make_grid_item($i, $category="all"){
     $html .= "<div class='title-line'>";
     $html .= "<h3>".$i['name']."</h3>";
     $html .= "</div>";
-    
+
     $html .= "<p class='age'>".time_ago($i['date_published'])."</p>";
 
     $html .= "</div>";  // description
@@ -836,7 +836,7 @@ function get_name_changes($reuse_conn=NULL){
     }else{
         $conn = $reuse_conn;
     }
-    
+
     $sql = "SELECT * FROM patron_name_mod";
     $result = mysqli_query($conn, $sql);
     $array = array();
@@ -954,7 +954,7 @@ function get_patreon(){
     $api_client = new Patreon\API($access_token);
     // Get your campaign data
     $campaign_response = $api_client->fetch_campaign();
-        
+
     // If the token doesn't work, get a newer one
     if ($campaign_response['errors']) {
         echo "Got an error\n";
@@ -1001,7 +1001,7 @@ function get_patreon(){
                 $pledge_amount = $pledge_data['attributes']['amount_cents'];
                 $total_earnings_c += $pledge_amount;
                 $pledge_rank = pledge_rank($pledge_amount);
-                
+
                 $patron_id = $pledge_data['relationships']['patron']['data']['id'];
                 $patron_full_name = $user_data[$patron_id]['attributes']['full_name'];
 

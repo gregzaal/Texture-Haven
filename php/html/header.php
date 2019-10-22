@@ -13,7 +13,7 @@
         --><a href="/p/about-contact.php"><li>About/Contact</li></a>
     </ul>
 
-    <div class='patreon-bar-wrapper' title="Next goal on Patreon: <?php 
+    <div class='patreon-bar-wrapper' title="Next goal on Patreon: <?php
         echo goal_title($GLOBALS['PATREON_CURRENT_GOAL']);
         echo " ($";
         echo $GLOBALS['PATREON_EARNINGS'];
@@ -29,7 +29,7 @@
                     <div class='patreon-bar-text'>
                         <img src="/files/site_images/icons/patreon_logo.svg">
                         <span class="text">
-                        <?php 
+                        <?php
                         echo "$";
                         echo ($GLOBALS['PATREON_CURRENT_GOAL']['amount_cents']/100) - $GLOBALS['PATREON_EARNINGS'];
                         echo " to go";

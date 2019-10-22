@@ -20,7 +20,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <h1>Validate Texture Files</h1>
 
-<?php 
+<?php
 $items = get_from_db("date_published");
 
 $total_issues = 0;
@@ -29,11 +29,11 @@ foreach ($items as $i){
     $slug = $i['slug'];
     $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files");
     $paths_to_check = [];
-    
+
     // Thumbnail, sphere
     array_push($paths_to_check, join_paths($base_dir, "tex_images", "thumbnails", $slug.".jpg"));
     array_push($paths_to_check, join_paths($base_dir, "tex_images", "spheres", $slug.".jpg"));
-    
+
 
     // Everything that is in 1k should be in all other folders too
     $resolutions_path = join_paths($base_dir, "textures", $slug);

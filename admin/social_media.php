@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('/home/texhav/texturehaven.com/php/secret_config.php');
 
 $servername = $GLOBALS['DB_SERV'];
@@ -23,9 +23,9 @@ foreach($array as $post){
     if (!$post['published']){
         $sql = "UPDATE social_media SET published=1 WHERE id=".$post['id'];
         $result = mysqli_query($conn, $sql);
-        
+
         echo "Running id: ".$post['id']."<br>";
-        
+
         // Facebook
         $text = $post['twitface'];
         $img = $post['image'];

@@ -20,7 +20,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 
 <h1>Update Website from Git</h1>
 
-<?php 
+<?php
 
 $cmd = "../utils/update.sh";
 $output = htmlspecialchars(shell_exec($cmd));

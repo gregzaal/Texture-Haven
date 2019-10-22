@@ -47,7 +47,7 @@ var click_functions = function(){
         $('#lightbox-img').attr("src", "");
         $('#lightbox-wrapper').removeClass("hide");
         $('#lightbox-img').attr("src", $(this).attr("lightbox-src"));
-        
+
         if ($("#artwork-name").length){  // Gallery
             $("#artwork-name").html($(this).attr("artwork-name"));
             $("#author-name").html($(this).attr("author-name"));

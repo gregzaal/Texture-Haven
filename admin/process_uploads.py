@@ -98,7 +98,7 @@ def do_resolutions(slug, img, original_size, outpath):
         else:
             break
     resolutions.append(res_int_max)
-    
+
     resolutions.reverse()
     map_preview_source = img  # Default to original image, but rather use 1k
     prev_img = img  # Use previous resized image for faster processing
@@ -162,7 +162,7 @@ def make_zips(slug, r, files, outpath):
             fname = os.path.basename(f)
             z.write(f, fname)
         z.close()
-        
+
 def main():
 
     subfolders = os.listdir(input_folder)

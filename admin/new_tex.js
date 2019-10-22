@@ -48,7 +48,7 @@ function searchFor(_selector, _subject) {
 function strContains(needle, haystack) {
     return haystack.toLowerCase().indexOf(needle) >= 0;
 }
-  
+
 
 var go = function(){
 

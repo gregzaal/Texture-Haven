@@ -25,7 +25,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
     <p>
         If you're not comfortable with this, you can use a VPN to obscure your public IP address.
     </p>
-    
+
     <h2>Google Analytics</h2>
     <p>
         This website uses <a href="https://analytics.google.com/analytics/web/">Google Analytics</a> to track users who visit each page, which shows us how the site is performing and some basic demographics such as user locations, language, and browser info.
