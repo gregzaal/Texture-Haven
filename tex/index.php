@@ -264,7 +264,7 @@ if ($is_published){
         echo "<h2>";
         echo "Similar Textures";
         echo "</h2>";
-        echo "<div id='similar-textures'>";
+        echo "<div id='similar-items'>";
         echo "<div id='tex-grid'>";
         foreach ($similar as $s){
             echo make_grid_item($s);

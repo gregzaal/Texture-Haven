@@ -1,6 +1,6 @@
-@import "colors";
-@import "mixins";
-@import "standard";
+$c-accent: rgb(234, 91, 12);
+
+@import "../core/core";
 
 body {
     margin: 0;
