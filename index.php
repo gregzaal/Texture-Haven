@@ -16,7 +16,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
 
     <div id='banner-title-wrapper'>
-        <img src="/files/site_images/logo_main.png" id="banner-logo" />  <!-- TODO SVG -->
+        <img src="/core/img/Texture Haven Logo.svg" id="banner-logo" />
         <p>100% Free Textures, for Everyone.</p>
     </div>
 </div>

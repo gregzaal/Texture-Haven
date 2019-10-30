@@ -71,7 +71,7 @@ if (!$GLOBALS['WORKING_LOCALLY']){
     $size = 640;
     $jpg_file = join_paths($target_dir, $slug.".jpg");
     $img = new imagick();
-    $img->newImage($size, $size, "rgb(240, 240, 240)");
+    $img->newImage($size, $size, "rgb(45, 45, 45)");
     $tmp_img = new imagick($target_file);
     $tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
     $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
@@ -86,7 +86,7 @@ if (!$GLOBALS['WORKING_LOCALLY']){
     qmkdir($target_dir);
     $jpg_file = join_paths($target_dir, $slug.".jpg");
     $img = new imagick();
-    $img->newImage($size, $size, "rgb(240, 240, 240)");
+    $img->newImage($size, $size, "rgb(45, 45, 45)");
     $tmp_img = new imagick($target_file);
     $tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
     $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);

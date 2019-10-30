@@ -1,13 +1,23 @@
 <div id="header">
-    <div id="header-logo">
-        <a href="/"><img src="/files/site_images/logo_line_tmp.png" /></a>  <!-- TODO SVG -->
+    <div id="header-logos">
+        <a href="/">
+            <img src="/core/img/Texture Haven Logo.svg" />
+            <p class="this-haven"><b>T<sub>EXTURE</sub></b>H<sub>AVEN</sub></p>
+        </a>
+        <a href="https://hdrihaven.com/">
+            <img class="other-haven" src="/core/img/HDRI Haven Logo.svg" />
+            <p><b>HDRI</b>H<sub>AVEN</sub> <i class="material-icons">open_in_new</i></p>
+        </a>
+        <a href="https://3dmodelhaven.com/">
+            <img class="other-haven" src="/core/img/Model Haven Logo.svg" />
+            <p><sub>3D</sub><b>M<sub>ODEL</sub></b>H<sub>AVEN</sub> <i class="material-icons">open_in_new</i></p>
+        </a>
     </div>
 
     <div id="navbar-toggle"><i class="material-icons">menu</i></div>
 
     <ul id="navbar">
         <a href="/textures"><li>Textures</li></a><!--
-        --><a class='shrink-hack' href="https://hdrihaven.com/"><li>HDRIs</li></a><!--
         --><a class='shrink-hack' href="https://www.patreon.com/texturehaven/posts?public=true"><li>News</li></a><!--
         --><a href="https://www.patreon.com/texturehaven/overview"><li>Support Us</li></a><!--
         --><a href="/p/about-contact.php"><li>About/Contact</li></a>
