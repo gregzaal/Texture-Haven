@@ -210,7 +210,7 @@ if ($is_published){
 
     echo "<ul class='item-info-list'>";
 
-    echo "<li title='Real-world scale: ".$info['author']."'>";
+    echo "<li title='Author: ".$info['author']."'>";
     echo "<b><i class='material-icons'>person</i></b> <a href=\"/textures/?a=".$info['author']."\">".$info['author']."</a>";
     echo "</li>";
 
@@ -219,9 +219,13 @@ if ($is_published){
     echo "</li>";
 
     if ($info['scale']){
-        echo "<li title='Real-world scale: ".$info['scale']."'>";
+        $scale = $info['scale'];
+        if (is_numeric($scale)){
+            $scale = $scale."m";  // Assume meters if no unit is provided
+        }
+        echo "<li title='Real-world scale: ".$scale."'>";
         echo "<b><i class='material-icons'>accessibility</i></b> ";
-        echo $info['scale'];
+        echo $scale;
         echo "</li>";
     }
 
