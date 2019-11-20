@@ -99,14 +99,22 @@ function make_grid_item($i, $category="all"){
     $html .= "<div class='grid-item'>";
 
     $html .= "<div class='thumbnail-wrapper'>";
-    $img_url = "/files/tex_images/thumbnails/{$slug}.jpg";
-    $local_image_path = join_paths($GLOBALS['SYSTEM_ROOT'], $img_url);
-    if ($GLOBALS['WORKING_LOCALLY'] and !file_exists($local_image_path)){
-        $img_url = "http://texturehaven.com".$img_url;
-    }
+
+    // Encoded tiny proxy images so that there is *something* to look at while the images load
+    $html .= "<img ";
+    $html .= "class='thumbnail-proxy' ";
+    $local_file = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", "s", $slug.'.jpg');
+    $imageData = base64_encode(file_get_contents($local_file));
+    $html .= "src=\"data:image/jpeg;base64,".$imageData."\" ";
+    $html .= "/>";
+
+    // Main thumbnail images that are only loaded when they come into view
     $html .= "<img ";
     $html .= "class='thumbnail' ";
-    $html .= "src=\"{$img_url}\" ";
+    $local_file = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", "s", '_dummy.png');
+    $imageData = base64_encode(file_get_contents($local_file));
+    $html .= "src=\"data:image/png;base64,".$imageData."\" ";
+    $html .= "data-src=\"/files/tex_images/thumbnails/{$slug}.jpg\" ";
     $html .= "alt=\"Texture: {$i['name']}\" ";
     $html .= "/>";
 
