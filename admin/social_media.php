@@ -55,6 +55,4 @@ foreach($array as $post){
     }
 }
 
-$conn->close();
-
 ?>

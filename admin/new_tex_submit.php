@@ -205,16 +205,10 @@ if ($result == 1){
     echo '</a> ';
 }
 
-
-$conn->close();
-
 ?>
 
-
-
 </div>
 </div>
-
 
 </body>
 </html>
