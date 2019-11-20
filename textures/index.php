@@ -9,17 +9,22 @@ $category = "all";
 $author = "all";
 
 // Get params (if they were passed)
+$none_set = true;
 if (isset($_GET["o"]) && trim($_GET["o"])){
     $sort = $_GET["o"];
+    $none_set = false;
 }
 if (isset($_GET["s"]) && trim($_GET["s"])){
     $search = $_GET["s"];
+    $none_set = false;
 }
 if (isset($_GET["c"]) && trim($_GET["c"])){
     $category = $_GET["c"];
+    $none_set = false;
 }
 if (isset($_GET["a"]) && trim($_GET["a"])){
     $author = $_GET["a"];
+    $none_set = false;
 }
 
 $sort = htmlspecialchars($sort);
@@ -49,13 +54,16 @@ $conn = db_conn_read_write();
     <div class="sidebar-inner">
         <h3>Categories</h3>
         <?php
-        make_category_list($sort, $conn, $category);
+        make_category_list($sort, $conn, $category, true);
         ?>
     </div>
 </div>
 
 <div id="item-grid-wrapper">
     <?php
+    if ($none_set){
+        include ($_SERVER['DOCUMENT_ROOT'].'/textures/grid_banner.php');
+    }
     echo "<div class='title-bar'>";
     echo "<h1>";
     if ($search != "all") {
