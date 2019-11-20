@@ -41,6 +41,7 @@ if (!in_array($_SERVER['PHP_SELF'], $GLOBALS['NO_CACHE'])){
     <script src="/js/jquery.min.js"></script>
     %GALLERYJS%
 
+    <script src="/core/core.js"></script>
     <script src="/js/functions.js"></script>
     %LANDINGJS%
 
