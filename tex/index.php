@@ -220,6 +220,7 @@ if ($is_published){
 
     if ($info['scale']){
         $scale = $info['scale'];
+        $scale = str_replace(',', '.', $scale);
         if (is_numeric($scale)){
             $scale = $scale."m";  // Assume meters if no unit is provided
         }
