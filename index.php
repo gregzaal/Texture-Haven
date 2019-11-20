@@ -83,6 +83,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
     </div>
 
     <div class="segment-montage">
+        <div class="segment-montage-hover"></div>
         <a href="/textures">
             <div class='button'>Browse Textures</div>
         </a>
