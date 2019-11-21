@@ -230,9 +230,10 @@ if ($is_published){
         echo "</li>";
     }
 
-    $downloads_per_day = round($info['download_count']/((time() - strtotime($info['date_published']))/86400));
+    $download_count = get_download_count($info['id'], $conn);
+    $downloads_per_day = round($download_count/((time() - strtotime($info['date_published']))/86400));
     echo "<li title=\"Total downloads - ".$downloads_per_day." per day\">";
-    echo "<b><i class='material-icons'>cloud_download</i></b> ".$info['download_count'];
+    echo "<b><i class='material-icons'>cloud_download</i></b> ".$download_count;
     echo "</li>";
 
     echo "<br><li>";
