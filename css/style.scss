@@ -1,4 +1,5 @@
 $c-accent: rgb(243, 130, 55);
+$c-accent-alt: rgb(190, 111, 255);
 $hide_header_patreon_bar: 1102px;
 $shrink_hack_width: 850px;
 $default_banner_img: url(/files/site_images/landing/1.jpg);
@@ -409,10 +410,6 @@ $display_banner_credit: none;  // Hide if it's only our own work
         margin: 0;
         font-size: 0.9em;
         color: rgba($c-text-light, 0.8);
-
-        a {
-            color: $c-accent;
-        }
 
         b {
             font-weight: $fw-normal;
