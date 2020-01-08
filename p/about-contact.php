@@ -23,7 +23,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
         All textures here are <a href="/p/license.php">CC0</a> (public domain). No paywalls, accounts or email spam. Just download what you want, and use it however.
     </p>
     <p>
-        Texture Haven is officially linked with <a href="https://hdrihaven.com">HDRI Haven</a>. Greg Zaal (who runs HDRI haven) is involved in building and maintaining this website as well providing guidance and technical support.
+        Texture Haven is officially linked with <a href="https://hdrihaven.com">HDRI Haven</a> and <a href="https://3dmodelhaven.com">3D Model Haven</a>.
     </p>
 
     <h1>Get Involved</h1>
