@@ -24,6 +24,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 $conn = db_conn_read_write();  // Create Database connection first so we can use `mysqli_real_escape_string`
 
 $name = mysqli_real_escape_string($conn, $_POST["name"]);
+$scale = mysqli_real_escape_string($conn, $_POST["scale"]);
 $author = mysqli_real_escape_string($conn, $_POST["author"]);
 $slug = mysqli_real_escape_string($conn, $_POST["slug"]);
 

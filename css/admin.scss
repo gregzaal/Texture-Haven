@@ -1,4 +1,10 @@
+// These variables are only needed so SCSS doesn't throw an error when importing the core
 $c-accent: rgb(234, 91, 12);
+$c-accent-alt: rgb(190, 111, 255);
+$hide_header_patreon_bar: 1102px;
+$shrink_hack_width: 850px;
+$default_banner_img: url(/files/site_images/landing/1.jpg);
+$display_banner_credit: none;  // Hide if it's only our own work
 
 @import "../core/core";
 
@@ -30,7 +36,7 @@ pre {
         display: inline-block;
         padding: 0.4em;
         margin: 0.3em 0;
-        color: $c-text-light;
+        color: $c-text-bright;
         border: 1px solid rgba(255,255,255, 0.2);
         @include transition(0.3s);
 
@@ -49,7 +55,7 @@ pre {
         }
     }
     .header-item:hover {
-        background-color: lighten($c-accent, 10%);
+        background-color: $c-accent-alt;
         border-color: rgba(255,255,255, 0.5);
         @include transition(0.1s);
     }
@@ -180,6 +186,8 @@ form {
         margin: 0.2em 0.15em;
         vertical-align: middle;
         font-family: 'PT Mono', monospace;
+        background-color: $c-background-lightish;
+        color: $c-text-light;
     }
     input[type=number] {
         width: 150px;
