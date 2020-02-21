@@ -18,7 +18,7 @@ var click_functions = function(){
             if (map_type == "all"){
                 preview_img.addClass("hide");
             }else{
-                $(this).children().children('.map-preview-icon').attr('src', '/files/site_images/icons/loading.svg');
+                $(this).children().children('.map-preview-icon').attr('src', '/core/img/icons/loading.svg');
                 $(".map-preview-zoom").css('color', 'rgb(246, 246, 246)');
                 preview_img.css('background-size', "100%");
                 var new_img = "/files/tex_images/map_previews/"+slug+"/"+map_type+".jpg";
@@ -76,7 +76,7 @@ var click_functions = function(){
         var map_type = $("#page-data").attr('map_type');
         var preview_img = $("#map-preview-img");
         var new_img = "/files/textures/jpg/"+res+"/"+slug+"/"+slug+"_"+map_type+"_"+res+".jpg";
-        $("#map-preview-resolution-select").html("<img src='/files/site_images/icons/loading.svg' />")
+        $("#map-preview-resolution-select").html("<img src='/core/img/icons/loading.svg' />")
         $('<img/>').attr('src', new_img).on('load', function(){  // Load image in dummy tag
             $(this).remove();
             $("#map-preview-resolution-select").html(res);
