@@ -7,15 +7,16 @@ import warnings
 from PIL import Image
 from subprocess import call as run
 from math import floor
-from pprint import pprint
+from pprintimport pprint
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-script_dir = script_dir+'/' if not script_dir.endswith('/') else ''
+script_dir = script_dir + '/' if not script_dir.endswith('/') else ''
+
 
 def get_config():
     cf = os.path.join(script_dir, 'process_uploads.cfg')
     if not os.path.exists(cf):
-        print ("Config file doesn't exist!")
+        print("Config file doesn't exist!")
         sys.exit(0)
     with open(cf, 'r') as f:
         data = json.load(f)
@@ -32,17 +33,19 @@ def qmkdir(p):
     if not os.path.exists(p):
         os.makedirs(p)
 
+
 def make_res_str(res):
-    return str(res)+"k"
+    return str(res) + "k"
+
 
 def do_resize(img, size, out, compression=85):
-    print (os.path.basename(out))
+    print(os.path.basename(out))
     cmd = [imagemagick_convert]
     cmd.append(img)
     cmd.append("-filter")
     cmd.append("sinc")
     cmd.append("-resize")
-    cmd.append(str(size)+"x")
+    cmd.append(str(size) + "x")
     cmd.append("-quality")
     cmd.append(str(compression))
     cmd.append(out)
@@ -55,7 +58,7 @@ def make_jpg(img, compression=95):
     dirname = dirname.replace('\\png\\', '\\jpg\\')
     qmkdir(dirname)
     name, ext = os.path.splitext(os.path.basename(img))
-    out = os.path.join(dirname, name+'.jpg')
+    out = os.path.join(dirname, name + '.jpg')
     cmd = [imagemagick_convert]
     cmd.append(img)
     cmd.append("-format")
@@ -66,11 +69,12 @@ def make_jpg(img, compression=95):
     run(cmd)
     return out
 
+
 def make_map_preview(slug, name, map_preview_source, compression=85):
-    map_name = name[len(slug)+1:]
+    map_name = name[len(slug) + 1:]
     previews_dir = os.path.join(output_folder, "tex_images", "map_previews", slug)
     qmkdir(previews_dir)
-    out = os.path.join(previews_dir, map_name+".jpg")
+    out = os.path.join(previews_dir, map_name + ".jpg")
     cmd = [imagemagick_convert]
     cmd.append(map_preview_source)
     cmd.append("-resize")
@@ -82,16 +86,17 @@ def make_map_preview(slug, name, map_preview_source, compression=85):
     cmd.append(out)
     run(cmd)
 
+
 def do_resolutions(slug, img, original_size, outpath):
     name, ext = os.path.splitext(os.path.basename(img))
     resolutions = []
     aspect = original_size[0] / original_size[1]
-    res_int_max = floor(max(original_size[0], original_size[1])/1000)
+    res_int_max = floor(max(original_size[0], original_size[1]) / 1000)
     return_files = {}  # Returned for zip function
     i = 0
     r = 0
     while True:
-        r = pow(2,i)
+        r = pow(2, i)
         if r < res_int_max:
             resolutions.append(r)
             i += 1
@@ -105,18 +110,18 @@ def do_resolutions(slug, img, original_size, outpath):
     print(name, end='', flush=True)
     for r in resolutions:
         res_str = make_res_str(r)
-        res_actual = r*1024
+        res_actual = r * 1024
         end_dir = os.path.join(outpath, "textures", "png", res_str, slug)
         qmkdir(end_dir)
-        out = os.path.join(end_dir, name+"_"+res_str+".png")
-        print (' '+res_str, end='\n' if r == resolutions[-1] else '', flush=True)
+        out = os.path.join(end_dir, name + "_" + res_str + ".png")
+        print(' ' + res_str, end='\n' if r == resolutions[-1] else '', flush=True)
         if r == res_int_max:
             shutil.copy2(img, out)
         else:
             cmd = [imagemagick_convert]
             cmd.append(prev_img)
             cmd.append("-resize")
-            cmd.append(str(res_actual)+"x"+str(res_actual))
+            cmd.append(str(res_actual) + "x" + str(res_actual))
             cmd.append(out)
             run(cmd)
         prev_img = out
@@ -137,6 +142,7 @@ def do_resolutions(slug, img, original_size, outpath):
 
     return return_files
 
+
 def make_zips(slug, r, files, outpath):
     # Unused, done on server
     # Split into extensions
@@ -150,10 +156,10 @@ def make_zips(slug, r, files, outpath):
             extensions[ext] = [f]
 
     zipdir = os.path.join(outpath, "textures", "zip")
-    res_str = str(r)+'k'
+    res_str = str(r) + 'k'
     for ext in extensions:
-        zfn = slug+'_'+res_str+'_'+ext+'.zip'
-        print ("Zipping", zfn)
+        zfn = slug + '_' + res_str + '_' + ext + '.zip'
+        print("Zipping", zfn)
         final_zipdir = os.path.join(zipdir, res_str, slug)
         qmkdir(final_zipdir)
         zfp = os.path.join(final_zipdir, zfn)
@@ -162,6 +168,7 @@ def make_zips(slug, r, files, outpath):
             fname = os.path.basename(f)
             z.write(f, fname)
         z.close()
+
 
 def main():
 
@@ -196,9 +203,10 @@ def main():
                 for r in all_new_files:
                     make_zips(slug, r, all_new_files[r], output_folder)
                 shutil.rmtree(sf)  # Delete successfully uploaded folder
-    print ("Checked:", checked, " -  Processed:", processed, " -  Errors:", len(errors))
+    print("Checked:", checked, " -  Processed:", processed, " -  Errors:", len(errors))
     if errors:
-        print ("Errors:")
-        pprint (errors)
+        print("Errors:")
+        pprint(errors)
+
 
 main()
