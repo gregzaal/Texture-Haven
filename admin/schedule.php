@@ -59,7 +59,7 @@ foreach ($array as $info){
     echo "</td>";
 
     echo "<td>";
-    $img_url = "/files/tex_images/thumbnails/".$info['slug'].".jpg";
+    $img_url = filepath_to_url(get_slug_thumbnail($info['slug'], 350, 80));
     $local_image_path = join_paths($GLOBALS['SYSTEM_ROOT'], $img_url);
     if ($GLOBALS['WORKING_LOCALLY'] and !file_exists($local_image_path)){
         $img_url = "http://texturehaven.com".$img_url;

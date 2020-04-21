@@ -82,37 +82,6 @@ $img->setImageCompression(Imagick::COMPRESSION_JPEG);
 $img->setImageCompressionQuality(90);
 $img->writeImage($jpg_file);
 
-// Thumbnail
-$size = 350;
-$target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails");
-qmkdir($target_dir);
-$jpg_file = join_paths($target_dir, $slug.".jpg");
-$img = new imagick();
-$img->newImage($size, $size, $bg_color);
-$tmp_img = new imagick($target_file);
-$tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
-$img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
-$img->setImageFormat('jpg');
-$img->setImageCompression(Imagick::COMPRESSION_JPEG);
-$img->setImageCompressionQuality(80);
-$img->writeImage($jpg_file);
-
-// Tiny Thumbnail
-$size = 48;
-$target_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", "s");
-qmkdir($target_dir);
-$jpg_file = join_paths($target_dir, $slug.".jpg");
-$img = new imagick();
-$img->newImage($size, $size, $bg_color);
-$tmp_img = new imagick($target_file);
-$tmp_img->resizeImage($size, $size, imagick::FILTER_SPLINE, 1, true);
-$img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
-$img->blurImage(0, 2);
-$img->setImageFormat('jpg');
-$img->setImageCompression(Imagick::COMPRESSION_JPEG);
-$img->setImageCompressionQuality(50);
-$img->writeImage($jpg_file);
-
 
 
 // Database stuff

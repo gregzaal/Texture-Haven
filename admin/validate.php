@@ -30,10 +30,6 @@ foreach ($items as $i){
     $base_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files");
     $paths_to_check = [];
 
-    // Thumbnail, sphere
-    array_push($paths_to_check, join_paths($base_dir, "tex_images", "thumbnails", $slug.".jpg"));
-    array_push($paths_to_check, join_paths($base_dir, "tex_images", "spheres", $slug.".jpg"));
-
 
     // Everything that is in 1k should be in all other folders too
     $resolutions_path = join_paths($base_dir, "textures", $slug);

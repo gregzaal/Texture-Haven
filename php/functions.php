@@ -103,18 +103,20 @@ function make_grid_item($i, $category="all"){
     // Encoded tiny proxy images so that there is *something* to look at while the images load
     $html .= "<img ";
     $html .= "class='thumbnail-proxy' ";
-    $local_file = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", "s", $slug.'.jpg');
-    $imageData = base64_encode(file_get_contents($local_file));
-    $html .= "src=\"data:image/jpeg;base64,".$imageData."\" ";
+    $local_file = get_slug_thumbnail($slug, 48, 40);
+    $proxy_data = base64_encode(file_get_contents($local_file));
+    $html .= "src=\"data:image/jpeg;base64,".$proxy_data."\" ";
     $html .= "/>";
 
     // Main thumbnail images that are only loaded when they come into view
     $html .= "<img ";
     $html .= "class='thumbnail' ";
-    $local_file = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", "s", '_dummy.png');
-    $imageData = base64_encode(file_get_contents($local_file));
-    $html .= "src=\"data:image/png;base64,".$imageData."\" ";
-    $html .= "data-src=\"/files/tex_images/thumbnails/{$slug}.jpg\" ";
+    $local_file = join_paths($GLOBALS['SYSTEM_ROOT'], "files", "tex_images", "thumbnails", '_dummy_48.png');
+    $dummy_data = base64_encode(file_get_contents($local_file));
+    $html .= "src=\"data:image/png;base64,".$dummy_data."\" ";
+    $img = get_slug_thumbnail($slug, 350, 90);
+    $img = filepath_to_url($img);
+    $html .= "data-src=\"{$img}\" ";
     $html .= "alt=\"Texture: {$i['name']}\" ";
     $html .= "/>";
 

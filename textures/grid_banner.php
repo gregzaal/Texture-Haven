@@ -47,7 +47,8 @@
                     if ($i == 1){
                         echo " id='list-start-pos'";
                     }
-                    echo " style=\"background: url(/files/tex_images/thumbnails/".$pop[$c].".jpg) no-repeat center center\"";
+                    $img = filepath_to_url(get_slug_thumbnail($pop[$c], 150, 85));
+                    echo " style=\"background: url({$img}) no-repeat center center\"";
                     echo "></div>";
                     echo "<p>".nice_name($c, "category")."</p>";
                     echo "</li>";
