@@ -37,7 +37,7 @@
                 }
                 foreach ($cats as $c){
                     $i++;
-                    echo "<a href='/hdris/?c=".$c."'>";
+                    echo "<a href='/textures/?c=".$c."'>";
                     echo "<li";
                     if (array_key_exists('STANDARD_CATEGORIES', $GLOBALS)){
                         echo " title=\"".$GLOBALS['STANDARD_CATEGORIES'][$c]."\"";
