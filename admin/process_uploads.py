@@ -7,7 +7,7 @@ import warnings
 from PIL import Image
 from subprocess import call as run
 from math import floor
-from pprintimport pprint
+from pprint import pprint
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 script_dir = script_dir + '/' if not script_dir.endswith('/') else ''
