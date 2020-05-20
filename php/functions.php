@@ -34,7 +34,7 @@ function make_sort_SQL($sort) {
             $sql = "ORDER BY date_published DESC, download_count DESC, slug ASC";
             break;
         case "popular":
-            $sql = "ORDER BY download_count/POWER(ABS(DATEDIFF(date_published, NOW()))+1, 1.2) DESC, download_count DESC, slug ASC";
+            $sql = "ORDER BY download_count/POWER(ABS(DATEDIFF(date_published, NOW()))+1, 1.7) DESC, download_count DESC, slug ASC";
             break;
         case "downloads":
             $sql = "ORDER BY download_count DESC, date_published DESC, slug ASC";
