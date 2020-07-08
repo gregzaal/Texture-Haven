@@ -52,6 +52,42 @@ foreach($array as $post){
             curl_close($ch);
         }
 
+        // Discord
+        $webhookurl = "https://discordapp.com/api/webhooks/730425540766334976/CJlyBI7eC-aobKRBnyLavB5LgNleWinCxeEvNYgHtByx4Uoi5vEsTTOfSQuMNd4xGClo";
+        $json_data = json_encode([
+            "username" => "Texture Haven",
+            "avatar_url" => "https://texturehaven.com/favicon.png",
+            "tts" => false,
+            "embeds" => [
+                [
+                    "title" => $post['name'],
+                    "type" => "rich",
+                    "url" => $post['link'],
+                    "color" => hexdec("f38237"),
+                    "footer" => [
+                        "text" => "by ".$post['author']
+                    ],
+                    "image" => [
+                        "url" => $post['image']
+                    ],
+                    "author" => [
+                        "name" => "New Texture!",
+                        "url" => $post['link']
+                    ]
+                ]
+            ]
+
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+        $ch = curl_init( $webhookurl );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt( $ch, CURLOPT_POST, 1);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $json_data);
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt( $ch, CURLOPT_HEADER, 0);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec( $ch );
+        curl_close( $ch );
+
         break;
     }
 }
