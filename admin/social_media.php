@@ -53,7 +53,7 @@ foreach($array as $post){
         }
 
         // Discord
-        $webhookurl = "https://discordapp.com/api/webhooks/730425540766334976/CJlyBI7eC-aobKRBnyLavB5LgNleWinCxeEvNYgHtByx4Uoi5vEsTTOfSQuMNd4xGClo";
+        $webhookurl = $GLOBALS['HOOK_DISCORD'];
         $json_data = json_encode([
             "username" => "Texture Haven",
             "avatar_url" => "https://texturehaven.com/favicon.png",
