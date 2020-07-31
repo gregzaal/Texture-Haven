@@ -3,9 +3,10 @@
 include ($_SERVER['DOCUMENT_ROOT'].'/php/functions.php');
 include($_SERVER['DOCUMENT_ROOT'].'/php/html/cache_top.php');
 
-$latest_version = "1.0";
+$latest_version = "1.1";
 $available_versions = [
     "1.0",
+    "1.1",
 ];
 $version = $latest_version;
 if (isset($_GET["v"]) && trim($_GET["v"])){
@@ -70,7 +71,15 @@ foreach ($items as $i){
                             if (!array_key_exists($res, $downloads[$map_type])){
                                 $downloads[$map_type][$res] = [];
                             }
-                            array_push($downloads[$map_type][$res], $url);
+                            if (version_compare($version, '1.1', '>=')) {
+                                $file = array();
+                                $file['url'] = $url;
+                                $file['mtime'] = filemtime($local_url);
+                                $file['size'] = filesize($local_url);
+                                array_push($downloads[$map_type][$res], $file);
+                            } else {
+                                array_push($downloads[$map_type][$res], $url);
+                            }
                         }
                     }
                 }
