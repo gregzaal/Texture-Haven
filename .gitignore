@@ -12,4 +12,5 @@ secret_config.php
 /utils
 /admin/process_uploads.cfg
 /.vscode
+/vendor
 .gitmodules
