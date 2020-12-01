@@ -19,6 +19,7 @@ $display_banner_credit: none;  // Hide if it's only our own work
     display: inline-block;
     margin: 0.5em;
     width: calc(25% - 1em);
+    vertical-align: middle;
     @include transition(0.2s);
 
     .thumbnail-wrapper {
@@ -125,6 +126,15 @@ $display_banner_credit: none;  // Hide if it's only our own work
             @include transition(0.15s);
         }
     }
+}
+
+#item-grid .adsense-unit {
+    position: relative;
+    display: inline-block;
+    margin: 0.5em;
+    border: 1px solid rgba(0,0,0,0);
+    width: calc(25% - 1em - 2px);
+    vertical-align: middle;
 }
 
 

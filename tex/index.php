@@ -46,6 +46,8 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 echo "<div id='item-page'>";
 echo "<div id='page-wrapper'>";
 
+insert_ad("Tex Top");
+
 echo "<h1>";
 echo "<a href='/textures/?c=all'>";
 echo "Textures";
@@ -200,6 +202,9 @@ if ($is_published){
     }else{
         echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='/p/license.php'>CC0</a><p>";
     }
+
+    insert_ad("Tex DL A");
+
     echo "</div>";  // .download-buttons
     echo "</div>";  // #preview-download
 
@@ -265,6 +270,7 @@ if ($is_published){
 
     echo "</div>";  // .item-info
 
+    insert_ad("Tex Bottom");
 
     $similar = get_similar($slug, $conn);
     if ($similar){

@@ -44,16 +44,23 @@ include_start_html("Textures: ".nice_name($category, "category"), "", $canonical
 include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 
 $conn = db_conn_read_only();
+
+$ads_testing = rand(1, 2);  // A/B testing for ad placement
 ?>
 
 <div id="sidebar-toggle"><i class="material-icons">apps</i></div>
 
-<div id="sidebar">
+<div id="sidebar" <?php if($ads_testing == 2){echo "style='flex-direction:column-reverse'";}?> >
     <div class="sidebar-inner">
         <h3>Categories</h3>
         <?php
         make_category_list($sort, $conn, $category, true);
         ?>
+    </div>
+    <div class="adsense-unit" id="ads-sidebar">
+    <?php
+    insert_ad(($ads_testing == 1) ? "Sidebar" : "Sidebar Top");
+    ?>
     </div>
 </div>
 
@@ -78,6 +85,10 @@ $conn = db_conn_read_only();
         echo " by ".$author;
     }
     echo "</h1>";
+
+    if (!$none_set){
+        insert_ad("Grid Top");
+    }
 
     include ($_SERVER['DOCUMENT_ROOT'].'/textures/grid_options.php');
 
