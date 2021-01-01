@@ -103,6 +103,7 @@ var click_functions = function(){
     // Download track
     $('.dl-btn').click(function() {
         $.post("dl_click.php", {id: $(this).attr("id"), fhash: $(this).attr("fhash")});
+        ga('send', 'event', 'Downloads', 'texture download', $(this).attr("id")+"+"+$(this).attr("fhash"));
     });
 };
 
