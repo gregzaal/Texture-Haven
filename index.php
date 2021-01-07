@@ -76,7 +76,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
                 <p>Spendings of donation each month is verified by <a href="/p/finance-reports.php" target="_blank">public finance reports</a>.</p>
             </div>
 
-            <a href="https://www.patreon.com/texturehaven/overview" target="_blank">
+            <a href="https://polyhaven.com/support-us" target="_blank">
                 <div class='button-inline'>Read More / Become a Patron<img src="/files/site_images/icons/heart_white.svg" class='heart-inline'></div>
             </a>
         </div>
@@ -103,7 +103,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
                 Texture Haven is a website where you can find high quality scanned textures for free, no catch. All textures here are <a href="/p/license.php">CC0</a> (public domain). No paywalls, accounts or email spam. Just download what you want, and use it for every purpose.
             </p>
             <p>
-                If you like what I do and want to keep this site alive, consider <a href="https://www.patreon.com/texturehaven/overview">supporting me on Patreon</a>.
+                If you like what I do and want to keep this site alive, consider <a href="https://polyhaven.com/support-us">supporting me on Patreon</a>.
             </p>
         </div>
         <div style="clear: both"></div>

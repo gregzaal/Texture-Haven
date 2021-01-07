@@ -15,7 +15,7 @@ echo ">";
             }
             ?>
         </div>
-        <a href="https://www.patreon.com/texturehaven/overview">
+        <a href="https://polyhaven.com/support-us">
             <div class="button-red">
                 Join the ranks, support Texture Haven on Patreon.
             </div>
