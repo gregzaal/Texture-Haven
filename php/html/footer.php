@@ -15,6 +15,31 @@ echo ">";
             }
             ?>
         </div>
+
+        <?php
+        $comm_sponsors = get_commercial_sponsors(isset($conn) ? $conn : NULL);
+        if (!empty($comm_sponsors)){
+            echo "<div class='segment-a'>";
+            echo "<div class='segment-inner'>";
+            echo "<h2>Also supported by:</h2>";
+            echo "<div class='commercial_sponsors'>";
+            foreach ($comm_sponsors as $s){
+                echo "<a href= \"".$s['link']."\" target='_blank'>";
+                echo "<img src=\"/files/site_images/commercial_sponsors/";
+                echo $s['logo'];
+                echo "\" alt=\"";
+                echo $s['name'];
+                echo "\" title=\"";
+                echo $s['name'];
+                echo "\"/>";
+                echo "</a>";
+            }
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+        }
+        ?>
+
         <a href="https://polyhaven.com/support-us">
             <div class="button-red">
                 Join the ranks, support Texture Haven on Patreon.
