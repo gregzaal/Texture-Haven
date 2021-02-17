@@ -203,8 +203,6 @@ if ($is_published){
         echo "<p style='margin: 0.5em; text-align: center;'>License: <a href='/p/license.php'>CC0</a><p>";
     }
 
-    insert_ad("Tex DL A");
-
     echo "</div>";  // .download-buttons
     echo "</div>";  // #preview-download
 
