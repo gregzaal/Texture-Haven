@@ -58,22 +58,6 @@ if (!in_array($_SERVER['PHP_SELF'], $GLOBALS['NO_CACHE'])){
       gtag('config', 'UA-120136024-1');
     </script>
 
-    <!-- Google AdSense -->
-    <script data-ad-client="ca-pub-2284751191864068" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <?php
-    if ($GLOBALS['WORKING_LOCALLY']) {
-        echo '<style>';
-        echo 'ins { background-color: rgba(255,0,0,0.35); }';
-        echo '</style>';
-    }
-    echo "<style id='hide-ads'></style>";
-    ?>
-    <script>
-        if (localStorage.getItem("remove-ads") == "yes"){
-            $('#hide-ads').html(".adsense-unit{display: none !important}");
-        }
-    </script>
-
 </head>
 <body>
 
