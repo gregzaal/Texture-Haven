@@ -14,7 +14,7 @@
     </div>
     </a>
 
-    <a href="https://east1-phpmyadmin.dreamhost.com/sql.php?server=1&db=texturehaven&table=textures&pos=0">
+    <a href="https://texturehaven.com/phpmyadmin">
     <div class='header-item'>
         <i class="fa fa-list-ul" aria-hidden="true"></i>
         <p>Edit/Remove Textures</p>
