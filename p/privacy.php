@@ -24,7 +24,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
         This server logs a hashed version of your IP address when you download an asset.
     </p>
     <p>
-        This helps us to see which textures are downloaded by the most users instead of only a total download count. Doing this allows us to see what is popular and make decisions about what to shoot next.
+        This helps us to see which assets are downloaded by the most users instead of only a total download count. Doing this allows us to see what is popular and make decisions about what to shoot next.
     </p>
     <p>
         If you're not comfortable with this, you can use a VPN to obscure your public IP address. If you wish for us to delete all records downloads from your IP address, you can <?php insert_email("contact us") ?>.
@@ -41,7 +41,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
     <hr>
 
     <p>
-        Other than what's mentioned above, 3D Model Haven does not store any user data or cookies.
+        Other than what's mentioned above, we do not store any user data or cookies.
     </p>
     <p>
         If you have any other questions or concerns, please contact me: <?php insert_email() ?>
