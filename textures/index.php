@@ -81,6 +81,8 @@ $ads_testing = rand(1, 2);  // A/B testing for ad placement
     }
     echo "</h1>";
 
+    insert_ad("Grid Top");
+
     include ($_SERVER['DOCUMENT_ROOT'].'/textures/grid_options.php');
 
     echo "</div>";  // .title-bar

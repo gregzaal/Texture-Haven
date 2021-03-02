@@ -46,6 +46,8 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
 echo "<div id='item-page'>";
 echo "<div id='page-wrapper'>";
 
+insert_ad("Tex Top");
+
 echo "<h1>";
 echo "<a href='/textures/?c=all'>";
 echo "Textures";
