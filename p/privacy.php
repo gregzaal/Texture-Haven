@@ -16,14 +16,12 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
         <li><a href="https://www.revive-adserver.net/privacy/">Revive</a> (banner ads)</li>
     </ul>
     <p>
-    Third party vendors, including Google, use cookies to serve ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site and/or other sites on the Internet.
-    <p>
         If you are not comfortable with this, we recommend you use a trusted open source ad-blocker such as <a href="https://github.com/gorhill/uBlock">uBlock Origin</a>.
     </p>
 
     <h2>IP Logging</h2>
     <p>
-        This server logs a hashed version of your IP address when you download a texture.
+        This server logs a hashed version of your IP address when you download an asset.
     </p>
     <p>
         This helps us to see which textures are downloaded by the most users instead of only a total download count. Doing this allows us to see what is popular and make decisions about what to shoot next.
@@ -43,7 +41,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/php/html/header.php');
     <hr>
 
     <p>
-        Other than what's mentioned above, Texture Haven does not store any user data or cookies.
+        Other than what's mentioned above, 3D Model Haven does not store any user data or cookies.
     </p>
     <p>
         If you have any other questions or concerns, please contact me: <?php insert_email() ?>
