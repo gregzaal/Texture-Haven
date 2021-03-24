@@ -214,8 +214,15 @@ if ($is_published){
 
     echo "<ul class='item-info-list'>";
 
+    $authors = explode(',', $info['author']);
     echo "<li title='Author: ".$info['author']."'>";
-    echo "<b><i class='material-icons'>person</i></b> <a href=\"/textures/?a=".$info['author']."\">".$info['author']."</a>";
+    echo "<b><i class='material-icons'>person</i></b> ";
+    $author_list = [];
+    foreach ($authors as $a){
+        $a = trim($a);
+        array_push($author_list, "<a href=\"/textures/?a=".$a."\">".$a."</a>");
+    }
+    echo implode(' & ', $author_list);
     echo "</li>";
 
     echo "<li title='Date published'>";
