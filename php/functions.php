@@ -75,7 +75,7 @@ function make_search_SQL($search, $category="all", $author="all") {
     }
 
     if ($author != "all"){
-        $sql .= " AND (author LIKE '".$author."')";
+        $sql .= " AND (author LIKE '%".$author."%')";
     }
 
     return $sql;
