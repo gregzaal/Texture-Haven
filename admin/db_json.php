@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
 
-$sql = "SELECT * FROM textures ORDER BY date_published DESC, date_taken ASC";
+$sql = "SELECT * FROM textures ORDER BY date_published DESC";
 $conn = db_conn_read_only();
 $result = mysqli_query($conn, $sql);
 $data = array();
@@ -19,11 +19,25 @@ foreach ($data as $asset) {
 
   $asset['categories'] = explode(';', $asset['categories']);
   $asset['tags'] = explode(';', $asset['tags']);
-  $asset['authors'] = [$asset['author'] => "All"];
   $asset['date_published'] = strtotime($asset['date_published']);
   $asset['download_count'] = (int) $asset['download_count'];
   $asset['staging'] = (bool) !$asset['is_published'];
   $asset['name'] = nice_name($asset['name']);
+
+  $authors = explode(',', $asset['author']);
+  $asset['authors'] = [];
+  foreach ($authors as $a) {
+    $a = trim($a);
+    $a_val = "All";
+    if (sizeof($authors) > 1) {
+      if ($a == "Dimitrios Savva") {
+        $a_val = "Photography";
+      } else {
+        $a_val = "Processing";
+      }
+    }
+    $asset['authors'][$a] = $a_val;
+  }
 
   $bool_props = [
     'staging'
