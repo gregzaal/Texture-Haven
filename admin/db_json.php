@@ -23,6 +23,7 @@ foreach ($data as $asset) {
   $asset['download_count'] = (int) $asset['download_count'];
   $asset['staging'] = (bool) !$asset['is_published'];
   $asset['name'] = nice_name($asset['name']);
+  $asset['old_id'] = (int) $asset['id'];
 
   $authors = explode(',', $asset['author']);
   $asset['authors'] = [];
