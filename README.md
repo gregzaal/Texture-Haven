@@ -1,3 +1,13 @@
+# NOTE: This repo is no longer in use.
+
+**Texture Haven has migrated to polyhaven.com which was rewritten from the ground up.**
+
+**So this code base is old and no longer maintained or relevant.**
+
+**Original readme below:**
+
+----
+
 # Texture-Haven
 
 This repo contains the website code for [Texture Haven](https://texturehaven.com/).
